@@ -23,15 +23,6 @@ class OBJECT_PT_Blender2UPanel(bpy.types.Panel):
         # and if the time interval has passed
         addon_updater_ops.check_for_update_background()
 
-        layout.label(text="Demo Updater Addon")
-        layout.label(text="")
-
-        col = layout.column()
-        col.scale_y = 0.7
-        col.label(text="If an update is ready,")
-        col.label(text="popup triggered by opening")
-        col.label(text="this panel, plus a box ui")
-
         # could also use your own custom drawing
         # based on shared variables
         if addon_updater_ops.updater.update_ready is True:

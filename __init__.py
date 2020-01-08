@@ -16,7 +16,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Tools developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (0, 2, 0),
+    "version": (0, 4, 0),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
@@ -28,22 +28,6 @@ import bpy
 # from mathutils import Vector
 from . import addon_updater_ops
 from .panel import OBJECT_PT_Blender2UPanel
-
-
-class DebugEmpty(bpy.types.Operator):
-    """Debug Empty"""
-    bl_idname = "object.debug_empty"
-    bl_label = "Debug Empty"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        print('TEST')
-
-        return {'FINISHED'}
-
-    def invoke(self, context, event):
-        wm = context.window_manager
-        return wm.invoke_props_dialog(self)
 
 
 @addon_updater_ops.make_annotations
@@ -107,16 +91,7 @@ class Blender2UPreferences(bpy.types.AddonPreferences):
         # col.operator("wm.url_open","Open webpage ").url=addon_updater_ops.updater.website
 
 
-def menu_func(self, context):
-    self.layout.operator(DebugEmpty.bl_idname)
-
-
-# store keymaps here to access after registration
-addon_keymaps = []
-
-
 classes = (
-    DebugEmpty,
     Blender2UPreferences,
     OBJECT_PT_Blender2UPanel
 )
@@ -129,30 +104,9 @@ def register():
         addon_updater_ops.make_annotations(cls)  # to avoid blender 2.8 warnings
         bpy.utils.register_class(cls)
 
-    bpy.types.TOPBAR_MT_edit.append(menu_func)
-
-    # handle the keymap
-    wm = bpy.context.window_manager
-    # Note that in background mode (no GUI available), keyconfigs are not available either,
-    # so we have to check this to avoid nasty errors in background case.
-    kc = wm.keyconfigs.addon
-    if kc:
-        km = wm.keyconfigs.addon.keymaps.new(name='Object Mode', space_type='EMPTY')
-        kmi = km.keymap_items.new(DebugEmpty.bl_idname, 'G', 'PRESS', ctrl=True, shift=True)
-        addon_keymaps.append((km, kmi))
-
 
 def unregister():
-    # Note: when unregistering, it's usually good practice to do it in reverse order you registered.
-    # Can avoid strange issues like keymap still referring to operators already unregistered...
-    # handle the keymap
-    for km, kmi in addon_keymaps:
-        km.keymap_items.remove(kmi)
-    addon_keymaps.clear()
-
     addon_updater_ops.unregister()
-
-    bpy.types.TOPBAR_MT_edit.remove(menu_func)
 
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
