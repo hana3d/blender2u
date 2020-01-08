@@ -26,14 +26,15 @@ bl_info = {
 import math
 import bpy
 from . import addon_updater_ops
+from . import glb_usdz_export
 from .preferences import Blender2UPreferences
-from .glb_usdz_export import GLBUSDZExport
+# from .glb_usdz_export import GLBUSDZExport
 from .panel import OBJECT_PT_Blender2UPanel
 
 
 classes = (
     Blender2UPreferences,
-    GLBUSDZExport,
+    glb_usdz_export.GLBUSDZExport,
     OBJECT_PT_Blender2UPanel
 )
 
