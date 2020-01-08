@@ -1,0 +1,5 @@
+local/
+.idea/
+.expo/*
+.vscode
+.DS_Store
