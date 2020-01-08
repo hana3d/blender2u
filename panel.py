@@ -1,9 +1,10 @@
 
 import bpy
 from . import addon_updater_ops
+from bpy.types import Panel
 
 
-class OBJECT_PT_Blender2UPanel(bpy.types.Panel):
+class OBJECT_PT_Blender2UPanel(Panel):
     """Panel to demo popup notice and ignoring functionality"""
     bl_label = "Blender2U"
     bl_idname = "OBJECT_PT_hello"
@@ -32,7 +33,7 @@ class OBJECT_PT_Blender2UPanel(bpy.types.Panel):
         # call built-in function with draw code/checks
         addon_updater_ops.update_notice_box_ui(self, context)
 
-    
+
 class OBJECT_PT_GLBUSDZPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"

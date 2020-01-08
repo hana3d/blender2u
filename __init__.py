@@ -16,7 +16,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Tools developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (0, 4, 0),
+    "version": (0, 5, 0),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
