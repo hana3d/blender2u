@@ -31,3 +31,20 @@ class OBJECT_PT_Blender2UPanel(bpy.types.Panel):
 
         # call built-in function with draw code/checks
         addon_updater_ops.update_notice_box_ui(self, context)
+
+    
+class OBJECT_PT_GLBUSDZPanel(Panel):
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_label = "GLB USDZ Export"
+    bl_context = "objectmode"
+    bl_category = "Real2U"
+
+    def draw(self, context):
+        global custom_icons
+
+        layout = self.layout
+
+        # Bool diff button
+        row = layout.row()
+        row.operator('object.glb_usdz_export', text='Export Scene', icon='MOD_BOOLEAN')
