@@ -1271,7 +1271,7 @@ def register(bl_info):
 	updater.user = ""
 
 	# choose your own repository, must match git name
-	updater.repo = "16217777"
+	updater.repo = "16221229"
 
 	#updater.addon = # define at top of module, MUST be done first
 
