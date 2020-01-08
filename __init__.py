@@ -28,14 +28,13 @@ import bpy
 from . import addon_updater_ops
 from .preferences import Blender2UPreferences
 from .glb_usdz_export import GLBUSDZExport
-from .panel import OBJECT_PT_Blender2UPanel, OBJECT_PT_GLBUSDZPanel
+from .panel import OBJECT_PT_Blender2UPanel
 
 
 classes = (
     Blender2UPreferences,
     GLBUSDZExport,
-    OBJECT_PT_Blender2UPanel,
-    OBJECT_PT_GLBUSDZPanel
+    OBJECT_PT_Blender2UPanel
 )
 
 
