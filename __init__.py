@@ -37,6 +37,7 @@ class DebugEmpty(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        print('TEST')
 
         return {'FINISHED'}
 
