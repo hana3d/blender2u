@@ -171,3 +171,12 @@ class GLBUSDZExport(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         # Tells Blender to hang on for the slow user input
         return {'RUNNING_MODAL'}
+
+
+def register():
+    bpy.utils.register_class(GLBUSDZExport)
+
+
+def unregister():
+    bpy.utils.unregister_class(GLBUSDZExport)
+
