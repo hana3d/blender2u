@@ -1268,7 +1268,7 @@ def register(bl_info):
 	updater.private_token = None # "tokenstring"
 
 	# choose your own username, must match website (not needed for GitLab)
-	updater.user = ""
+	updater.user = "h7seiji"
 
 	# choose your own repository, must match git name
 	updater.repo = "16221229"
