@@ -39,8 +39,16 @@ classes = (
 )
 
 
+addons = {
+    glb_usdz_export,
+}
+
+
 def register():
     addon_updater_ops.register(bl_info)
+
+    for addon in addons:
+        addon.register()
 
     for cls in classes:
         addon_updater_ops.make_annotations(cls)  # to avoid blender 2.8 warnings
@@ -49,6 +57,9 @@ def register():
 
 def unregister():
     addon_updater_ops.unregister()
+
+    for addon in addons:
+        addon.unregister()
 
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
