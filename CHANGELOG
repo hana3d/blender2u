@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Better UI.
 
+### Removed
+- Keyboard shortcuts.
+
 ## [1.0.0] - 2020-01-09
 ### Added
 - Auto Scale.
