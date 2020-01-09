@@ -27,8 +27,6 @@ import math
 import bpy
 from .updater import addon_updater_ops, panel, preferences
 from .addons import auto_scale, bake_nodes, collection_grid, glb_export, glb_usdz_export, polycount, usdz_export
-from .preferences import Blender2UPreferences
-from .panel import OBJECT_PT_Blender2UPanel
 
 
 classes = (
