@@ -110,7 +110,7 @@ addon_keymaps = []
 def register():
     bpy.utils.register_class(BakeNodes)
     bpy.utils.register_class(OBJECT_PT_NodesPanel)
-    bpy.types.TOPBAR_MT_edit.append(menu_func)
+    # bpy.types.TOPBAR_MT_edit.append(menu_func)
 
     # handle the keymap
     wm = bpy.context.window_manager
@@ -131,7 +131,7 @@ def unregister():
         km.keymap_items.remove(kmi)
     addon_keymaps.clear()
 
-    bpy.types.TOPBAR_MT_edit.remove(menu_func)
+    # bpy.types.TOPBAR_MT_edit.remove(menu_func)
     bpy.utils.unregister_class(OBJECT_PT_NodesPanel)
     bpy.utils.unregister_class(BakeNodes)
 

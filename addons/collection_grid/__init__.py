@@ -202,7 +202,7 @@ addon_keymaps = []
 def register():
     bpy.utils.register_class(CollectionGrid)
     bpy.utils.register_class(OBJECT_PT_CollectionGridPanel)
-    bpy.types.TOPBAR_MT_edit.append(menu_func)
+    # bpy.types.TOPBAR_MT_edit.append(menu_func)
 
     # handle the keymap
     wm = bpy.context.window_manager
@@ -225,7 +225,7 @@ def unregister():
 
     bpy.utils.unregister_class(CollectionGrid)
     bpy.utils.unregister_class(OBJECT_PT_CollectionGridPanel)
-    bpy.types.TOPBAR_MT_edit.remove(menu_func)
+    # bpy.types.TOPBAR_MT_edit.remove(menu_func)
 
 
 if __name__ == "__main__":

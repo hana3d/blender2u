@@ -117,7 +117,7 @@ addon_keymaps = []
 def register():
     bpy.utils.register_class(ObjectExportModules)
     bpy.utils.register_class(OBJECT_PT_USDZExporterPanel)
-    bpy.types.TOPBAR_MT_file_export.append(menu_func)
+    # bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
     # handle the keymap
     wm = bpy.context.window_manager
@@ -140,7 +140,7 @@ def unregister():
 
     bpy.utils.unregister_class(ObjectExportModules)
     bpy.utils.unregister_class(OBJECT_PT_USDZExporterPanel)
-    bpy.types.TOPBAR_MT_file_export.remove(menu_func)
+    # bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 
 
 if __name__ == "__main__":
