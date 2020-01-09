@@ -24,11 +24,11 @@ class GLBUSDZExport(bpy.types.Operator):
     def execute(self, context):
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
-        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' +
+        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
                           + os.sep + 'blender2u' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + \
                 os.sep + 'blender2u' + os.sep + 'usdz-exporter'
-        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep +
+        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
                             + 'blender2u' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + \
                 'blender2u' + os.sep + 'usdz-exporter'
