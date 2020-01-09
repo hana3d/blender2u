@@ -43,10 +43,10 @@ class Blender2UPreferences(bpy.types.AddonPreferences):
     )
 
     def draw(self, context):
-        layout = self.layout
+        # layout = self.layout
         # col = layout.column() # works best if a column, or even just self.layout
-        mainrow = layout.row()
-        col = mainrow.column()
+        # mainrow = layout.row()
+        # col = mainrow.column()
 
         # updater draw function
         # could also pass in col as third arg
@@ -76,6 +76,10 @@ class OBJECT_PT_Blender2UPanel(Panel):
     def draw(self, context):
         layout = self.layout
 
+        mainrow = layout.row()
+        col = mainrow.column()
+        addon_updater_ops.update_settings_ui_condensed(self, context, col)
+
         # Call to check for update in background
         # note: built-in checks ensure it runs at most once
         # and will run in the background thread, not blocking
@@ -93,5 +97,5 @@ class OBJECT_PT_Blender2UPanel(Panel):
         # call built-in function with draw code/checks
         addon_updater_ops.update_notice_box_ui(self, context)
 
-        row = layout.row()
-        row.operator('object.glb_usdz_export', text='GLB USDZ Export', icon='MOD_BOOLEAN')
+        # row = layout.row()
+        # row.operator('object.glb_usdz_export', text='GLB USDZ Export', icon='MOD_BOOLEAN')

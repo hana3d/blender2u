@@ -16,7 +16,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (0, 13, 4),
+    "version": (0, 13, 5),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
@@ -48,12 +48,12 @@ addons = {
 def register():
     addon_updater_ops.register(bl_info)
 
-    for addon in addons:
-        addon.register()
-
     for cls in classes:
         addon_updater_ops.make_annotations(cls)  # to avoid blender 2.8 warnings
         bpy.utils.register_class(cls)
+
+    for addon in addons:
+        addon.register()
 
 
 def unregister():
