@@ -27,6 +27,7 @@ import math
 import bpy
 from . import addon_updater_ops
 from .addons import glb_usdz_export
+from .addons import glb_export
 from .preferences import Blender2UPreferences
 # from .glb_usdz_export import GLBUSDZExport
 from .panel import OBJECT_PT_Blender2UPanel
@@ -40,6 +41,7 @@ classes = (
 
 addons = {
     glb_usdz_export,
+    glb_export
 }
 
 
