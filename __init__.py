@@ -38,7 +38,6 @@ classes = (
     OBJECT_PT_Blender2UPanel
 )
 
-
 addons = {
     glb_usdz_export,
 }
