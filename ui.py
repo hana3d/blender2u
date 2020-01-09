@@ -90,9 +90,9 @@ class OBJECT_PT_Blender2UPanel(Panel):
 
         # could also use your own custom drawing
         # based on shared variables
-        if addon_updater_ops.updater.update_ready is True:
-            layout.label(text="Custom update message", icon="INFO")
-        layout.label(text="")
+        # if addon_updater_ops.updater.update_ready is True:
+        #     layout.label(text="Custom update message", icon="INFO")
+        # layout.label(text="")
 
         # call built-in function with draw code/checks
         addon_updater_ops.update_notice_box_ui(self, context)
