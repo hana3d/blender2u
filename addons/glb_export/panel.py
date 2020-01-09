@@ -2,7 +2,7 @@ import bpy
 from bpy.types import Panel
 
 
-class GLBExportPanel(Panel):
+class OBJECT_PT_GLBExportPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "GLB Export"

@@ -8,9 +8,9 @@ class ObjectAutoScale(bpy.types.Operator):
     bl_label = "Automatic Scale"
     bl_options = {'REGISTER', 'UNDO'}
 
-    height = bpy.props.FloatProperty(name="Height:", default=0.0)
-    length = bpy.props.FloatProperty(name="Length:", default=0.0)
-    switch = bpy.props.BoolProperty(name="Use length", description="", default=False)
+    height: bpy.props.FloatProperty(name="Height:", default=0.0)
+    length: bpy.props.FloatProperty(name="Length:", default=0.0)
+    switch: bpy.props.BoolProperty(name="Use length", description="", default=False)
 
     def execute(self, context):
         final_z = self.height
@@ -34,7 +34,7 @@ class ObjectAutoScale(bpy.types.Operator):
                     min_z = (min_z, vertex[2])[vertex[2] < min_z]
                     max_x = (max_x, vertex[0])[vertex[0] > max_x]
                     max_y = (max_y, vertex[1])[vertex[1] > max_y]
-                    max_z = (max_z, vertex[2])[vertex[2] > max_z]    
+                    max_z = (max_z, vertex[2])[vertex[2] > max_z]
 
         if self.switch is False:
             size_z = max_z - min_z

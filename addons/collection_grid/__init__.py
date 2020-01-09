@@ -25,7 +25,7 @@ bl_info = {
 import math
 import bpy
 from mathutils import Vector
-from .panel import CollectionGridPanel
+from .panel import OBJECT_PT_CollectionGridPanel
 
 
 class CollectionGrid(bpy.types.Operator):
@@ -35,9 +35,9 @@ class CollectionGrid(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     # collumns = bpy.props.IntProperty(name="Collumns:", default=3)
-    rows = bpy.props.IntProperty(name="Rows:", default=3)
-    distance = bpy.props.FloatProperty(name="Distance between objects:", default=1.0)
-    switch = bpy.props.BoolProperty(name="Objects Grid", description="", default=False)
+    rows: bpy.props.IntProperty(name="Rows:", default=3)
+    distance: bpy.props.FloatProperty(name="Distance between objects:", default=1.0)
+    switch: bpy.props.BoolProperty(name="Objects Grid", description="", default=False)
 
     def execute(self, context):
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
@@ -201,7 +201,7 @@ addon_keymaps = []
 
 def register():
     bpy.utils.register_class(CollectionGrid)
-    bpy.utils.register_class(CollectionGridPanel)
+    bpy.utils.register_class(OBJECT_PT_CollectionGridPanel)
     bpy.types.TOPBAR_MT_edit.append(menu_func)
 
     # handle the keymap
@@ -224,7 +224,7 @@ def unregister():
     addon_keymaps.clear()
 
     bpy.utils.unregister_class(CollectionGrid)
-    bpy.utils.unregister_class(CollectionGridPanel)
+    bpy.utils.unregister_class(OBJECT_PT_CollectionGridPanel)
     bpy.types.TOPBAR_MT_edit.remove(menu_func)
 
 

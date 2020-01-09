@@ -24,7 +24,7 @@ bl_info = {
 
 import os
 import bpy
-from .panel import NodesPanel
+from .panel import OBJECT_PT_NodesPanel
 
 
 def bake_object(mat, bakeType, inputNode):
@@ -56,10 +56,14 @@ class BakeNodes(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
-            hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
-        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
-            hdr_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
+        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
+                          + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
+            hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
+                + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
+        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
+                            + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
+            hdr_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
+                + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
         else:
             self.report({'ERROR'}, "hdr path not found")
             return {'CANCELLED'}
@@ -105,7 +109,7 @@ addon_keymaps = []
 
 def register():
     bpy.utils.register_class(BakeNodes)
-    bpy.utils.register_class(NodesPanel)
+    bpy.utils.register_class(OBJECT_PT_NodesPanel)
     bpy.types.TOPBAR_MT_edit.append(menu_func)
 
     # handle the keymap
@@ -128,7 +132,7 @@ def unregister():
     addon_keymaps.clear()
 
     bpy.types.TOPBAR_MT_edit.remove(menu_func)
-    bpy.utils.unregister_class(NodesPanel)
+    bpy.utils.unregister_class(OBJECT_PT_NodesPanel)
     bpy.utils.unregister_class(BakeNodes)
 
 

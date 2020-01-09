@@ -25,7 +25,7 @@ bl_info = {
 import bpy
 from .user import ObjectAutoScale
 from .csv import ObjectCSVScale
-from .panel import AutoScalePanel
+from .panel import OBJECT_PT_AutoScalePanel
 
 
 def menu_func(self, context):
@@ -40,7 +40,7 @@ addon_keymaps = []
 def register():
     bpy.utils.register_class(ObjectAutoScale)
     bpy.utils.register_class(ObjectCSVScale)
-    bpy.utils.register_class(AutoScalePanel)
+    bpy.utils.register_class(OBJECT_PT_AutoScalePanel)
     bpy.types.TOPBAR_MT_edit.append(menu_func)
 
     # handle the keymap
@@ -64,7 +64,7 @@ def unregister():
 
     bpy.utils.unregister_class(ObjectAutoScale)
     bpy.utils.unregister_class(ObjectCSVScale)
-    bpy.utils.unregister_class(AutoScalePanel)
+    bpy.utils.unregister_class(OBJECT_PT_AutoScalePanel)
     bpy.types.TOPBAR_MT_edit.remove(menu_func)
 
 

@@ -28,7 +28,7 @@ import stat
 import bpy
 import platform
 from distutils.dir_util import copy_tree
-from .panel import USDZExporterPanel
+from .panel import OBJECT_PT_USDZExporterPanel
 
 
 class ObjectExportModules(bpy.types.Operator):
@@ -38,7 +38,7 @@ class ObjectExportModules(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
-    directory = bpy.props.StringProperty(
+    directory: bpy.props.StringProperty(
         name="Outdir Path",
         description="Where I will save my stuff"
         # subtype='DIR_PATH' is not needed to specify the selection mode.
@@ -46,10 +46,14 @@ class ObjectExportModules(bpy.types.Operator):
     )
 
     def execute(self, context):
-        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'):
-            docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'
-        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'):
-            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'
+        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
+                          + 'usdz_export' + os.sep + 'usdz-exporter'):
+            docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
+                + 'usdz_export' + os.sep + 'usdz-exporter'
+        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
+                            + 'usdz_export' + os.sep + 'usdz-exporter'):
+            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
+                + 'usdz_export' + os.sep + 'usdz-exporter'
         else:
             self.report({'ERROR'}, "usdz-exporter path not found")
             return {'CANCELLED'}
@@ -81,7 +85,8 @@ class ObjectExportModules(bpy.types.Operator):
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v $(PWD)/prod/output:/usdz-exporter/output -it usdz-extractor-image-prod'
         elif platform.system() == 'Windows':
             loginCmd = 'FOR /F "tokens=* USEBACKQ" %F IN (`aws ecr get-login --no-include-email --region us-east-1`) DO (SET var=%F) && call %var%'
-            runCmd = 'docker run --rm --name usdz-extractor-container-prod -v "' + docker_path.replace("\\", "/").lower() + '/prod/output":/usdz-exporter/output -it usdz-extractor-image-prod'
+            runCmd = 'docker run --rm --name usdz-extractor-container-prod -v "' + docker_path.replace("\\", "/").lower() \
+                + '/prod/output":/usdz-exporter/output -it usdz-extractor-image-prod'
         os.system(loginCmd)
         cdCmd = 'cd ' + docker_path
         buildCmd = 'docker build ./prod -t usdz-extractor-image-prod'
@@ -111,7 +116,7 @@ addon_keymaps = []
 
 def register():
     bpy.utils.register_class(ObjectExportModules)
-    bpy.utils.register_class(USDZExporterPanel)
+    bpy.utils.register_class(OBJECT_PT_USDZExporterPanel)
     bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
     # handle the keymap
@@ -134,7 +139,7 @@ def unregister():
     addon_keymaps.clear()
 
     bpy.utils.unregister_class(ObjectExportModules)
-    bpy.utils.unregister_class(USDZExporterPanel)
+    bpy.utils.unregister_class(OBJECT_PT_USDZExporterPanel)
     bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 
 

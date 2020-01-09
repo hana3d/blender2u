@@ -25,7 +25,7 @@ bl_info = {
 import bpy
 from .collections import count_collections
 from .objects import count_objects
-from .panel import PolycountPanel
+from .panel import OBJECT_PT_PolycountPanel
 from .color import ColorObjects, OriginalColor
 
 
@@ -76,7 +76,7 @@ def register():
 
     bpy.utils.register_class(PolycountCollections)
     bpy.utils.register_class(PolycountObjects)
-    bpy.utils.register_class(PolycountPanel)
+    bpy.utils.register_class(OBJECT_PT_PolycountPanel)
     bpy.utils.register_class(ColorObjects)
     bpy.utils.register_class(OriginalColor)
     bpy.types.TOPBAR_MT_edit.append(menu_func)
@@ -103,7 +103,7 @@ def unregister():
     bpy.types.TOPBAR_MT_edit.remove(menu_func)
     bpy.utils.unregister_class(OriginalColor)
     bpy.utils.unregister_class(ColorObjects)
-    bpy.utils.unregister_class(PolycountPanel)
+    bpy.utils.unregister_class(OBJECT_PT_PolycountPanel)
     bpy.utils.unregister_class(PolycountObjects)
     bpy.utils.unregister_class(PolycountCollections)
 

@@ -25,7 +25,7 @@ bl_info = {
 import bpy
 from mathutils import Vector
 # from .bake_nodes import bake_nodes
-from .panel import GLBExportPanel
+from .panel import OBJECT_PT_GLBExportPanel
 
 
 class ObjectExportModules(bpy.types.Operator):
@@ -35,7 +35,7 @@ class ObjectExportModules(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
-    directory = bpy.props.StringProperty(
+    directory: bpy.props.StringProperty(
         name="Outdir Path",
         description="Where I will save my stuff"
         # subtype='DIR_PATH' is not needed to specify the selection mode.
@@ -167,7 +167,7 @@ addon_keymaps = []
 
 def register():
     bpy.utils.register_class(ObjectExportModules)
-    bpy.utils.register_class(GLBExportPanel)
+    bpy.utils.register_class(OBJECT_PT_GLBExportPanel)
     bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
     # handle the keymap
@@ -190,7 +190,7 @@ def unregister():
     addon_keymaps.clear()
 
     bpy.utils.unregister_class(ObjectExportModules)
-    bpy.utils.unregister_class(GLBExportPanel)
+    bpy.utils.unregister_class(OBJECT_PT_GLBExportPanel)
     bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 
 

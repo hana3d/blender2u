@@ -2,7 +2,7 @@ import bpy
 from bpy.types import Panel
 
 
-class NodesPanel(Panel):
+class OBJECT_PT_NodesPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Bake Nodes"

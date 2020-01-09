@@ -11,13 +11,13 @@ class ObjectCSVScale(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
-    filepath = bpy.props.StringProperty(
+    filepath: bpy.props.StringProperty(
         name="CSV File",
         description="CSV with heights and names",
         subtype='FILE_PATH'
     )
 
-    def scale_coll(self, reader, coll):
+    def scale_coll(self, context, reader, coll):
         min_x = 999999
         min_y = 999999
         min_z = 999999

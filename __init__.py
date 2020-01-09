@@ -14,9 +14,9 @@
 bl_info = {
     "name": "Blender2U",
     "author": "Real2U",
-    "description": "Tools developed by Real2U",
+    "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (0, 13, 2),
+    "version": (0, 13, 4),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
@@ -25,13 +25,13 @@ bl_info = {
 
 import math
 import bpy
-from .updater import addon_updater_ops, panel, preferences
+from . import addon_updater_ops, ui
 from .addons import auto_scale, bake_nodes, collection_grid, glb_export, glb_usdz_export, polycount, usdz_export
 
 
 classes = (
-    preferences.Blender2UPreferences,
-    panel.OBJECT_PT_Blender2UPanel
+    ui.Blender2UPreferences,
+    ui.OBJECT_PT_Blender2UPanel
 )
 
 addons = {

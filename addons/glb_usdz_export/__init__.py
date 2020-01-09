@@ -30,7 +30,7 @@ import bpy
 from distutils.dir_util import copy_tree
 from mathutils import Vector
 # from .bake_nodes import bake_nodes
-from .panel import GLBUSDZPanel
+from .panel import OBJECT_PT_GLBUSDZPanel
 
 
 class ObjectExportModules(bpy.types.Operator):
@@ -231,7 +231,7 @@ addon_keymaps = []
 
 def register():
     bpy.utils.register_class(ObjectExportModules)
-    bpy.utils.register_class(GLBUSDZPanel)
+    bpy.utils.register_class(OBJECT_PT_GLBUSDZPanel)
     bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
     # handle the keymap
@@ -254,7 +254,7 @@ def unregister():
     addon_keymaps.clear()
 
     bpy.utils.unregister_class(ObjectExportModules)
-    bpy.utils.unregister_class(GLBUSDZPanel)
+    bpy.utils.unregister_class(OBJECT_PT_GLBUSDZPanel)
     bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 
 
