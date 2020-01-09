@@ -1,0 +1,16 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+### Changed
+- Better UI.
+
+## [1.0.0] - 2020-01-09
+### Added
+- Auto Scale.
+- Bake Nodes.
+- Collection Grid.
+- GLB Export.
+- GLB USDZ Export.
+- Polycount.
+- USDZ Export.
