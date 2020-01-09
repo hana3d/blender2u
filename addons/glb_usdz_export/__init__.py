@@ -62,13 +62,13 @@ class ObjectExportModules(bpy.types.Operator):
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
-                          + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
-            docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' + \
-                os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
+                          + os.sep + 'blender2u' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
+            docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
+                + os.sep + 'blender2u' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
         elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
-                            + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
-            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep + \
-                'glb_usdz_export' + os.sep + 'usdz-exporter'
+                            + os.sep + 'blender2u' + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
+            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
+                + os.sep + 'blender2u' + 'glb_usdz_export' + os.sep + 'usdz-exporter'
         else:
             self.report({'ERROR'}, "usdz-exporter path not found")
             return {'CANCELLED'}
@@ -199,8 +199,8 @@ class ObjectExportModules(bpy.types.Operator):
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v $(PWD)/prod/output:/usdz-exporter/output -it usdz-extractor-image-prod'
         elif platform.system() == 'Windows':
             loginCmd = 'FOR /F "tokens=* USEBACKQ" %F IN (`aws ecr get-login --no-include-email --region us-east-1`) DO (SET var=%F) && call %var%'
-            runCmd = 'docker run --rm --name usdz-extractor-container-prod -v "' + docker_path.replace("\\", "/").lower() + \
-                '/prod/output":/usdz-exporter/output -it usdz-extractor-image-prod'
+            runCmd = 'docker run --rm --name usdz-extractor-container-prod -v "' + docker_path.replace("\\", "/").lower() \
+                + '/prod/output":/usdz-exporter/output -it usdz-extractor-image-prod'
         os.system(loginCmd)
         cdCmd = 'cd ' + docker_path
         buildCmd = 'docker build ./prod -t usdz-extractor-image-prod'
