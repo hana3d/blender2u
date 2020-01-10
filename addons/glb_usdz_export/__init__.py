@@ -62,13 +62,13 @@ class ObjectExportModules(bpy.types.Operator):
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
-                          + os.sep + 'blender2u' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
+                          + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
-                + os.sep + 'blender2u' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
+                + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
         elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
-                            + os.sep + 'blender2u' + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
+                            + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
-                + os.sep + 'blender2u' + 'glb_usdz_export' + os.sep + 'usdz-exporter'
+                + os.sep + 'blender2u'  + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
         else:
             self.report({'ERROR'}, "usdz-exporter path not found")
             return {'CANCELLED'}
