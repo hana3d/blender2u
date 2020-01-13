@@ -2,18 +2,21 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.0.1] - 2020-01-10
 ### Changed
-- Better UI.
+- Better UI
+- Fixed Exporters
 
 ### Removed
-- Keyboard shortcuts.
+- Keyboard shortcuts
 
 ## [1.0.0] - 2020-01-09
 ### Added
-- Auto Scale.
-- Bake Nodes.
-- Collection Grid.
-- GLB Export.
-- GLB USDZ Export.
-- Polycount.
-- USDZ Export.
+- Auto Scale
+- Bake Nodes
+- Collection Grid
+- GLB Export
+- GLB USDZ Export
+- Polycount
+- USDZ Export
