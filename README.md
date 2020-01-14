@@ -2,6 +2,9 @@
 
 Collection of Blender Add-ons made by Real2U.
 
+## Analytics
+Saves some user data for future analysis.
+
 ## Auto Scale  
 Scale all selected objects so that the combination of them has a total height or 
 length equal to the value inputed by the user.  
