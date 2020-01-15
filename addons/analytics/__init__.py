@@ -23,31 +23,50 @@ bl_info = {
 }
 
 import bpy
+from bpy.app.handlers import persistent
 
 
-class LogCommands(bpy.types.Operator):
-    """Log Commands"""
-    bl_idname = "object.log_commands"
-    bl_label = "Log Commands"
-    bl_options = {'REGISTER', 'UNDO'}
+class ModalOperator(bpy.types.Operator):
+    bl_idname = "object.modal_operator"
+    bl_label = "Simple Modal Operator"
+
+    def __init__(self):
+        print("Start")
+
+    def __del__(self):
+        print("End")
 
     def execute(self, context):
 
         return {'FINISHED'}
 
+    def modal(self, context, event):
+        if event.type != 'MOUSEMOVE' and event.value != 'RELEASE':
+            print(event.type)
+            # self.execute(context)
 
-def menu_func(self, context):
-    self.layout.operator(LogCommands.bl_idname)
+        return {'PASS_THROUGH'}
+
+    def invoke(self, context, event):
+        context.window_manager.modal_handler_add(self)
+        # self.execute(context, event)
+
+        return {'RUNNING_MODAL'}
+
+
+@persistent
+def load_handler(dummy):
+    bpy.ops.object.modal_operator('INVOKE_DEFAULT')
 
 
 def register():
-    bpy.utils.register_class(LogCommands)
-    # bpy.types.TOPBAR_MT_edit.append(menu_func)
+    bpy.utils.register_class(ModalOperator)
+    bpy.app.handlers.load_post.append(load_handler)
 
 
 def unregister():
-    # bpy.types.TOPBAR_MT_edit.remove(menu_func)
-    bpy.utils.unregister_class(LogCommands)
+    bpy.app.handlers.load_post.remove(load_handler)
+    bpy.utils.unregister_class(ModalOperator)
 
 
 if __name__ == "__main__":
