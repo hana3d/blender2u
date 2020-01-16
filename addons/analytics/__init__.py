@@ -23,6 +23,8 @@ bl_info = {
 }
 
 import bpy
+import datetime
+import atexit
 from bpy.app.handlers import persistent
 
 
@@ -32,6 +34,7 @@ class ModalOperator(bpy.types.Operator):
 
     def __init__(self):
         print("Start")
+        self.file = open(datetime.date.today() + '.txt', "w+")
 
     def __del__(self):
         print("End")
@@ -43,6 +46,9 @@ class ModalOperator(bpy.types.Operator):
     def modal(self, context, event):
         if event.type != 'MOUSEMOVE' and event.value != 'RELEASE':
             print(event.type)
+            now = datetime.datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            self.file.write(dt_string + event.type)
             # self.execute(context)
 
         return {'PASS_THROUGH'}
