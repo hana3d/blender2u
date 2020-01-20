@@ -27,24 +27,21 @@ import os
 import datetime
 import atexit
 from bpy.app.handlers import persistent
-from .events import EventModal
+from .events import event_handler, EventModal
 from .reports import ReportModal
-
-
-@persistent
-def load_handler(dummy):
-    if bpy.path.basename(bpy.context.blend_data.filepath) != '':
-        bpy.ops.object.modal_operator('INVOKE_DEFAULT')
+from .blend import blend_handler, BlendModal
 
 
 def register():
     bpy.utils.register_class(EventModal)
     bpy.utils.register_class(ReportModal)
-    bpy.app.handlers.load_post.append(load_handler)
+    bpy.app.handlers.load_post.append(event_handler)
+    bpy.app.handlers.load_post.append(blend_handler)
 
 
 def unregister():
-    bpy.app.handlers.load_post.remove(load_handler)
+    bpy.app.handlers.load_post.remove(blend_handler)
+    bpy.app.handlers.load_post.remove(event_handler)
     bpy.utils.unregister_class(EventModal)
     bpy.utils.unregister_class(ReportModal)
 
