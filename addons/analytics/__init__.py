@@ -27,23 +27,25 @@ import os
 import datetime
 import atexit
 from bpy.app.handlers import persistent
+from .blend import blend_handler, BlendModal
 from .events import event_handler, EventModal
 from .reports import ReportModal
-from .blend import blend_handler, BlendModal
 
 
 def register():
-    bpy.utils.register_class(EventModal)
-    bpy.utils.register_class(ReportModal)
-    bpy.app.handlers.load_post.append(event_handler)
+    bpy.utils.register_class(BlendModal)
+    # bpy.utils.register_class(EventModal)
+    # bpy.utils.register_class(ReportModal)
     bpy.app.handlers.load_post.append(blend_handler)
+    # bpy.app.handlers.load_post.append(event_handler)
 
 
 def unregister():
+    # bpy.app.handlers.load_post.remove(event_handler)
     bpy.app.handlers.load_post.remove(blend_handler)
-    bpy.app.handlers.load_post.remove(event_handler)
-    bpy.utils.unregister_class(EventModal)
-    bpy.utils.unregister_class(ReportModal)
+    # bpy.utils.unregister_class(ReportModal)
+    # bpy.utils.unregister_class(EventModal)
+    bpy.utils.unregister_class(BlendModal)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import bpy
 import os
 import datetime
+import json
 
 
 def blend_handler(dummy):
@@ -20,17 +21,35 @@ class EventModal(bpy.types.Operator):
         print("Start")
         now = datetime.datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        self.file = open(self.logs_folder + bpy.path.basename(bpy.context.blend_data.filepath) + '.txt', "a+")
-        self.file.write("OPEN" + "   " + bpy.path.basename(bpy.context.blend_data.filepath) + "   " + dt_string + "\n")
-        self.file.close()
+
+        data = {}
+        data = []
+        data.append({
+            'blend': bpy.path.basename(bpy.context.blend_data.filepath),
+            'operation': 'open',
+            'time': dt_string
+        })
+
+        # self.file = open(self.logs_folder + bpy.path.basename(bpy.context.blend_data.filepath) + '.txt', "a+")
+        # self.file.write("OPEN" + "   " + bpy.path.basename(bpy.context.blend_data.filepath) + "   " + dt_string + "\n")
+        # self.file.close()
 
     def __del__(self):
         print("End")
         now = datetime.datetime.now()
         dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        self.file = open(self.logs_folder + bpy.path.basename(bpy.context.blend_data.filepath) + '.txt', "a+")
-        self.file.write("CLOSE" + "   " + bpy.path.basename(bpy.context.blend_data.filepath) + "   " + dt_string + "\n")
-        self.file.close()
+
+        data = {}
+        data = []
+        data.append({
+            'blend': bpy.path.basename(bpy.context.blend_data.filepath),
+            'operation': 'close',
+            'time': dt_string
+        })
+
+        # self.file = open(self.logs_folder + bpy.path.basename(bpy.context.blend_data.filepath) + '.txt', "a+")
+        # self.file.write("CLOSE" + "   " + bpy.path.basename(bpy.context.blend_data.filepath) + "   " + dt_string + "\n")
+        # self.file.close()
 
     def execute(self, context):
 
