@@ -1,23 +1,23 @@
 import bpy
 import os
-import datetime
-import atexit
+import json
+import requests
 from bpy.app.handlers import persistent
+from .config import version, api_url, event_id, timestamp, user
 
 
 @persistent
 def event_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
-        bpy.ops.object.modal_operator('INVOKE_DEFAULT')
+        bpy.ops.object.event_modal('INVOKE_DEFAULT')
 
 
 class EventModal(bpy.types.Operator):
-    bl_idname = "object.modal_operator"
-    bl_label = "Simple Modal Operator"
+    bl_idname = "object.event_modal"
+    bl_label = "Event Modal Operator"
 
     logs_folder = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
-        + 'analytics' + os.sep + 'logs' + os.sep
-    # + os.sep + 'blender2u' + os.sep + 'addons' + os.sep
+        + 'blender2u' + os.sep + 'addons' + os.sep + 'analytics' + os.sep + 'logs' + os.sep
 
     ignored_events = [
         'MOUSEMOVE',
@@ -26,7 +26,7 @@ class EventModal(bpy.types.Operator):
 
     def __init__(self):
         print("Start")
-        now = datetime.datetime.now()
+        now = timestamp
         dt_string = now.strftime("%d.%m.%Y")
         self.file = open(self.logs_folder + dt_string + '-' + bpy.path.basename(bpy.context.blend_data.filepath) + '.txt', "a+")
 
@@ -41,7 +41,7 @@ class EventModal(bpy.types.Operator):
     def modal(self, context, event):
         if event.type not in self.ignored_events and event.value != 'RELEASE':
             print(event.type, event.value)
-            now = datetime.datetime.now()
+            now = timestamp
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
             self.file.write(dt_string + "   " + event.type + "\n")
             # self.execute(context)
