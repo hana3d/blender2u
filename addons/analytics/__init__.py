@@ -16,7 +16,7 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 2, 4),
+    "version": (0, 1, 0),
     "location": "",
     "warning": "",
     "category": "System"
