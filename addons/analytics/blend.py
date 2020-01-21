@@ -16,10 +16,6 @@ class EventModal(bpy.types.Operator):
     bl_idname = "object.modal_operator"
     bl_label = "Simple Modal Operator"
 
-    logs_folder = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
-        + 'analytics' + os.sep + 'logs' + os.sep
-    # + os.sep + 'blender2u' + os.sep + 'addons' + os.sep
-
     def __init__(self):
         print("Start")
 
