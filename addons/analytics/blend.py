@@ -2,9 +2,8 @@ import bpy
 import os
 import json
 import requests
-import uuid
 from bpy.app.handlers import persistent
-from .config import version, api_url, timestamp, user
+from .config import version, api_url, user, get_blend_file, get_blender_version, get_timestamp, get_uuid
 
 
 @persistent
@@ -20,15 +19,11 @@ class BlendModal(bpy.types.Operator):
     def __init__(self):
         print("Start")
 
-        blend_file = bpy.path.basename(bpy.context.blend_data.filepath)
-        blender_version = bpy.app.version_string
-        event_id = str(uuid.uuid1())
-
         data = {
-            'blend': blend_file,
-            'blender_version': blender_version,
-            'event_id': event_id,
-            'timestamp': timestamp,
+            'blend': get_blend_file(),
+            'blender_version': get_blender_version(),
+            'event_id': get_uuid(),
+            'timestamp': get_timestamp(),
             'user': user,
             'version': version,
             'open': 1
@@ -40,15 +35,11 @@ class BlendModal(bpy.types.Operator):
     def __del__(self):
         print("End")
 
-        blend_file = bpy.path.basename(bpy.context.blend_data.filepath)
-        blender_version = bpy.app.version_string
-        event_id = str(uuid.uuid1())
-
         data = {
-            'blend': blend_file,
-            'blender_version': blender_version,
-            'event_id': event_id,
-            'timestamp': timestamp,
+            'blend': get_blend_file(),
+            'blender_version': get_blender_version(),
+            'event_id': get_uuid(),
+            'timestamp': get_timestamp(),
             'user': user,
             'version': version,
             'close': 1
