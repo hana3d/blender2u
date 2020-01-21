@@ -1,49 +1,57 @@
 import bpy
 import os
-import datetime
 import json
 import requests
-import getpass
-import config
+from bpy.app.handlers import persistent
+from .config import version, api_url, event_id, timestamp, user
 
 
+@persistent
 def blend_handler(dummy):
-    if bpy.path.basename(bpy.context.blend_data.filepath) == '':
-        bpy.ops.object.modal_operator('INVOKE_DEFAULT')
+    if bpy.path.basename(bpy.context.blend_data.filepath) != '':
+        bpy.ops.object.blend_modal('INVOKE_DEFAULT')
 
 
-class EventModal(bpy.types.Operator):
-    bl_idname = "object.modal_operator"
-    bl_label = "Simple Modal Operator"
+class BlendModal(bpy.types.Operator):
+    bl_idname = "object.blend_modal"
+    bl_label = "Blend Modal Operator"
 
     def __init__(self):
         print("Start")
 
+        blend_file = bpy.path.basename(bpy.context.blend_data.filepath)
+        blender_version = bpy.app.version_string
+
         data = {
-            'blend': config.blend_file,
-            'event_id': config.event_id,
-            'timestamp': config.timestamp,
-            'user': config.user,
-            'version': config.version,
+            'blend': blend_file,
+            'blender_version': blender_version,
+            'event_id': event_id,
+            'timestamp': timestamp,
+            'user': user,
+            'version': version,
             'open': 1
         }
 
-        r = requests.post(url=config.api_url, json=data)
+        r = requests.post(url=api_url, json=data)
         print(r.status_code)
 
     def __del__(self):
         print("End")
 
+        blend_file = bpy.path.basename(bpy.context.blend_data.filepath)
+        blender_version = bpy.app.version_string
+
         data = {
-            'blend': config.blend_file,
-            'event_id': config.event_id,
-            'timestamp': config.timestamp,
-            'user': config.user,
-            'version': config.version,
+            'blend': blend_file,
+            'blender_version': blender_version,
+            'event_id': event_id,
+            'timestamp': timestamp,
+            'user': user,
+            'version': version,
             'close': 1
         }
 
-        r = requests.post(url=config.api_url, json=data)
+        r = requests.post(url=api_url, json=data)
         print(r.status_code)
 
     def execute(self, context):

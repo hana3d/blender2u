@@ -5,6 +5,7 @@ import atexit
 from bpy.app.handlers import persistent
 
 
+@persistent
 def event_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
         bpy.ops.object.modal_operator('INVOKE_DEFAULT')

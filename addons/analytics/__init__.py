@@ -16,7 +16,7 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 1, 0),
+    "version": (1, 0, 0),
     "location": "",
     "warning": "",
     "category": "System"
@@ -26,10 +26,9 @@ import bpy
 import os
 import datetime
 import atexit
-from bpy.app.handlers import persistent
 from .blend import blend_handler, BlendModal
-from .events import event_handler, EventModal
-from .reports import ReportModal
+# from .events import event_handler, EventModal
+# from .reports import ReportModal
 
 
 def register():
