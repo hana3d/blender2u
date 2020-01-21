@@ -3,7 +3,7 @@
 Collection of Blender Add-ons made by Real2U.
 
 ## Analytics
-Saves some user data for future analysis.
+Sends some user data to AWS S3 for future analysis.
 
 ## Auto Scale  
 Scale all selected objects so that the combination of them has a total height or 

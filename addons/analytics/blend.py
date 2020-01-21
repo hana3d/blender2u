@@ -2,8 +2,9 @@ import bpy
 import os
 import json
 import requests
+import uuid
 from bpy.app.handlers import persistent
-from .config import version, api_url, event_id, timestamp, user
+from .config import version, api_url, timestamp, user
 
 
 @persistent
@@ -21,6 +22,7 @@ class BlendModal(bpy.types.Operator):
 
         blend_file = bpy.path.basename(bpy.context.blend_data.filepath)
         blender_version = bpy.app.version_string
+        event_id = str(uuid.uuid1())
 
         data = {
             'blend': blend_file,
@@ -40,6 +42,7 @@ class BlendModal(bpy.types.Operator):
 
         blend_file = bpy.path.basename(bpy.context.blend_data.filepath)
         blender_version = bpy.app.version_string
+        event_id = str(uuid.uuid1())
 
         data = {
             'blend': blend_file,

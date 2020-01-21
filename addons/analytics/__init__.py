@@ -28,7 +28,7 @@ import datetime
 import atexit
 from .blend import blend_handler, BlendModal
 # from .events import event_handler, EventModal
-# from .reports import ReportModal
+# from .reports import report_handler, ReportModal
 
 
 def register():

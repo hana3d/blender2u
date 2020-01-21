@@ -2,7 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-### Added
+### Changed
+
+## [Unreleased]
+### Changed
+- Reports Analytics
+- Fixed Analytics uuid
 
 ## [1.1.0] - 2020-01-21
 ### Added
