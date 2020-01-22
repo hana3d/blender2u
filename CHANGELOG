@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Changed
 
+## [1.1.3] - 2020-01-22
+### Changed]
+- Analytics session id
+
 ## [1.1.2] - 2020-01-21
 ### Changed
 - Reports Analytics

@@ -19,10 +19,13 @@ class BlendModal(bpy.types.Operator):
     def __init__(self):
         print("Start")
 
+        self.session_id = get_uuid()
+
         data = {
             'blend': get_blend_file(),
             'blender_version': get_blender_version(),
             'event_id': get_uuid(),
+            'session_id': self.session_id,
             'timestamp': get_timestamp(),
             'user': user,
             'version': version,
@@ -39,6 +42,7 @@ class BlendModal(bpy.types.Operator):
             'blend': get_blend_file(),
             'blender_version': get_blender_version(),
             'event_id': get_uuid(),
+            'session_id': self.session_id,
             'timestamp': get_timestamp(),
             'user': user,
             'version': version,
