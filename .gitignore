@@ -3,3 +3,4 @@ local/
 .expo/*
 .vscode
 .DS_Store
+*.zip
