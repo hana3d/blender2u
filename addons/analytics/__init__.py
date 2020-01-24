@@ -26,7 +26,7 @@ import bpy
 import os
 import datetime
 import atexit
-from .blend import blend_handler, BlendModal
+from .blend import blend_handler, save_handler, BlendModal
 # from .events import event_handler, EventModal
 # from .reports import report_handler, ReportModal
 
@@ -37,9 +37,11 @@ def register():
     # bpy.utils.register_class(ReportModal)
     bpy.app.handlers.load_post.append(blend_handler)
     # bpy.app.handlers.load_post.append(event_handler)
+    bpy.app.handlers.save_post.append(save_handler)
 
 
 def unregister():
+    bpy.app.handlers.save_post.remove(save_handler)
     # bpy.app.handlers.load_post.remove(event_handler)
     bpy.app.handlers.load_post.remove(blend_handler)
     # bpy.utils.unregister_class(ReportModal)

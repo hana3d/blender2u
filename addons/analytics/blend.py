@@ -12,6 +12,26 @@ def blend_handler(dummy):
         bpy.ops.object.blend_modal('INVOKE_DEFAULT')
 
 
+@persistent
+def save_handler(dummy):
+    data = {
+        'blend': get_blend_file(),
+        'blender_version': get_blender_version(),
+        'collections_count': get_collections(),
+        'event_id': get_uuid(),
+        'objects_count': get_objects(),
+        'session_id': session_id,
+        'timestamp': get_timestamp(),
+        'user': user,
+        'version': version,
+        'save': 1
+    }
+
+    r = requests.post(url=api_url, json=data)
+    print('Save')
+    print(r.status_code)
+
+
 def every_10_minutes():
     data = {
         'blend': get_blend_file(),
