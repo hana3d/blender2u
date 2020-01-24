@@ -24,8 +24,6 @@ bl_info = {
 
 import bpy
 import os
-import datetime
-import atexit
 from .blend import blend_handler, save_handler, BlendModal
 from .afk import afk_handler, AfkModal
 # from .events import event_handler, EventModal
