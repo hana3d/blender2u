@@ -33,3 +33,19 @@ def get_timestamp():
 
 def get_uuid():
     return str(uuid.uuid1())
+
+
+def basic_message():
+    data = {
+        'blend': get_blend_file(),
+        'blender_version': get_blender_version(),
+        'collections_count': get_collections(),
+        'event_id': get_uuid(),
+        'objects_count': get_objects(),
+        'session_id': session_id,
+        'timestamp': get_timestamp(),
+        'user': user,
+        'version': version,
+    }
+
+    return data

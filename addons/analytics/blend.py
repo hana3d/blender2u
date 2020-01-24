@@ -3,7 +3,7 @@ import os
 import json
 import requests
 from bpy.app.handlers import persistent
-from .config import version, api_url, user, session_id, get_blend_file, get_blender_version, get_collections, get_objects, get_timestamp, get_uuid
+from .config import api_url, basic_message
 
 
 @persistent
@@ -14,18 +14,8 @@ def blend_handler(dummy):
 
 @persistent
 def save_handler(dummy):
-    data = {
-        'blend': get_blend_file(),
-        'blender_version': get_blender_version(),
-        'collections_count': get_collections(),
-        'event_id': get_uuid(),
-        'objects_count': get_objects(),
-        'session_id': session_id,
-        'timestamp': get_timestamp(),
-        'user': user,
-        'version': version,
-        'save': 1
-    }
+    data = basic_message()
+    data.update({'save': 1})
 
     r = requests.post(url=api_url, json=data)
     print('Save')
@@ -33,18 +23,8 @@ def save_handler(dummy):
 
 
 def every_10_minutes():
-    data = {
-        'blend': get_blend_file(),
-        'blender_version': get_blender_version(),
-        'collections_count': get_collections(),
-        'event_id': get_uuid(),
-        'objects_count': get_objects(),
-        'session_id': session_id,
-        'timestamp': get_timestamp(),
-        'user': user,
-        'version': version,
-        'ping': 1
-    }
+    data = basic_message()
+    data.update({'ping': 1})
 
     r = requests.post(url=api_url, json=data)
     print('Ping')
@@ -60,20 +40,8 @@ class BlendModal(bpy.types.Operator):
     def __init__(self):
         print("Start")
 
-        self.session_id = get_uuid()
-
-        data = {
-            'blend': get_blend_file(),
-            'blender_version': get_blender_version(),
-            'collections_count': get_collections(),
-            'event_id': get_uuid(),
-            'objects_count': get_objects(),
-            'session_id': session_id,
-            'timestamp': get_timestamp(),
-            'user': user,
-            'version': version,
-            'open': 1
-        }
+        data = basic_message()
+        data.update({'open': 1})
 
         r = requests.post(url=api_url, json=data)
         print(r.status_code)
@@ -85,18 +53,8 @@ class BlendModal(bpy.types.Operator):
 
         bpy.app.timers.unregister(every_10_minutes)
 
-        data = {
-            'blend': get_blend_file(),
-            'blender_version': get_blender_version(),
-            'collections_count': get_collections(),
-            'event_id': get_uuid(),
-            'objects_count': get_objects(),
-            'session_id': session_id,
-            'timestamp': get_timestamp(),
-            'user': user,
-            'version': version,
-            'close': 1
-        }
+        data = basic_message()
+        data.update({'close': 1})
 
         r = requests.post(url=api_url, json=data)
         print(r.status_code)
