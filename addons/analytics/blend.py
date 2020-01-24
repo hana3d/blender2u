@@ -3,13 +3,34 @@ import os
 import json
 import requests
 from bpy.app.handlers import persistent
-from .config import version, api_url, user, get_blend_file, get_blender_version, get_timestamp, get_uuid
+from .config import version, api_url, user, session_id, get_blend_file, get_blender_version, get_collections, get_objects, get_timestamp, get_uuid
 
 
 @persistent
 def blend_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
         bpy.ops.object.blend_modal('INVOKE_DEFAULT')
+
+
+def every_10_minutes():
+    data = {
+        'blend': get_blend_file(),
+        'blender_version': get_blender_version(),
+        'collections_count': get_collections(),
+        'event_id': get_uuid(),
+        'objects_count': get_objects(),
+        'session_id': session_id,
+        'timestamp': get_timestamp(),
+        'user': user,
+        'version': version,
+        'ping': 1
+    }
+
+    r = requests.post(url=api_url, json=data)
+    print('Ping')
+    print(r.status_code)
+
+    return 600
 
 
 class BlendModal(bpy.types.Operator):
@@ -24,8 +45,10 @@ class BlendModal(bpy.types.Operator):
         data = {
             'blend': get_blend_file(),
             'blender_version': get_blender_version(),
+            'collections_count': get_collections(),
             'event_id': get_uuid(),
-            'session_id': self.session_id,
+            'objects_count': get_objects(),
+            'session_id': session_id,
             'timestamp': get_timestamp(),
             'user': user,
             'version': version,
@@ -35,16 +58,20 @@ class BlendModal(bpy.types.Operator):
         r = requests.post(url=api_url, json=data)
         print(r.status_code)
 
-        bpy.app.timers.register(self.every_10_minutes, first_interval=600)
+        bpy.app.timers.register(every_10_minutes, first_interval=600)
 
     def __del__(self):
         print("End")
 
+        bpy.app.timers.unregister(every_10_minutes)
+
         data = {
             'blend': get_blend_file(),
             'blender_version': get_blender_version(),
+            'collections_count': get_collections(),
             'event_id': get_uuid(),
-            'session_id': self.session_id,
+            'objects_count': get_objects(),
+            'session_id': session_id,
             'timestamp': get_timestamp(),
             'user': user,
             'version': version,
@@ -53,8 +80,6 @@ class BlendModal(bpy.types.Operator):
 
         r = requests.post(url=api_url, json=data)
         print(r.status_code)
-
-        bpy.app.timers.unregister(self.every_10_minutes)
 
     def execute(self, context):
 
@@ -68,21 +93,3 @@ class BlendModal(bpy.types.Operator):
         context.window_manager.modal_handler_add(self)
 
         return {'RUNNING_MODAL'}
-
-    def every_10_minutes(self):
-        data = {
-            'blend': get_blend_file(),
-            'blender_version': get_blender_version(),
-            'event_id': get_uuid(),
-            'session_id': self.session_id,
-            'timestamp': get_timestamp(),
-            'user': user,
-            'version': version,
-            'ping': 1
-        }
-
-        r = requests.post(url=api_url, json=data)
-        print('Ping')
-        print(r.status_code)
-
-        return 600

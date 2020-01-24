@@ -19,6 +19,14 @@ def get_blender_version():
     return bpy.app.version_string
 
 
+def get_collections():
+    return len(bpy.data.collections)
+
+
+def get_objects():
+    return len(bpy.data.collections)
+
+
 def get_timestamp():
     return datetime.datetime.now().isoformat()
 
