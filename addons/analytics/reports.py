@@ -1,8 +1,8 @@
 import bpy
-
 import os
 import json
 import requests
+import pyperclip
 from bpy.app.handlers import persistent
 from .config import version, api_url, user, get_blend_file, get_blender_version, get_timestamp, get_uuid
 
@@ -52,6 +52,7 @@ class ReportModal(bpy.types.Operator):
         bpy.ops.info.select_all(action='SELECT')
         bpy.ops.info.report_copy()
         bpy.ops.info.report_delete()
+        self.file.write(pyperclip.paste())
 
         # leave the context where it was
         bpy.context.area.type = area
