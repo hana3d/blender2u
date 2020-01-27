@@ -1,8 +1,9 @@
 import bpy
 import os
+import sys
 import json
 import requests
-import config
+from . import config
 from bpy.app.handlers import persistent
 
 
@@ -14,16 +15,20 @@ def afk_handler(dummy):
 
 def every_5_minutes():
     if config.is_afk == 1:
-        data = config.basic_message
+        data = config.basic_message()
         data.update({'afk': 1})
-    else:
-        config.is_afk = 1
+
+        r = requests.post(url=config.api_url, json=data)
+        print('AFK')
+        print(r.status_code)
+
+    config.is_afk = 1
 
     return 300
 
 
 class AfkModal(bpy.types.Operator):
-    bl_idname = "object.blend_modal"
+    bl_idname = "object.afk_modal"
     bl_label = "Blend Modal Operator"
 
     def __init__(self):
@@ -37,7 +42,9 @@ class AfkModal(bpy.types.Operator):
         return {'FINISHED'}
 
     def modal(self, context, event):
-        config.is_afk = 0
+        if config.is_afk == 1:
+            print('NOT AFK')
+            config.is_afk = 0
 
         return {'PASS_THROUGH'}
 

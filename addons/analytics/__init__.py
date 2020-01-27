@@ -44,7 +44,7 @@ def register():
 def unregister():
     bpy.app.handlers.save_post.remove(save_handler)
     # bpy.app.handlers.load_post.remove(event_handler)
-    bpy.app.handlers.save_post.remove(afk_handler)
+    bpy.app.handlers.load_post.remove(afk_handler)
     bpy.app.handlers.load_post.remove(blend_handler)
     # bpy.utils.unregister_class(ReportModal)
     # bpy.utils.unregister_class(EventModal)
