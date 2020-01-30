@@ -15,7 +15,7 @@ import sys
 import bpy
 from bpy.app.handlers import persistent
 
-from . import environment, utils, presence
+from . import environment, utils, presence, operators, ui
 from .libs.replication.replication.constants import RP_COMMON
 
 
@@ -27,19 +27,8 @@ DEPENDENCIES = {
 
 # TODO: refactor config
 # UTILITY FUNCTIONS
-class ReplicatedDatablock(bpy.types.PropertyGroup):
-    '''name = StringProperty() '''
-    type_name: bpy.props.StringProperty()
-    bl_name: bpy.props.StringProperty()
-    bl_delay_refresh: bpy.props.FloatProperty()
-    bl_delay_apply: bpy.props.FloatProperty()
-    use_as_filter: bpy.props.BoolProperty(default=True)
-    auto_push: bpy.props.BoolProperty(default=True)
-    icon: bpy.props.StringProperty()
-
-
 classes = (
-    ReplicatedDatablock
+
 )
 
 libs = os.path.dirname(os.path.abspath(__file__)) + "\\libs\\replication"
@@ -55,18 +44,10 @@ def register():
     if libs not in sys.path:
         sys.path.append(libs)
 
-    environment.setup(DEPENDENCIES,bpy.app.binary_path_python)
-
-    from . import presence
-    from . import operators
-    from . import ui
+    environment.setup(DEPENDENCIES, bpy.app.binary_path_python)
 
     for cls in classes:
         bpy.utils.register_class(cls)
-
-    bpy.types.WindowManager.session = bpy.props.PointerProperty(
-        type=SessionProps)
-    bpy.types.ID.uuid = bpy.props.StringProperty(default="")
 
     bpy.context.window_manager.session.load()
 
@@ -77,15 +58,9 @@ def register():
 
 
 def unregister():
-    from . import presence
-    from . import operators
-    from . import ui
-
     presence.unregister()
     ui.unregister()
     operators.unregister()
-
-    del bpy.types.WindowManager.session
 
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
