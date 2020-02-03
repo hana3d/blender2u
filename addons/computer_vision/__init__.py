@@ -12,6 +12,7 @@ import os
 import sys
 import bpy
 from . import environment
+from .opencv import OpencvClass
 # from .libs.replication.replication.constants import RP_COMMON
 
 
