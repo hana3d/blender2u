@@ -13,6 +13,7 @@ import sys
 import bpy
 from . import environment
 from .opencv import OpencvClass
+from .panel import OBJECT_PT_CVPanel
 # from .libs.replication.replication.constants import RP_COMMON
 
 
@@ -24,6 +25,8 @@ DEPENDENCIES = {
 # TODO: refactor config
 # UTILITY FUNCTIONS
 classes = (
+    OpencvClass,
+    OBJECT_PT_CVPanel
 )
 
 # libs = os.path.dirname(os.path.abspath(__file__)) + "\\libs\\replication"

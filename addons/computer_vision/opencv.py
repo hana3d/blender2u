@@ -7,3 +7,13 @@ class OpencvClass(bpy.types.Operator):
     bl_idname = "object.opencv_class"
     bl_label = "OpenCV Class"
     bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        obj = bpy.context.active_object
+
+        if hasattr(obj.data, 'filepath'):
+            image_path = obj.data.filepath
+
+            image = cv2.imread(image_path, 1)
+
+        return {'FINISHED'}
