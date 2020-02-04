@@ -48,7 +48,8 @@ def unregister():
     bpy.utils.unregister_class(ApplyUVTexture)
     bpy.utils.unregister_class(OBJECT_PT_UVPanel)
 
-    del(bpy.types.Object.original_material)
+    if hasattr(bpy.types.Object, 'original_material'):
+        del(bpy.types.Object.original_material)
     bpy.utils.unregister_class(MaterialArray)
 
 

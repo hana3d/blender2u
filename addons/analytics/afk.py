@@ -35,7 +35,7 @@ class AfkModal(bpy.types.Operator):
         bpy.app.timers.register(every_5_minutes, first_interval=300)
 
     def __del__(self):
-        bpy.app.timers.unregister(every_5_minutes)
+        print("Del AFK")
 
     def execute(self, context):
 

@@ -86,7 +86,8 @@ def unregister():
     bpy.utils.unregister_class(PolycountObjects)
     bpy.utils.unregister_class(PolycountCollections)
 
-    del(bpy.types.Object.original_material)
+    if hasattr(bpy.types.Object, 'original_material'):
+        del(bpy.types.Object.original_material)
     bpy.utils.unregister_class(MaterialArray)
 
 
