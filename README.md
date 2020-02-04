@@ -49,3 +49,6 @@ Converts the files from the selected folder to usdz using a environment dependen
 **On Mac and Linux, Blender has to be initialized by a terminal.**(How to:
 [Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
 [Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
+
+## UV Check  
+Apply a checker texture to all scene objects for easier UV check.  
