@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+- Fix unregisters
+
+## [1.1.5] - 2020-02-04
+### Added
+- UV Checker
 
 ## [1.1.5] - 2020-02-04
 ### Added
