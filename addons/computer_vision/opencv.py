@@ -16,4 +16,8 @@ class OpencvClass(bpy.types.Operator):
 
             image = cv2.imread(image_path, 1)
 
+            back_sub = cv2.createBackgroundSubtractorMOG2()
+
+            fg_mask = back_sub.apply(image)
+
         return {'FINISHED'}
