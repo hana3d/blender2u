@@ -9,21 +9,8 @@ class ApplyUVTexture(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        for obj in bpy.context.scene.objects:
-            if obj.active_material is None:
-                obj.original_material.add().add(None)
-            elif "UVMT" not in obj.active_material.name:
-                obj.original_material.clear()
-                for material_slots in obj.material_slots:
-                    obj.original_material.add().add(material_slots.material)
-                obj.data.materials.clear()
-            else:
-                active_material = obj.active_material
-                obj.data.materials.clear()
-                bpy.data.materials.remove(active_material)
-
-            mat = bpy.data.materials.new("UVMT")
-            obj.active_material = mat
+        if bpy.data.materials.get('.UVMT') is None:
+            mat = bpy.data.materials.new(".UVMT")
             mat.use_nodes = True
             node_tree = mat.node_tree
 
@@ -33,6 +20,21 @@ class ApplyUVTexture(bpy.types.Operator):
             node_tree.links.new(nodeMapping.outputs[0], nodeTexChecher.inputs[0])
             nodeTexCoord = node_tree.nodes.new("ShaderNodeTexCoord")
             node_tree.links.new(nodeTexCoord.outputs[2], nodeMapping.inputs[0])
+
+        for obj in bpy.context.scene.objects:
+            if obj.active_material is None:
+                obj.original_material.add().add(None)
+            elif ".UVMT" not in obj.active_material.name:
+                obj.original_material.clear()
+                for material_slots in obj.material_slots:
+                    obj.original_material.add().add(material_slots.material)
+                obj.data.materials.clear()
+            else:
+                active_material = obj.active_material
+                obj.data.materials.clear()
+                bpy.data.materials.remove(active_material)
+
+            obj.active_material = bpy.data.materials['.UVMT']
 
         return {'FINISHED'}
 
