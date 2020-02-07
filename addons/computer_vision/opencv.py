@@ -14,7 +14,9 @@ def find_contours(image_path):
                             cv2.CHAIN_APPROX_SIMPLE)[-2]
     cnt = sorted(cnts, key=cv2.contourArea)[-1]
 
-    return cnt
+    dimensions = img.shape
+
+    return dimensions, cnt
 
 
 class OpencvClass(bpy.types.Operator):
@@ -27,9 +29,12 @@ class OpencvClass(bpy.types.Operator):
         obj = bpy.context.active_object
 
         if hasattr(obj.data, 'filepath'):
-            image_path = obj.data.filepath
+            image_path = bpy.path.abspath(obj.data.filepath)
 
-            cnt = find_contours(image_path)
-            print(cnt[0][0])
+            dimensions, cnt = find_contours(image_path)
+
+            print('Height: ', dimensions[0])
+            print('Width: ', dimensions[1])
+            print('First Point: ', cnt[0][0])
 
         return {'FINISHED'}

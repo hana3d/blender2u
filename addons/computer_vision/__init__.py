@@ -4,7 +4,7 @@ bl_info = {
     "description": "",
     "blender": (2, 80, 0),
     "location": "",
-    "category": "System"
+    "category": "Mesh"
 }
 
 
