@@ -1,5 +1,6 @@
 import bpy
 import cv2
+import bmesh
 
 
 def find_contours(image_path):
@@ -37,21 +38,41 @@ def convert_coordinates(obj, dimensions, cnt):
     center_z = location_z + offset_y + size_scale * dimensions[0] / 2
 
     # 2D
-    contour_x = cnt[0][0][0] * size_scale
-    contour_y = cnt[0][0][1] * size_scale
+    contour_x = cnt[0][0] * size_scale
+    contour_y = cnt[0][1] * size_scale
 
     # 3D
     final_x = center_x + contour_x
     final_y = center_y
     final_z = center_z - contour_y
 
-    bpy.ops.object.empty_add(type='PLAIN_AXES', location=(final_x, final_y, final_z))
+    return (final_x, final_y, final_z)
 
     # print(size_scale)
     # print(center_x, center_y, center_z)
     # print('Height: ', dimensions[0])
     # print('Width: ', dimensions[1])
     # print('First Point: ', cnt[0][0])
+
+
+def create_mesh(vertices):
+    mesh = bpy.data.meshes.new("mesh")
+    obj = bpy.data.objects.new("MyObject", mesh)
+
+    scene = bpy.context.scene
+    scene.collection.objects.link(obj)  # put the object into the scene (link)
+    bpy.context.view_layer.objects.active = obj  # set as the active object in the scene
+    obj.select_set(True)  # select object
+
+    mesh = bpy.context.object.data
+    bm = bmesh.new()
+
+    for v in vertices:
+        bm.verts.new(v)  # add a new vert
+
+    # make the bmesh the object's mesh
+    bm.to_mesh(mesh)
+    bm.free()
 
 
 class OpencvClass(bpy.types.Operator):
@@ -67,6 +88,11 @@ class OpencvClass(bpy.types.Operator):
             image_path = bpy.path.abspath(obj.data.filepath)
 
             dimensions, cnt = find_contours(image_path)
-            convert_coordinates(obj, dimensions, cnt)
+
+            vertices = []
+            for point in cnt:
+                vertices.append(convert_coordinates(obj, dimensions, point))
+
+            create_mesh(vertices)
 
         return {'FINISHED'}
