@@ -28,18 +28,30 @@ def convert_coordinates(obj, dimensions, cnt):
     location_y = obj.location.y
     location_z = obj.location.z
     # 2D
-    offset_x = obj.empty_image_offset[0] * display_size
-    offset_y = obj.empty_image_offset[1] * display_size
+    offset_x = (obj.empty_image_offset[0] + 0.5) * display_size
+    offset_y = (obj.empty_image_offset[1] + 0.5) * display_size
 
-    center_x = location_x + offset_x
+    # 3D
+    center_x = location_x + offset_x - display_size / 2
     center_y = location_y
-    center_z = location_z + offset_y
+    center_z = location_z + offset_y + size_scale * dimensions[0] / 2
 
-    print(size_scale)
-    print(center_x, center_y, center_z)
-    print('Height: ', dimensions[0])
-    print('Width: ', dimensions[1])
-    print('First Point: ', cnt[0][0])
+    # 2D
+    contour_x = cnt[0][0][0] * size_scale
+    contour_y = cnt[0][0][1] * size_scale
+
+    # 3D
+    final_x = center_x + contour_x
+    final_y = center_y
+    final_z = center_z - contour_y
+
+    bpy.ops.object.empty_add(type='PLAIN_AXES', location=(final_x, final_y, final_z))
+
+    # print(size_scale)
+    # print(center_x, center_y, center_z)
+    # print('Height: ', dimensions[0])
+    # print('Width: ', dimensions[1])
+    # print('First Point: ', cnt[0][0])
 
 
 class OpencvClass(bpy.types.Operator):
