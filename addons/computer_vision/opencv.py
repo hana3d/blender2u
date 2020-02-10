@@ -20,6 +20,15 @@ def find_contours(image_path):
 
 
 def convert_coordinates(obj, dimensions, cnt):
+    display_size = obj.empty_display_size
+    size_scale = display_size / dimensions[1]
+
+    location_x = obj.location.x
+    location_y = obj.location.z
+    offset_x = obj.empty_image_offset[0]  # percentage
+    offset_y = obj.empty_image_offset[1]  # percentage
+
+    print(size_scale)
     print('Height: ', dimensions[0])
     print('Width: ', dimensions[1])
     print('First Point: ', cnt[0][0])
