@@ -7,7 +7,7 @@ bl_info = {
 
 import bpy
 import os
-from .panel import SubstancePanel
+from .panel import OBJECT_PT_SubstancePanel
 from .settings import HHConnectSettings
 from .integration import HHPresetsTimerOperator, HHDelMatsOps, HHDelTxtsOps, HHDelAllOps
 
@@ -18,7 +18,7 @@ classes = (
     HHDelMatsOps,
     HHDelTxtsOps,
     HHDelAllOps,
-    SubstancePanel
+    OBJECT_PT_SubstancePanel
 )
 
 

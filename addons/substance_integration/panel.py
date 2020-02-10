@@ -1,7 +1,7 @@
 import bpy
 
 
-class SubstancePanel(bpy.types.Panel):
+class OBJECT_PT_SubstancePanel(bpy.types.Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_label = "Substance Integration"
