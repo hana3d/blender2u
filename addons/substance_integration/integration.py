@@ -45,14 +45,9 @@ class HHPresetsTimerOperator(bpy.types.Operator):
         hh_settings = scene.hh_settings
         hh_settings.active = not hh_settings.active
 
-        if (2, 80, 0) > bpy.app.version:
-            render = bpy.context.scene.render.engine
-            if render == 'BLENDER_RENDER' or render == 'BLENDER_GAME' or render == 'BLENDER_CLAY':
-                bpy.context.scene.render.engine = 'CYCLES'
-        else:
-            render = bpy.context.scene.view_render.engine
-            if render == 'BLENDER_RENDER' or render == 'BLENDER_GAME' or render == 'BLENDER_CLAY':
-                bpy.context.scene.view_render.engine = 'CYCLES'
+        render = bpy.context.scene.render.engine
+        if render == 'BLENDER_RENDER' or render == 'BLENDER_GAME' or render == 'BLENDER_CLAY':
+            bpy.context.scene.render.engine = 'CYCLES'
 
         wm = context.window_manager
         self._timer = wm.event_timer_add(hh_settings.time, context.window)
