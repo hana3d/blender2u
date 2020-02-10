@@ -23,12 +23,20 @@ def convert_coordinates(obj, dimensions, cnt):
     display_size = obj.empty_display_size
     size_scale = display_size / dimensions[1]
 
+    # 3D
     location_x = obj.location.x
-    location_y = obj.location.z
-    offset_x = obj.empty_image_offset[0]  # percentage
-    offset_y = obj.empty_image_offset[1]  # percentage
+    location_y = obj.location.y
+    location_z = obj.location.z
+    # 2D
+    offset_x = obj.empty_image_offset[0] * display_size
+    offset_y = obj.empty_image_offset[1] * display_size
+
+    center_x = location_x + offset_x
+    center_y = location_y
+    center_z = location_z + offset_y
 
     print(size_scale)
+    print(center_x, center_y, center_z)
     print('Height: ', dimensions[0])
     print('Width: ', dimensions[1])
     print('First Point: ', cnt[0][0])
