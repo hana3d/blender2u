@@ -19,6 +19,12 @@ def find_contours(image_path):
     return dimensions, cnt
 
 
+def convert_coordinates(obj, dimensions, cnt):
+    print('Height: ', dimensions[0])
+    print('Width: ', dimensions[1])
+    print('First Point: ', cnt[0][0])
+
+
 class OpencvClass(bpy.types.Operator):
     """OpenCV Class"""
     bl_idname = "object.opencv_class"
@@ -32,9 +38,6 @@ class OpencvClass(bpy.types.Operator):
             image_path = bpy.path.abspath(obj.data.filepath)
 
             dimensions, cnt = find_contours(image_path)
-
-            print('Height: ', dimensions[0])
-            print('Width: ', dimensions[1])
-            print('First Point: ', cnt[0][0])
+            convert_coordinates(obj, dimensions, cnt)
 
         return {'FINISHED'}
