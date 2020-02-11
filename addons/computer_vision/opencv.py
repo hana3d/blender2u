@@ -48,21 +48,15 @@ def convert_coordinates(obj, dimensions, cnt):
 
     return (final_x, final_y, final_z)
 
-    # print(size_scale)
-    # print(center_x, center_y, center_z)
-    # print('Height: ', dimensions[0])
-    # print('Width: ', dimensions[1])
-    # print('First Point: ', cnt[0][0])
-
 
 def create_mesh(coordinates):
     mesh = bpy.data.meshes.new("mesh")
     obj = bpy.data.objects.new("MyObject", mesh)
 
     scene = bpy.context.scene
-    scene.collection.objects.link(obj)  # put the object into the scene (link)
-    bpy.context.view_layer.objects.active = obj  # set as the active object in the scene
-    obj.select_set(True)  # select object
+    scene.collection.objects.link(obj)
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
 
     mesh = bpy.context.object.data
     bm = bmesh.new()
@@ -70,12 +64,11 @@ def create_mesh(coordinates):
     vertices = []
 
     for v in coordinates:
-        vert = bm.verts.new(v)  # add a new vert
+        vert = bm.verts.new(v)
         vertices.append(vert)
 
     bm.faces.new(vertices)
 
-    # make the bmesh the object's mesh
     bm.to_mesh(mesh)
     bm.free()
 
