@@ -4,6 +4,20 @@ import bmesh
 # from .utils import find_contours, convert_coordinates, create_mesh
 
 
+class CannyEdgesProps(bpy.types.PropertyGroup):
+    threshold_max: bpy.props.FloatProperty(
+        name="Max Threshold",
+        description="Max Threshold",
+        default=0.1
+    )
+
+    threshold_min: bpy.props.FloatProperty(
+        name="Min Threshold",
+        description="Min Threshold",
+        default=0.1
+    )
+
+
 class CannyEdgesClass(bpy.types.Operator):
     """Canny Edges Class"""
     bl_idname = "object.canny_edges"

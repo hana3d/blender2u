@@ -6,8 +6,8 @@ from .utils import find_contours, convert_coordinates, create_mesh
 
 class MeshContourProps(bpy.types.PropertyGroup):
     resolution: bpy.props.FloatProperty(
-        name="Interval",
-        description="Set the listening time interval (seconds) for the Hedgehog Connect service",
+        name="Resolution",
+        description="Number of vertices in the mesh",
         default=0.1
     )
 
