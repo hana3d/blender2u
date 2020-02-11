@@ -12,11 +12,14 @@ class OBJECT_PT_CVPanel(Panel):
     def draw(self, context):
         global custom_icons
 
+        scene = context.scene
         layout = self.layout
 
         # Bool diff button
         row = layout.row()
         row.operator('object.mesh_contour', text='Mesh Contour', icon='MOD_BOOLEAN')
+
+        layout.prop(scene.mesh_contour_props, "resolution")
 
         row = layout.row()
         row.operator('object.canny_edges', text='Canny Edges', icon='MOD_BOOLEAN')

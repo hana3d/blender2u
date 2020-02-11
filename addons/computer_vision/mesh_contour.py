@@ -4,6 +4,14 @@ import bmesh
 from .utils import find_contours, convert_coordinates, create_mesh
 
 
+class MeshContourProps(bpy.types.PropertyGroup):
+    resolution: bpy.props.FloatProperty(
+        name="Interval",
+        description="Set the listening time interval (seconds) for the Hedgehog Connect service",
+        default=0.1
+    )
+
+
 class MeshContourClass(bpy.types.Operator):
     """Mesh Contour Class"""
     bl_idname = "object.mesh_contour"

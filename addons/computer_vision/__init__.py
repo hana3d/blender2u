@@ -12,7 +12,7 @@ import os
 import sys
 import bpy
 from . import environment
-from .mesh_contour import MeshContourClass
+from .mesh_contour import MeshContourClass, MeshContourProps
 from .canny_edges import CannyEdgesClass
 from .panel import OBJECT_PT_CVPanel
 # from .libs.replication.replication.constants import RP_COMMON
@@ -27,6 +27,7 @@ DEPENDENCIES = {
 # UTILITY FUNCTIONS
 classes = (
     MeshContourClass,
+    MeshContourProps,
     CannyEdgesClass,
     OBJECT_PT_CVPanel
 )
@@ -43,7 +44,11 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
+    bpy.types.Scene.mesh_contour_props = bpy.props.PointerProperty(type=MeshContourProps)
+
 
 def unregister():
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
+
+    del bpy.types.Scene.mesh_contour_props
