@@ -15,8 +15,9 @@ class MeshContourClass(bpy.types.Operator):
 
         if hasattr(obj.data, 'filepath'):
             image_path = bpy.path.abspath(obj.data.filepath)
+            img = cv2.imread(image_path, 1)
 
-            dimensions, cnt = find_contours(image_path)
+            dimensions, cnt = find_contours(img)
 
             vertices = []
             for point in cnt:

@@ -1,7 +1,7 @@
 import bpy
 import cv2
 import bmesh
-from .utils import find_contours, convert_coordinates, create_mesh
+# from .utils import find_contours, convert_coordinates, create_mesh
 
 
 class CannyEdgesClass(bpy.types.Operator):
@@ -15,13 +15,10 @@ class CannyEdgesClass(bpy.types.Operator):
 
         if hasattr(obj.data, 'filepath'):
             image_path = bpy.path.abspath(obj.data.filepath)
+            img = cv2.imread(image_path, 1)
 
-            dimensions, cnt = find_contours(image_path)
+            edges = cv2.Canny(img, 100, 200)
 
-            vertices = []
-            for point in cnt:
-                vertices.append(convert_coordinates(obj, dimensions, point))
-
-            create_mesh(vertices)
+            print(edges)
 
         return {'FINISHED'}

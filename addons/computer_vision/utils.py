@@ -3,8 +3,7 @@ import bmesh
 import cv2
 
 
-def find_contours(image_path):
-    img = cv2.imread(image_path, 1)
+def find_contours(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     th, threshed = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
 
