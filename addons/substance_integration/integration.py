@@ -50,7 +50,7 @@ class HHPresetsTimerOperator(bpy.types.Operator):
             bpy.context.scene.render.engine = 'CYCLES'
 
         wm = context.window_manager
-        self._timer = wm.event_timer_add(hh_settings.time, context.window)
+        self._timer = wm.event_timer_add(hh_settings.time, window=context.window)
         wm.modal_handler_add(self)
         print("Substance Painter Live Link: Service started")
 
