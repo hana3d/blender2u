@@ -1,6 +1,6 @@
 import bpy
-import cv2
 import bmesh
+import cv2
 
 
 def find_contours(image_path):
@@ -71,26 +71,3 @@ def create_mesh(coordinates):
 
     bm.to_mesh(mesh)
     bm.free()
-
-
-class OpencvClass(bpy.types.Operator):
-    """OpenCV Class"""
-    bl_idname = "object.opencv_class"
-    bl_label = "OpenCV Class"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        obj = bpy.context.active_object
-
-        if hasattr(obj.data, 'filepath'):
-            image_path = bpy.path.abspath(obj.data.filepath)
-
-            dimensions, cnt = find_contours(image_path)
-
-            vertices = []
-            for point in cnt:
-                vertices.append(convert_coordinates(obj, dimensions, point))
-
-            create_mesh(vertices)
-
-        return {'FINISHED'}

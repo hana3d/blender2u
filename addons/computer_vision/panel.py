@@ -16,4 +16,7 @@ class OBJECT_PT_CVPanel(Panel):
 
         # Bool diff button
         row = layout.row()
-        row.operator('object.opencv_class', text='Activate', icon='MOD_BOOLEAN')
+        row.operator('object.mesh_contour', text='Mesh Contour', icon='MOD_BOOLEAN')
+
+        row = layout.row()
+        row.operator('object.canny_edges', text='Canny Edges', icon='MOD_BOOLEAN')

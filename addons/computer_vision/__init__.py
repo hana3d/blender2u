@@ -12,7 +12,8 @@ import os
 import sys
 import bpy
 from . import environment
-from .opencv import OpencvClass
+from .mesh_contour import MeshContourClass
+from .canny_edges import CannyEdgesClass
 from .panel import OBJECT_PT_CVPanel
 # from .libs.replication.replication.constants import RP_COMMON
 
@@ -25,7 +26,8 @@ DEPENDENCIES = {
 # TODO: refactor config
 # UTILITY FUNCTIONS
 classes = (
-    OpencvClass,
+    MeshContourClass,
+    CannyEdgesClass,
     OBJECT_PT_CVPanel
 )
 
