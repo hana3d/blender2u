@@ -55,7 +55,7 @@ def convert_coordinates(obj, dimensions, cnt):
     # print('First Point: ', cnt[0][0])
 
 
-def create_mesh(vertices):
+def create_mesh(coordinates):
     mesh = bpy.data.meshes.new("mesh")
     obj = bpy.data.objects.new("MyObject", mesh)
 
@@ -67,8 +67,13 @@ def create_mesh(vertices):
     mesh = bpy.context.object.data
     bm = bmesh.new()
 
-    for v in vertices:
-        bm.verts.new(v)  # add a new vert
+    vertices = []
+
+    for v in coordinates:
+        vert = bm.verts.new(v)  # add a new vert
+        vertices.append(vert)
+
+    bm.faces.new(vertices)
 
     # make the bmesh the object's mesh
     bm.to_mesh(mesh)
