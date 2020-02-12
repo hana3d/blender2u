@@ -1,6 +1,7 @@
 import bpy
 import cv2
 import bmesh
+import numpy as np
 from .utils import find_contours, convert_coordinates, create_mesh
 
 
@@ -21,6 +22,7 @@ class MeshContourClass(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        scene = context.scene
         obj = bpy.context.active_object
 
         if hasattr(obj.data, 'filepath'):
@@ -32,6 +34,14 @@ class MeshContourClass(bpy.types.Operator):
             vertices = []
             for point in cnt:
                 vertices.append(convert_coordinates(obj, dimensions, point))
+            vertices = np.array(vertices)
+
+            resolution = scene.mesh_contour_props.resolution
+
+            drop_total = (1 - resolution) * vertices.size
+            drop_ratio = int(round(vertices.size / drop_total))
+
+            vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
 
             create_mesh(vertices)
 
