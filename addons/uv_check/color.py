@@ -30,9 +30,7 @@ class ApplyUVTexture(bpy.types.Operator):
                     obj.original_material.add().add(material_slots.material)
                 obj.data.materials.clear()
             else:
-                active_material = obj.active_material
                 obj.data.materials.clear()
-                bpy.data.materials.remove(active_material)
 
             obj.active_material = bpy.data.materials['.UVMT']
 
@@ -49,9 +47,7 @@ class RemoveUVTexture(bpy.types.Operator):
         for obj in bpy.context.scene.objects:
             if len(obj.original_material) > 0:
                 if obj.original_material[0].material != obj.active_material:
-                    active_material = obj.active_material
                     obj.data.materials.clear()
-                    bpy.data.materials.remove(active_material)
                     for material_slots in obj.original_material:
                         obj.data.materials.append(material_slots.material)
 
