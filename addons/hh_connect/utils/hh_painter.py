@@ -81,7 +81,7 @@ def createPrincipledPacked(name,path,ext,normal):
     txt_aoroughmetal.location = (-1200,900)
     img_aoroughmetal = bpy.data.images.load(filepath = path+"/"+name+"_aoroughmetal."+ext)
     txt_aoroughmetal.image = img_aoroughmetal
-    txt_aoroughmetal.color_space = 'NONE'
+    txt_aoroughmetal.image.colorspace_settings.name = 'Non-Color'
     mat.node_tree.links.new(txt_aoroughmetal.inputs[0], uv_map.outputs[0])
     mat.node_tree.links.new(separateRGB.inputs[0], txt_aoroughmetal.outputs[0])
     mat.node_tree.links.new(principaledBSDF.inputs[7], separateRGB.outputs[1])
@@ -93,7 +93,7 @@ def createPrincipledPacked(name,path,ext,normal):
     txt_normal.location = (-2100,600)
     img_normal = bpy.data.images.load(filepath = path+"/"+name+"_normal."+ext)
     txt_normal.image = img_normal
-    txt_normal.color_space = 'NONE'
+    txt_normal.image.colorspace_settings.name = 'Non-Color'
 
     if normal == 0:
         separateRGBNormal = nodes.new('ShaderNodeSeparateRGB')
@@ -131,7 +131,7 @@ def createPrincipledPacked(name,path,ext,normal):
         txt_opacity.location = (-1200,0)
         img_opacity = bpy.data.images.load(filepath = path+"/"+name+"_opacity."+ext)
         txt_opacity.image = img_opacity
-        txt_opacity.color_space = 'NONE'
+        txt_opacity.image.colorspace_settings.name = 'Non-Color'
         mat.node_tree.links.new(txt_opacity.inputs[0], uv_map.outputs[0])
 
         invertOpacity = nodes.new('ShaderNodeInvert')
@@ -148,7 +148,7 @@ def createPrincipledPacked(name,path,ext,normal):
         txt_emissive.location = (-1200,300)
         img_emissive = bpy.data.images.load(filepath = path+"/"+name+"_emissive."+ext)
         txt_emissive.image = img_emissive
-        txt_emissive.color_space = 'COLOR'
+        txt_emissive.image.colorspace_settings.name = 'sRGB'
         mat.node_tree.links.new(txt_emissive.inputs[0], uv_map.outputs[0])
         mat.node_tree.links.new(emissionShader.inputs[0], txt_emissive.outputs[0])
         mat.node_tree.links.new(secondaryMixShader.inputs[0], txt_emissive.outputs[0])
@@ -206,7 +206,7 @@ def createPrincipled(name,path,ext,normal):
     txt_rough.location = (-900,900)
     img_metal = bpy.data.images.load(filepath = path+"/"+name+"_roughness."+ext)
     txt_rough.image = img_metal
-    txt_rough.color_space = 'NONE'
+    txt_rough.image.colorspace_settings.name = 'Non-Color'
     mat.node_tree.links.new(principaledBSDF.inputs[7], txt_rough.outputs[0])
     mat.node_tree.links.new(txt_rough.inputs[0], uv_map.outputs[0])
 
@@ -215,7 +215,7 @@ def createPrincipled(name,path,ext,normal):
     txt_metal.location = (-900,600)
     img_metal = bpy.data.images.load(filepath = path+"/"+name+"_metallic."+ext)
     txt_metal.image = img_metal
-    txt_metal.color_space = 'NONE'
+    txt_metal.image.colorspace_settings.name = 'Non-Color'
     mat.node_tree.links.new(principaledBSDF.inputs[4], txt_metal.outputs[0])
     mat.node_tree.links.new(txt_metal.inputs[0], uv_map.outputs[0])
 
@@ -226,7 +226,7 @@ def createPrincipled(name,path,ext,normal):
         txt_ao.location = (-1200,300)
         img_ao = bpy.data.images.load(filepath = path+"/"+name+"_ao."+ext)
         txt_ao.image = img_ao
-        txt_ao.color_space = 'NONE'
+        txt_ao.image.colorspace_settings.name = 'Non-Color'
         mat.node_tree.links.new(txt_ao.inputs[0], uv_map.outputs[0])
 
 
@@ -235,7 +235,7 @@ def createPrincipled(name,path,ext,normal):
     txt_normal.location = (-2100,600)
     img_normal = bpy.data.images.load(filepath = path+"/"+name+"_normal."+ext)
     txt_normal.image = img_normal
-    txt_normal.color_space = 'NONE'
+    txt_normal.image.colorspace_settings.name = 'Non-Color'
 
     if normal == 0:
         separateRGBNormal = nodes.new('ShaderNodeSeparateRGB')
@@ -273,7 +273,7 @@ def createPrincipled(name,path,ext,normal):
         txt_opacity.location = (-1200,0)
         img_opacity = bpy.data.images.load(filepath = path+"/"+name+"_opacity."+ext)
         txt_opacity.image = img_opacity
-        txt_opacity.color_space = 'NONE'
+        txt_opacity.image.colorspace_settings.name = 'Non-Color'
         mat.node_tree.links.new(txt_opacity.inputs[0], uv_map.outputs[0])
 
         invertOpacity = nodes.new('ShaderNodeInvert')
@@ -290,7 +290,7 @@ def createPrincipled(name,path,ext,normal):
         txt_emissive.location = (-1200,300)
         img_emissive = bpy.data.images.load(filepath = path+"/"+name+"_emissive."+ext)
         txt_emissive.image = img_emissive
-        txt_emissive.color_space = 'COLOR'
+        txt_emissive.image.colorspace_settings.name = 'sRGB'
         mat.node_tree.links.new(txt_emissive.inputs[0], uv_map.outputs[0])
         mat.node_tree.links.new(emissionShader.inputs[0], txt_emissive.outputs[0])
         mat.node_tree.links.new(secondaryMixShader.inputs[0], txt_emissive.outputs[0])
