@@ -27,7 +27,7 @@ import math
 import bpy
 from . import addon_updater_ops, ui
 from .addons import analytics, auto_scale, bake_nodes, collection_grid, glb_export, glb_usdz_export, polycount, usdz_export, uv_check, \
-    hh_connect
+    hh_connect, blendercv
 
 
 classes = (
@@ -45,7 +45,8 @@ addons = {
     polycount,
     usdz_export,
     uv_check,
-    hh_connect
+    hh_connect,
+    blendercv
 }
 
 

@@ -8,13 +8,13 @@ class CannyEdgesProps(bpy.types.PropertyGroup):
     threshold_max: bpy.props.FloatProperty(
         name="Max Threshold",
         description="Max Threshold",
-        default=0.1
+        default=200
     )
 
     threshold_min: bpy.props.FloatProperty(
         name="Min Threshold",
         description="Min Threshold",
-        default=0.1
+        default=100
     )
 
 
@@ -25,13 +25,14 @@ class CannyEdgesClass(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        scene = context.scene
         obj = bpy.context.active_object
 
         if hasattr(obj.data, 'filepath'):
             image_path = bpy.path.abspath(obj.data.filepath)
             img = cv2.imread(image_path, 1)
 
-            edges = cv2.Canny(img, 100, 200)
+            edges = cv2.Canny(img, scene.canny_edges_props.threshold_min, scene.canny_edges_props.threshold_max)
 
             print(edges)
 

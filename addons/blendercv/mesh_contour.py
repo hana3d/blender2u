@@ -8,7 +8,9 @@ class MeshContourProps(bpy.types.PropertyGroup):
     resolution: bpy.props.FloatProperty(
         name="Resolution",
         description="Number of vertices in the mesh",
-        default=0.1
+        default=0.9,
+        min=0,
+        max=1
     )
 
 

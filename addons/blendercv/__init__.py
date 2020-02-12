@@ -1,10 +1,10 @@
 bl_info = {
-    "name": "Computer-Vision",
+    "name": "BlenderCV",
     "author": "Real2U",
     "description": "",
     "blender": (2, 80, 0),
     "location": "",
-    "category": "Mesh"
+    "category": "System"
 }
 
 
@@ -13,8 +13,8 @@ import sys
 import bpy
 from . import environment
 from .mesh_contour import MeshContourClass, MeshContourProps
-from .canny_edges import CannyEdgesClass
-from .panel import OBJECT_PT_CVPanel
+from .canny_edges import CannyEdgesClass, CannyEdgesProps
+from .panel import OBJECT_PT_ContourPanel, OBJECT_PT_CannyPanel
 # from .libs.replication.replication.constants import RP_COMMON
 
 
@@ -29,7 +29,9 @@ classes = (
     MeshContourClass,
     MeshContourProps,
     CannyEdgesClass,
-    OBJECT_PT_CVPanel
+    CannyEdgesProps,
+    OBJECT_PT_ContourPanel,
+    OBJECT_PT_CannyPanel
 )
 
 # libs = os.path.dirname(os.path.abspath(__file__)) + "\\libs\\replication"
@@ -45,6 +47,7 @@ def register():
         bpy.utils.register_class(cls)
 
     bpy.types.Scene.mesh_contour_props = bpy.props.PointerProperty(type=MeshContourProps)
+    bpy.types.Scene.canny_edges_props = bpy.props.PointerProperty(type=CannyEdgesProps)
 
 
 def unregister():
@@ -52,3 +55,4 @@ def unregister():
         bpy.utils.unregister_class(cls)
 
     del bpy.types.Scene.mesh_contour_props
+    del bpy.types.Scene.canny_edges_props
