@@ -37,9 +37,7 @@ class MeshContourClass(bpy.types.Operator):
             vertices = np.array(vertices)
 
             resolution = scene.mesh_contour_props.resolution
-
-            drop_total = (1 - resolution) * vertices.size
-            drop_ratio = int(round(vertices.size / drop_total))
+            drop_ratio = int(round(1 / (1 - resolution)))
 
             vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
 
