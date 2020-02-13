@@ -26,15 +26,29 @@ from .panel import OBJECT_PT_UVPanel
 from .color import ApplyUVTexture, RemoveUVTexture
 
 
+class FacesArray(bpy.types.PropertyGroup):
+    face: bpy.props.IntProperty()
+
+    def add_face(self, ob):
+        self.face = ob
+        return self.face
+
+
 class MaterialArray(bpy.types.PropertyGroup):
     material: bpy.props.PointerProperty(type=bpy.types.Material)
+    faces: bpy.props.CollectionProperty(type=FacesArray)
 
-    def add(self, ob):
+    def add_material(self, ob):
         self.material = ob
         return self.material
 
+    def add_face(self, ob):
+        self.faces.add().add_face(ob)
+        return self.faces
+
 
 def register():
+    bpy.utils.register_class(FacesArray)
     bpy.utils.register_class(MaterialArray)
     bpy.types.Object.original_material = bpy.props.CollectionProperty(type=MaterialArray)
 
@@ -51,6 +65,7 @@ def unregister():
     if hasattr(bpy.types.Object, 'original_material'):
         del(bpy.types.Object.original_material)
     bpy.utils.unregister_class(MaterialArray)
+    bpy.utils.unregister_class(FacesArray)
 
 
 if __name__ == "__main__":
