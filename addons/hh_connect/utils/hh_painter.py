@@ -307,9 +307,9 @@ def refreshPrincipled():
         if area.type in ['IMAGE_EDITOR', 'VIEW_3D']:
             area.tag_redraw()
 
-    if bpy.context.space_data.viewport_shade == 'RENDERED':
-        bpy.context.space_data.viewport_shade = 'MATERIAL'
-        bpy.context.space_data.viewport_shade = 'RENDERED'
+    if bpy.context.space_data.shading.type == 'RENDERED':
+        bpy.context.space_data.shading.type = 'MATERIAL'
+        bpy.context.space_data.shading.type = 'RENDERED'
 
 '''
 import bpy
