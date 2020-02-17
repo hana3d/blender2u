@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+-
+
+## [1.2.7] - 2020-02-17
+### Changed
+- Blender version fixes for hhconnect
+- Fix multiple materials assignment for uv check and heatmap
+
+## [1.2.0] - 2020-02-11
+### Added
+- Substance Integration (hhconnect)
 
 ## [1.1.6] - 2020-02-06
 ### Changed

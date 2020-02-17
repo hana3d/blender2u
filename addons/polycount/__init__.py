@@ -16,7 +16,6 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (1, 6, 0),
     "location": "",
     "warning": "",
     "category": "Mesh"
@@ -53,20 +52,29 @@ class PolycountObjects(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class FacesArray(bpy.types.PropertyGroup):
+    face: bpy.props.IntProperty()
+
+    def add_face(self, ob):
+        self.face = ob
+        return self.face
+
+
 class MaterialArray(bpy.types.PropertyGroup):
     material: bpy.props.PointerProperty(type=bpy.types.Material)
+    faces: bpy.props.CollectionProperty(type=FacesArray)
 
-    def add(self, ob):
+    def add_material(self, ob):
         self.material = ob
         return self.material
 
-
-def menu_func(self, context):
-    self.layout.operator(PolycountCollections.bl_idname)
-    self.layout.operator(PolycountObjects.bl_idname)
+    def add_face(self, ob):
+        self.faces.add().add_face(ob)
+        return self.faces
 
 
 def register():
+    bpy.utils.register_class(FacesArray)
     bpy.utils.register_class(MaterialArray)
     bpy.types.Object.original_material = bpy.props.CollectionProperty(type=MaterialArray)
 
@@ -75,11 +83,9 @@ def register():
     bpy.utils.register_class(OBJECT_PT_PolycountPanel)
     bpy.utils.register_class(ColorObjects)
     bpy.utils.register_class(OriginalColor)
-    # bpy.types.TOPBAR_MT_edit.append(menu_func)
 
 
 def unregister():
-    # bpy.types.TOPBAR_MT_edit.remove(menu_func)
     bpy.utils.unregister_class(OriginalColor)
     bpy.utils.unregister_class(ColorObjects)
     bpy.utils.unregister_class(OBJECT_PT_PolycountPanel)
@@ -89,6 +95,7 @@ def unregister():
     if hasattr(bpy.types.Object, 'original_material'):
         del(bpy.types.Object.original_material)
     bpy.utils.unregister_class(MaterialArray)
+    bpy.utils.unregister_class(FacesArray)
 
 
 if __name__ == "__main__":
