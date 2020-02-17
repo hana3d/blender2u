@@ -17,6 +17,12 @@ class CannyEdgesProps(bpy.types.PropertyGroup):
         default=100
     )
 
+    aperture_size: bpy.props.IntProperty(
+        name="Aperture Size",
+        description="Aperture Size",
+        default=3
+    )
+
 
 class CannyEdgesClass(bpy.types.Operator):
     """Canny Edges Class"""
@@ -32,7 +38,9 @@ class CannyEdgesClass(bpy.types.Operator):
             image_path = bpy.path.abspath(obj.data.filepath)
             img = cv2.imread(image_path, 1)
 
-            edges = cv2.Canny(img, scene.canny_edges_props.threshold_min, scene.canny_edges_props.threshold_max)
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            edges = cv2.Canny(gray, scene.canny_edges_props.threshold_min, scene.canny_edges_props.threshold_max,
+                              scene.canny_edges_props.aperture_size, L2gradient=True)
 
             print(edges)
 
