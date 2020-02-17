@@ -57,18 +57,11 @@ class RemoveUVTexture(bpy.types.Operator):
                     obj.data.materials.clear()
                     if len(obj.original_material) > 1:
                         for index, material_slots in enumerate(obj.original_material):
-                            bpy.ops.object.select_all(action='DESELECT')
-                            bpy.context.view_layer.objects.active = obj
-                            bpy.ops.object.mode_set(mode='EDIT')
-                            for polygon in obj.data.polygons:
-                                polygon.select = False
                             obj.data.materials.append(material_slots.material)
-                            obj.active_material_index = index
                             for face in material_slots.faces:
-                                print(face.face)
-                                obj.data.polygons[face.face].select = True
-                            print(bpy.ops.object.material_slot_assign())
-                            bpy.ops.object.mode_set(mode='OBJECT')
+                                print('Face', face.face)
+                                print('Index', index)
+                                obj.data.polygons[face.face].material_index = index
                     else:
                         obj.data.materials.append(obj.original_material[0].material)
 
