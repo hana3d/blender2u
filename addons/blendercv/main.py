@@ -1,5 +1,5 @@
 import bpy
-from .mesh_contour import MeshContourClass, MeshContourProps
+from .mesh_contour import MeshContourClass, MeshContourProps, MeshContourMenu
 from .canny_edges import CannyEdgesClass, CannyEdgesProps
 from .panel import OBJECT_PT_ContourPanel, OBJECT_PT_CannyPanel
 
@@ -7,6 +7,7 @@ from .panel import OBJECT_PT_ContourPanel, OBJECT_PT_CannyPanel
 classes = (
     MeshContourClass,
     MeshContourProps,
+    MeshContourMenu,
     CannyEdgesClass,
     CannyEdgesProps,
     OBJECT_PT_ContourPanel,
