@@ -5,11 +5,12 @@ import math
 
 
 def find_contours(img):
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blur = cv2.bilateralFilter(img, 9, 75, 75)
+    gray = cv2.cvtColor(blur, cv2.COLOR_BGR2GRAY)
     th, threshed = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY_INV)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))
-    morphed = cv2.morphologyEx(threshed, cv2.MORPH_CLOSE, kernel)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    morphed = cv2.morphologyEx(threshed, cv2.MORPH_OPEN, kernel)
 
     cnts = cv2.findContours(morphed, cv2.RETR_EXTERNAL,
                             cv2.CHAIN_APPROX_SIMPLE)[-2]
