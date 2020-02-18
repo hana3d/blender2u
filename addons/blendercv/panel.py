@@ -16,6 +16,8 @@ class OBJECT_PT_ContourPanel(Panel):
         layout = self.layout
 
         layout.prop(scene.mesh_contour_props, "resolution")
+        layout.prop(scene.mesh_contour_props, "dissolve_angle")
+        layout.prop(scene.mesh_contour_props, "merge_distance")
         row = layout.row()
         row.operator('object.mesh_contour', text='Mesh Contour', icon='MOD_BOOLEAN')
 

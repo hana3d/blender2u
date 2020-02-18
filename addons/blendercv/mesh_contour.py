@@ -14,6 +14,21 @@ class MeshContourProps(bpy.types.PropertyGroup):
         max=1
     )
 
+    dissolve_angle: bpy.props.FloatProperty(
+        name="Dissolve Angle",
+        description="Max angle for limited dissolve",
+        default=5,
+        min=0,
+        max=180
+    )
+
+    merge_distance: bpy.props.FloatProperty(
+        name="Merge Distance",
+        description="Max distance to degenerate",
+        default=0.01,
+        min=0
+    )
+
 
 class MeshContourClass(bpy.types.Operator):
     """Mesh Contour Class"""
@@ -41,6 +56,6 @@ class MeshContourClass(bpy.types.Operator):
 
             vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
 
-            create_mesh(vertices)
+            create_mesh(vertices, scene.mesh_contour_props.dissolve_angle, scene.mesh_contour_props.merge_distance)
 
         return {'FINISHED'}

@@ -1,6 +1,7 @@
 import bpy
 import bmesh
 import cv2
+import math
 
 
 def find_contours(img):
@@ -48,7 +49,7 @@ def convert_coordinates(obj, dimensions, cnt):
     return (final_x, final_y, final_z)
 
 
-def create_mesh(coordinates):
+def create_mesh(coordinates, angle_limit, dist):
     mesh = bpy.data.meshes.new("mesh")
     obj = bpy.data.objects.new("MyObject", mesh)
 
@@ -67,6 +68,10 @@ def create_mesh(coordinates):
         vertices.append(vert)
 
     bm.faces.new(vertices)
+
+    bmesh.ops.dissolve_degenerate(bm, dist=dist, edges=bm.edges)
+    bmesh.ops.dissolve_limit(bm, angle_limit=math.radians(angle_limit), use_dissolve_boundaries=False,
+                             verts=bm.verts, edges=bm.edges, delimit={'NORMAL'})
 
     bm.to_mesh(mesh)
     bm.free()
