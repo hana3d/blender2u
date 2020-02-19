@@ -5,12 +5,17 @@ import numpy as np
 from .utils import find_contours, convert_coordinates, create_mesh
 
 
-class MeshContourProps(bpy.types.PropertyGroup):
+class MeshContourClass(bpy.types.Operator):
+    """Mesh Contour Class"""
+    bl_idname = "object.mesh_contour"
+    bl_label = "Mesh Contour Class"
+    bl_options = {'REGISTER', 'UNDO'}
+
     resolution: bpy.props.FloatProperty(
         name="Resolution",
         description="Number of vertices in the mesh",
         default=0.9,
-        min=0,
+        min=0.34,
         max=1
     )
 
@@ -29,54 +34,25 @@ class MeshContourProps(bpy.types.PropertyGroup):
         min=0
     )
 
-
-class MeshContourMenu(bpy.types.Panel):
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "FOOTER"
-    bl_label = "Find Contours"
-    bl_context = "objectmode"
-
-    def draw(self, context):
-        global custom_icons
-
-        scene = context.scene
-        layout = self.layout
-
-        layout.prop(scene.mesh_contour_props, "resolution")
-        layout.prop(scene.mesh_contour_props, "dissolve_angle")
-        layout.prop(scene.mesh_contour_props, "merge_distance")
-        row = layout.row()
-        row.operator('object.mesh_contour', text='Mesh Contour', icon='MOD_BOOLEAN')
-
-
-class MeshContourClass(bpy.types.Operator):
-    """Mesh Contour Class"""
-    bl_idname = "object.mesh_contour"
-    bl_label = "Mesh Contour Class"
-    bl_options = {'REGISTER', 'UNDO'}
-
     def execute(self, context):
-        # scene = context.scene
-        # obj = bpy.context.active_object
+        obj = bpy.context.active_object
 
-        # if hasattr(obj.data, 'filepath'):
-        #     image_path = bpy.path.abspath(obj.data.filepath)
-        #     img = cv2.imread(image_path, 1)
+        if hasattr(obj.data, 'filepath'):
+            image_path = bpy.path.abspath(obj.data.filepath)
+            img = cv2.imread(image_path, 1)
 
-        #     dimensions, cnt = find_contours(img)
+            dimensions, cnt = find_contours(img)
 
-        #     vertices = []
-        #     for point in cnt:
-        #         vertices.append(convert_coordinates(obj, dimensions, point))
-        #     vertices = np.array(vertices)
+            vertices = []
+            for point in cnt:
+                vertices.append(convert_coordinates(obj, dimensions, point))
+            vertices = np.array(vertices)
 
-        #     resolution = scene.mesh_contour_props.resolution
-        #     drop_ratio = int(round(1 / (1 - resolution)))
+            resolution = self.resolution
+            drop_ratio = int(round(1 / (1 - resolution)))
 
-        #     vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
+            vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
 
-        #     create_mesh(vertices, scene.mesh_contour_props.dissolve_angle, scene.mesh_contour_props.merge_distance)
-
-        bpy.ops.wm.call_panel(name=MeshContourMenu.bl_idname)
+            create_mesh(vertices, self.dissolve_angle, self.merge_distance)
 
         return {'FINISHED'}
