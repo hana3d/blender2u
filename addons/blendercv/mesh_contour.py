@@ -48,10 +48,9 @@ class MeshContourClass(bpy.types.Operator):
                 vertices.append(convert_coordinates(obj, dimensions, point))
             vertices = np.array(vertices)
 
-            resolution = self.resolution
-            drop_ratio = int(round(1 / (1 - resolution)))
-
-            vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
+            if self.resolution != 1:
+                drop_ratio = int(round(1 / (1 - self.resolution)))
+                vertices = np.delete(vertices, slice(None, None, drop_ratio), 0)
 
             create_mesh(vertices, self.dissolve_angle, self.merge_distance)
 
