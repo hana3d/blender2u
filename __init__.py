@@ -16,7 +16,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (1, 2, 7),
+    "version": (1, 3, 0),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
@@ -27,7 +27,7 @@ import math
 import bpy
 from . import addon_updater_ops, ui
 from .addons import analytics, auto_scale, bake_nodes, collection_grid, glb_export, glb_usdz_export, polycount, usdz_export, uv_check, \
-    hh_connect
+    hh_connect, blendercv
 
 
 classes = (
@@ -45,7 +45,8 @@ addons = {
     polycount,
     usdz_export,
     uv_check,
-    hh_connect
+    hh_connect,
+    blendercv
 }
 
 
