@@ -16,7 +16,7 @@ from . import environment
 
 
 DEPENDENCIES = {
-    ("opencv", "opencv-python")
+    ("cv2", "opencv-python")
 }
 
 # libs = os.path.dirname(os.path.abspath(__file__)) + "\\libs\\replication"
