@@ -45,8 +45,8 @@ addons = {
     polycount,
     usdz_export,
     uv_check,
-    hh_connect,
-    blendercv
+    blendercv,
+    hh_connect
 }
 
 
