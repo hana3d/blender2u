@@ -23,7 +23,7 @@ class ApplyUVTexture(bpy.types.Operator):
 
         for obj in bpy.context.scene.objects:
             if obj.active_material is None:
-                obj.original_material.add().add(None)
+                obj.original_material.add().add_material(None)
             elif ".UVMT" not in obj.active_material.name:
                 obj.original_material.clear()
                 if (len(obj.material_slots) > 1):
