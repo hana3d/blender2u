@@ -57,13 +57,13 @@ class BakeNodes(bpy.types.Operator):
 
     def execute(self, context):
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
-                          + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
+                          + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
             hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
-                + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
+                + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
         elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
-                            + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
+                            + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
             hdr_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
-                + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
+                + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
         else:
             self.report({'ERROR'}, "hdr path not found")
             return {'CANCELLED'}
