@@ -8,6 +8,7 @@ class OBJECT_PT_USDZExporterPanel(Panel):
     bl_label = "USDZ Export"
     bl_context = "objectmode"
     bl_category = "Real2U"
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         global custom_icons

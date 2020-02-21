@@ -8,6 +8,7 @@ class OBJECT_PT_CollectionGridPanel(Panel):
     bl_label = "Collection Grid"
     bl_context = "objectmode"
     bl_category = "Real2U"
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         global custom_icons
