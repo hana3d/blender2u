@@ -15,9 +15,9 @@ class OBJECT_PT_AutoScalePanel(Panel):
         scene = context.scene
         layout = self.layout
 
-        layout.prop(scene.collection_grid_props, "height")
-        layout.prop(scene.collection_grid_props, "length")
-        layout.prop(scene.collection_grid_props, "switch")
+        layout.prop(scene.auto_scale_props, "height")
+        layout.prop(scene.auto_scale_props, "length")
+        layout.prop(scene.auto_scale_props, "switch")
 
         row = layout.row()
         row.operator('object.auto_scale', text='Scale Selected Objects', icon='MOD_BOOLEAN')

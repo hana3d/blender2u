@@ -22,7 +22,7 @@ class CollectionGridProps(bpy.types.PropertyGroup):
     )
 
     distance: bpy.props.FloatProperty(
-        name="Distance between objects",
+        name="Distance",
         description="Distance between objects",
         default=1.0
     )
