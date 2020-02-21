@@ -28,7 +28,6 @@ class OBJECT_PT_CannyPanel(Panel):
     def draw(self, context):
         global custom_icons
 
-        scene = context.scene
         layout = self.layout
 
         row = layout.row()
