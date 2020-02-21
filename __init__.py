@@ -16,7 +16,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (1, 3, 0),
+    "version": (1, 3, 3),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
@@ -45,8 +45,8 @@ addons = {
     polycount,
     usdz_export,
     uv_check,
-    hh_connect,
-    blendercv
+    blendercv,
+    hh_connect
 }
 
 

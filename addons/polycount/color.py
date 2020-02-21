@@ -25,6 +25,10 @@ class ColorObjects(bpy.types.Operator):
 
         sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
 
+        if sorted_results == []:
+            print('No objects with polygons')
+            return {'FINISHED'}
+
         top_result = sorted_results[0][1]
         last_result = sorted_results[-1][1]
 
