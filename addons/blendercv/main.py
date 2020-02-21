@@ -1,15 +1,14 @@
 import bpy
 from .mesh_contour import MeshContourClass
-# from .canny_edges import CannyEdgesClass, CannyEdgesProps
+from .canny_edges import CannyEdgesClass
 from .panel import OBJECT_PT_ContourPanel, OBJECT_PT_CannyPanel
 
 
 classes = (
     MeshContourClass,
-    # CannyEdgesClass,
-    # CannyEdgesProps,
+    CannyEdgesClass,
     OBJECT_PT_ContourPanel,
-    # OBJECT_PT_CannyPanel
+    OBJECT_PT_CannyPanel
 )
 
 
@@ -17,11 +16,7 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
-    # bpy.types.Scene.canny_edges_props = bpy.props.PointerProperty(type=CannyEdgesProps)
-
 
 def unregister():
-    # del bpy.types.Scene.canny_edges_props
-
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)

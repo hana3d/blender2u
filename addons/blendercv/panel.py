@@ -31,7 +31,5 @@ class OBJECT_PT_CannyPanel(Panel):
         scene = context.scene
         layout = self.layout
 
-        layout.prop(scene.canny_edges_props, "threshold_min")
-        layout.prop(scene.canny_edges_props, "threshold_max")
         row = layout.row()
         row.operator('object.canny_edges', text='Canny Edges', icon='MOD_BOOLEAN')
