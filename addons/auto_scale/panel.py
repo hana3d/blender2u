@@ -12,9 +12,13 @@ class OBJECT_PT_AutoScalePanel(Panel):
     def draw(self, context):
         global custom_icons
 
+        scene = context.scene
         layout = self.layout
 
-        # Bool diff button
+        layout.prop(scene.collection_grid_props, "height")
+        layout.prop(scene.collection_grid_props, "length")
+        layout.prop(scene.collection_grid_props, "switch")
+
         row = layout.row()
         row.operator('object.auto_scale', text='Scale Selected Objects', icon='MOD_BOOLEAN')
 

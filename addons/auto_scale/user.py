@@ -2,6 +2,26 @@ import bpy
 from mathutils import Vector
 
 
+class AutoScaleProps(bpy.types.PropertyGroup):
+    height: bpy.props.FloatProperty(
+        name="Height",
+        description="Height of the object",
+        default=1.0
+    )
+
+    length: bpy.props.FloatProperty(
+        name="Length",
+        description="Length of the object",
+        default=1.0
+    )
+
+    switch: bpy.props.BoolProperty(
+        name="Use length",
+        description="Use length value instead of height",
+        default=False
+    )
+
+
 class ObjectAutoScale(bpy.types.Operator):
     """Object Auto Scale"""
     bl_idname = "object.auto_scale"
@@ -13,8 +33,10 @@ class ObjectAutoScale(bpy.types.Operator):
     switch: bpy.props.BoolProperty(name="Use length", description="", default=False)
 
     def execute(self, context):
-        final_z = self.height
-        final_x = self.length
+        scene = context.scene
+
+        final_z = scene.auto_scale_props.height
+        final_x = scene.auto_scale_props.length
 
         min_x = 999999
         min_y = 999999
@@ -36,7 +58,7 @@ class ObjectAutoScale(bpy.types.Operator):
                     max_y = (max_y, vertex[1])[vertex[1] > max_y]
                     max_z = (max_z, vertex[2])[vertex[2] > max_z]
 
-        if self.switch is False:
+        if scene.auto_scale_props.switch is False:
             size_z = max_z - min_z
             scale = final_z / size_z
         else:
@@ -47,7 +69,3 @@ class ObjectAutoScale(bpy.types.Operator):
         bpy.ops.transform.resize(value=(scale, scale, scale))
         bpy.ops.object.transform_apply(location=False, rotation=False, scale=True, properties=False)
         return {'FINISHED'}
-
-    def invoke(self, context, event):
-        wm = context.window_manager
-        return wm.invoke_props_dialog(self)
