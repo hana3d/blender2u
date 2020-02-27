@@ -52,3 +52,12 @@ Converts the files from the selected folder to usdz using a environment dependen
 
 ## UV Check  
 Apply a checker texture to all scene objects for easier UV check.  
+
+# BlenderCV
+
+Implementation of some OpenCV methods to help modelling in Blender using reference images.
+
+## Mesh Contour
+
+Uses Find Contours with gray value threshold to separate the object in a image from a white background and creates a 
+mesh plane with that shape, some parameters can be adjusted to determine the number of vertices.
