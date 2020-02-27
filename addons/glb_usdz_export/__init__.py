@@ -65,9 +65,9 @@ class ObjectExportModules(bpy.types.Operator):
                           + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
                 + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
-        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
+        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
                             + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
-            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
+            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
                 + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
         else:
             self.report({'ERROR'}, "usdz-exporter path not found")
