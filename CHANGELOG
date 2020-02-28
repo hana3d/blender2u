@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Mesh Lint
 ### Changed
 - Auto Scale UI
 - Collection Grid UI

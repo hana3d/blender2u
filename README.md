@@ -33,6 +33,9 @@ Does GLB Export and USDZ Export in sequence to automatically export both glb and
 [Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
 [Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
 
+## Mesh Lint  
+Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.  
+
 ## Polycount  
 Prints in the console, in order, the percentage of the total polygons that each object in the scene represents.  
 Adds a Heatmap tool that shows in brighter red which objects in the active collection have more polygons.  
