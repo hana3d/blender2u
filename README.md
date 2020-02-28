@@ -35,6 +35,7 @@ Does GLB Export and USDZ Export in sequence to automatically export both glb and
 
 ## Mesh Lint  
 Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.  
+Location: Object Data properties > MeshLint  
 
 ## Polycount  
 Prints in the console, in order, the percentage of the total polygons that each object in the scene represents.  
