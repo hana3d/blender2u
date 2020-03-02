@@ -34,4 +34,5 @@ release:
     - master
   script:
     - npm install @semantic-release/gitlab
+    - npx semantic-release pre --debug
     - npx semantic-release
