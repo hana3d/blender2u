@@ -14,10 +14,11 @@ class ApplyUVTexture(bpy.types.Operator):
             mat.use_nodes = True
             node_tree = mat.node_tree
 
-            nodeTexChecher = node_tree.nodes.new("ShaderNodeTexChecker")
-            node_tree.links.new(nodeTexChecher.outputs[0], node_tree.nodes["Principled BSDF"].inputs[0])
+            nodeTexChecker = node_tree.nodes.new("ShaderNodeTexChecker")
+            node_tree.links.new(nodeTexChecker.outputs[0], node_tree.nodes["Principled BSDF"].inputs[0])
+            nodeTexChecker.inputs[3].default_value = 50
             nodeMapping = node_tree.nodes.new("ShaderNodeMapping")
-            node_tree.links.new(nodeMapping.outputs[0], nodeTexChecher.inputs[0])
+            node_tree.links.new(nodeMapping.outputs[0], nodeTexChecker.inputs[0])
             nodeTexCoord = node_tree.nodes.new("ShaderNodeTexCoord")
             node_tree.links.new(nodeTexCoord.outputs[2], nodeMapping.inputs[0])
 
