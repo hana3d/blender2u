@@ -25,7 +25,7 @@ stages:
 #     - git config --global user.email "tech@real2u.com.br"
 #     - git config --global user.name "Real2U Bot"
 #   script:
-#       - echo "Release"
+#       - echo "Tests"
 
 release:
   image: node:13
@@ -33,6 +33,4 @@ release:
   only:
     - master
   script:
-    - npm install @semantic-release/gitlab
-    - npx semantic-release pre --debug
-    - npx semantic-release
+    - echo "Release"
