@@ -1,0 +1,38 @@
+image: node:13-stretch
+
+# Cache was causing problems to Cypress
+# Cache node modules - speeds up future builds
+# cache:
+#   paths:
+#   - node_modules
+
+# Name the stages involved in the pipeline
+stages:
+# - tests
+- release
+
+before_script:
+  ## Used to `npm install` private repos
+  ## https://docs.gitlab.com/ee/ci/ssh_keys/
+  - export DEBIAN_FRONTEND=noninteractive
+  - apt -q update && apt install --no-install-recommends -y -q \
+    libglu1-mesa \
+    libxi6
+  - BLENDER28_URL="https://builder.blender.org$(curl -s https://builder.blender.org/download/ | \
+    grep -oe '[^\"]*blender-2\.83[^\"]*linux64[^\"]*' | \
+    tail -n1)"
+  - BLENDER28_VERSION=$(echo $BLENDER28_URL | grep -Po 'blender-2\.\K[0-9]+')
+  - echo "Installing Blender 2.${BLENDER28_VERSION}"
+  - mkdir /opt/blender28
+  - echo "Downloading from $BLENDER28_URL"
+  - curl -SL "$BLENDER28_URL" | \
+    tar -Jx -C /opt/blender28 --strip-components=1
+  - ln -s /opt/blender28/blender /usr/local/bin/blender28
+  - git config --global user.email "tech@real2u.com.br"
+  - git config --global user.name "Real2U Bot"
+
+release:
+  stage: release
+  only:
+    - master
+  script:
