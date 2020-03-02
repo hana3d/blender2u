@@ -1,19 +1,9 @@
 image: node:13-stretch
 
-# Cache was causing problems to Cypress
-# Cache node modules - speeds up future builds
-# cache:
-#   paths:
-#   - node_modules
-
-# Name the stages involved in the pipeline
 stages:
-# - tests
 - release
 
 before_script:
-  ## Used to `npm install` private repos
-  ## https://docs.gitlab.com/ee/ci/ssh_keys/
   - export DEBIAN_FRONTEND=noninteractive
   - apt -q update && apt install --no-install-recommends -y -q \
     libglu1-mesa \
@@ -36,3 +26,4 @@ release:
   only:
     - master
   script:
+    - echo "Release"
