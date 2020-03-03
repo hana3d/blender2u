@@ -34,4 +34,4 @@ release:
     - master
   script:
     - ls .
-    - sh tag.sh
+    - bash tag.sh
