@@ -1,10 +1,11 @@
 #!/bin/bash
 input="/builds/real2u/blender2u/__init__.py"
 line=`sed "6q;d" $input`
-echo $line
 
 tmp="${line%%(*}"
+echo $tmp
 if [ "$tmp" != "$line" ]; then
+  echo ${#tmp}
   line=$(echo "${line:$((${#tmp}+1))}")
 fi
 tmp="${line%%,*}"
