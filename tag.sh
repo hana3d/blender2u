@@ -1,5 +1,5 @@
 #!/bin/bash
-input="./__init__.py"
+input="/builds/real2u/blender2u/__init__.py"
 line=`sed "6q;d" $input`
 
 tmp="${line%%(*}"
