@@ -1,8 +1,25 @@
 #!/bin/bash
 input="./__init__.py"
 line=`sed "6q;d" $input`
-version0=$(echo "${line:15:3}" | sed 's/[(, ]//g')
-version1=$(echo "${line:19:3}" | sed 's/[, ]//g')
-version2=$(echo "${line:22:3}" | sed 's/[), ]//g')
+
+tmp="${line%%(*}"
+if [ "$tmp" != "$line" ]; then
+  line=$(echo "${line:$((${#tmp}+1))}")
+fi
+tmp="${line%%,*}"
+if [ "$tmp" != "$line" ]; then
+  version0=$(echo "${line:0:$((${#tmp}))}")
+  line=$(echo "${line:$((${#tmp}+2))}")
+fi
+tmp="${line%%,*}"
+if [ "$tmp" != "$line" ]; then
+  version1=$(echo "${line:0:$((${#tmp}))}")
+  line=$(echo "${line:$((${#tmp}+2))}")
+fi
+tmp="${line%%)*}"
+if [ "$tmp" != "$line" ]; then
+  version2=$(echo "${line:0:$((${#tmp}))}")
+fi
+
 sed "6 s/.*/    \"version\": ($version0, $version1, $(($version2+1))),/" $input > ./temp.py
 mv ./temp.py ./__init__.py
