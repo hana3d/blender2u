@@ -3,9 +3,7 @@ input="/builds/real2u/blender2u/__init__.py"
 line=`sed "6q;d" $input`
 
 tmp="${line%%(*}"
-echo $tmp
 if [ "$tmp" != "$line" ]; then
-  echo ${#tmp}
   line=$(echo "${line:$((${#tmp}+1))}")
 fi
 tmp="${line%%,*}"
@@ -25,5 +23,4 @@ fi
 
 version="$version0.$version1.$version2"
 
-curl -X POST --silent --show-error --fail \
-  "https://gitlab.my.org/api/v4/projects/16221229/repository/tags?tag_name=${version}&private_token=${GITLAB_TOKEN}"
+curl -X POST "https://gitlab.my.org/api/v4/projects/16221229/repository/tags?tag_name=${version}&private_token=${GITLAB_TOKEN}"
