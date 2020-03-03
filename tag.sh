@@ -24,4 +24,4 @@ fi
 version="$version0.$version1.$version2"
 
 curl -X POST --silent --show-error --fail \
-  "https://gitlab.my.org/api/v4/projects/16221229/repository/tags?tag_name=$version&private_token=${GITLAB_TOKEN}"
+  "https://gitlab.my.org/api/v4/projects/16221229/repository/tags?tag_name=${version}&private_token=${GITLAB_TOKEN}"
