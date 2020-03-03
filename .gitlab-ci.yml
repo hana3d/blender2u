@@ -33,5 +33,5 @@ release:
   only:
     - master
   script:
-    - echo "Release"
+    - ls .
     - sh tag.sh

@@ -1,6 +1,7 @@
 #!/bin/bash
 input="/builds/real2u/blender2u/__init__.py"
 line=`sed "6q;d" $input`
+echo $line
 
 tmp="${line%%(*}"
 if [ "$tmp" != "$line" ]; then
