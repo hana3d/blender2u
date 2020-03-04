@@ -27,11 +27,7 @@ tests:
       rm -rf /var/lib/apt/lists/*
     - BLENDER_URL=https://download.blender.org/release/Blender$BLENDER_MAJOR/blender-$BLENDER_VERSION-linux-glibc217-x86_64.tar.bz2
     - echo "Installing Blender 2.${BLENDER28_VERSION}"
-    - mkdir /usr/local/blender && \
-      curl -SL "$BLENDER_BZ2_URL" -o blender.tar.bz2 && \
-      tar -jxvf blender.tar.bz2 -C /usr/local/blender --strip-components=1 && \
-      rm blender.tar.bz2
-    - PATH="/usr/local/blender:${PATH}"
+    - snap install blender --channel=2.83/stable --classic
     - cp -r /builds/real2u/blender2u/ /usr/local/blender/2.8*/scripts/addons
   script:
     - blender -b -P tests/install.py
