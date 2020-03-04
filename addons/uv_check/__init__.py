@@ -27,6 +27,7 @@ from .color import ApplyUVTexture, RemoveUVTexture
 
 
 class FacesArray(bpy.types.PropertyGroup):
+    lol
     face: bpy.props.IntProperty()
 
     def add_face(self, ob):
