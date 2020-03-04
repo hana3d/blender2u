@@ -10,9 +10,6 @@ tests:
     - helder.tests
   before_script:
     - export DEBIAN_FRONTEND=noninteractive
-    - apt-get -q update && apt-get install --no-install-recommends -y -q \
-      libglu1-mesa-dev \
-      libxi6-dev
     - BLENDER28_URL="https://builder.blender.org$(curl -s https://builder.blender.org/download/ | \
       grep -oe '[^\"]*blender-2\.83[^\"]*linux64[^\"]*' | \
       tail -n1)"
