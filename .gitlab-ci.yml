@@ -3,7 +3,7 @@ stages:
 - release
 
 tests:
-  image: node:13-stretch
+  image: node:8-stretch
   stage: tests
   only:
     - master
