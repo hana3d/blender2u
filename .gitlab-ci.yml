@@ -19,6 +19,7 @@ tests:
     - curl -SL "$BLENDER28_URL" | tar -Jx -C /opt/blender28 --strip-components=1
     - ln -s /opt/blender28/blender /usr/local/bin/blender28
     - cp -r /builds/real2u/blender2u/ /opt/blender28/2.8*/scripts/addons
+    - PATH="/opt/blender28/blender:${PATH}"
   script:
     - blender -b -P tests/install.py
 
