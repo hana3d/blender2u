@@ -3,13 +3,14 @@ stages:
 - release
 
 tests:
-  image: node:8-stretch
+  image: node:13-stretch
   stage: tests
   only:
     - master
+    - helder.tests
   before_script:
     - export DEBIAN_FRONTEND=noninteractive
-    - apt -q update && apt install --no-install-recommends -y -q \
+    - apt-get -q update && apt-get install --no-install-recommends -y -q \
       libglu1-mesa \
       libxi6
     - BLENDER28_URL="https://builder.blender.org$(curl -s https://builder.blender.org/download/ | \
