@@ -13,18 +13,9 @@ tests:
     - BLENDER_MAJOR=2.83
     - BLENDER_VERSION=2.83
     - apt-get update
-    - apt-get install -y \
-        npm \
-        curl \
-        bzip2 \
-        libfreetype6 \
-        libgl1-mesa-dev \
-        libglu1-mesa \
-        libxi6 \
-        libxrender1 \
-        snap && \
-      apt-get -y autoremove && \
-      rm -rf /var/lib/apt/lists/*
+    - apt-get install -y libfreetype6 libgl1-mesa-dev libglu1-mesa libxi6 libxrender1 snap
+    - apt-get -y autoremove
+    - rm -rf /var/lib/apt/lists/*
     - BLENDER_URL=https://download.blender.org/release/Blender$BLENDER_MAJOR/blender-$BLENDER_VERSION-linux-glibc217-x86_64.tar.bz2
     - echo "Installing Blender 2.${BLENDER28_VERSION}"
     - snap install blender --channel=2.83/stable --classic
