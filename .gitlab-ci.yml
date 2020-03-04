@@ -10,17 +10,30 @@ tests:
     - helder.tests
   before_script:
     - export DEBIAN_FRONTEND=noninteractive
-    - BLENDER28_URL="https://builder.blender.org$(curl -s https://builder.blender.org/download/ | \
-      grep -oe '[^\"]*blender-2\.83[^\"]*linux64[^\"]*' | \
-      tail -n1)"
+    - BLENDER_MAJOR=2.83
+    - BLENDER_VERSION=2.83
+    - apt-get update && \
+      apt-get install -y \
+        npm \
+        curl \
+        bzip2 \
+        libfreetype6 \
+        libgl1-mesa-dev \
+        libglu1-mesa \
+        libxi6 \
+        libxrender1 \
+        snap && \
+      apt-get -y autoremove && \
+      rm -rf /var/lib/apt/lists/*
+    - BLENDER_URL=https://download.blender.org/release/Blender$BLENDER_MAJOR/blender-$BLENDER_VERSION-linux-glibc217-x86_64.tar.bz2
     - BLENDER28_VERSION=$(echo $BLENDER28_URL | grep -Po 'blender-2\.\K[0-9]+')
     - echo "Installing Blender 2.${BLENDER28_VERSION}"
-    - mkdir /opt/blender28
-    - echo "Downloading from $BLENDER28_URL"
-    - curl -SL "$BLENDER28_URL" | \
-      tar -Jx -C /opt/blender28 --strip-components=1
-    - ln -s /opt/blender28/blender /usr/local/bin/blender28
-    - cp -r /builds/real2u/blender2u/ /opt/blender28/2.8*/scripts/addons
+    - RUN mkdir /usr/local/blender && \
+      curl -SL "$BLENDER_BZ2_URL" -o blender.tar.bz2 && \
+      tar -jxvf blender.tar.bz2 -C /usr/local/blender --strip-components=1 && \
+      rm blender.tar.bz2
+    - PATH="/usr/local/blender:${PATH}"
+    - cp -r /builds/real2u/blender2u/ /usr/local/blender/2.8*/scripts/addons
   script:
     - blender -b -P tests/install.py
 
