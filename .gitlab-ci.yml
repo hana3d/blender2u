@@ -21,7 +21,7 @@ tests:
     - cp -r /builds/real2u/blender2u/ /opt/blender28/2.8*/scripts/addons
     - PATH="/opt/blender28/blender:${PATH}"
   script:
-    - blender -b -P tests/install.py
+    - /opt/blender28/blender -b -P tests/install.py
 
 
 release:
