@@ -3,7 +3,7 @@ stages:
 - release
 
 tests:
-  image: ubuntu:bionic-20191029
+  image: ubuntu:bionic-20200219
   stage: tests
   only:
     - master
@@ -12,8 +12,8 @@ tests:
     - export DEBIAN_FRONTEND=noninteractive
     - BLENDER_MAJOR=2.83
     - BLENDER_VERSION=2.83
-    - apt-get update && \
-      apt-get install -y \
+    - apt update && \
+      apt install -y \
         npm \
         curl \
         bzip2 \
@@ -26,9 +26,8 @@ tests:
       apt-get -y autoremove && \
       rm -rf /var/lib/apt/lists/*
     - BLENDER_URL=https://download.blender.org/release/Blender$BLENDER_MAJOR/blender-$BLENDER_VERSION-linux-glibc217-x86_64.tar.bz2
-    - BLENDER28_VERSION=$(echo $BLENDER28_URL | grep -Po 'blender-2\.\K[0-9]+')
     - echo "Installing Blender 2.${BLENDER28_VERSION}"
-    - RUN mkdir /usr/local/blender && \
+    - mkdir /usr/local/blender && \
       curl -SL "$BLENDER_BZ2_URL" -o blender.tar.bz2 && \
       tar -jxvf blender.tar.bz2 -C /usr/local/blender --strip-components=1 && \
       rm blender.tar.bz2
