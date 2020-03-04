@@ -12,8 +12,8 @@ tests:
     - export DEBIAN_FRONTEND=noninteractive
     - BLENDER_MAJOR=2.83
     - BLENDER_VERSION=2.83
-    - apt update && \
-      apt install -y \
+    - apt-get update
+    - apt-get install -y \
         npm \
         curl \
         bzip2 \
