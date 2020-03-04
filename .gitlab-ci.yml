@@ -3,7 +3,7 @@ stages:
 - release
 
 tests:
-  image: node:13-stretch
+  image: ubuntu:bionic-20191029
   stage: tests
   only:
     - master
