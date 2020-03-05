@@ -6,8 +6,5 @@ class NewError(Exception):
     pass
 
 
-def handle_error():
+if addon_utils.enable("blender2u", default_set=False, persistent=True, handle_error=None) is None:
     raise NewError
-
-
-addon_utils.enable("blender2u", default_set=False, persistent=True, handle_error=handle_error())
