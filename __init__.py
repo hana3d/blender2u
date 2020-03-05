@@ -3,7 +3,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (1, 4, 88),
+    "version": (1, 4, 89),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
