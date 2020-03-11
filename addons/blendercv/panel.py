@@ -31,4 +31,4 @@ class OBJECT_PT_CannyPanel(Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator('object.canny_edges', text='Canny Edges', icon='MOD_BOOLEAN')
+        row.operator('object.canny_edges', text='Edges Mesh', icon='MOD_BOOLEAN')
