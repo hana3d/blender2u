@@ -3,7 +3,6 @@ from .mesh_contour import MeshContourClass
 from .canny_edges import CannyEdgesClass
 from .panel import OBJECT_PT_ContourPanel, OBJECT_PT_CannyPanel
 
-
 classes = (
     MeshContourClass,
     CannyEdgesClass,
