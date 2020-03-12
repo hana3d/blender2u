@@ -50,10 +50,6 @@ dev = False
 
 matlib_path = os.path.dirname(__file__)
 
-if dev:
-    print(30 * "-")
-    matlib_path = r"D:\Blender Foundation\Blender\2.72\scripts\addons\matlib"
-
 # debug print variables
 
 
