@@ -18,20 +18,6 @@
 #
 # #####END GPL LICENSE BLOCK #####
 
-from rna_prop_ui import PropertyPanel
-from bpy.types import (
-    Panel, Menu, AddonPreferences, Operator,
-    PropertyGroup, UIList,
-    Scene
-)
-from bpy.props import (
-    StringProperty, IntProperty, BoolProperty,
-    PointerProperty, CollectionProperty
-)
-from bpy.app.handlers import persistent
-import json
-import os
-import bpy
 bl_info = {
     "name": "Material Library",
     "author": "Mackraken",
@@ -45,6 +31,20 @@ bl_info = {
     "category": "Material",
 }
 
+import bpy
+import os
+import json
+from bpy.app.handlers import persistent
+from bpy.props import (
+    StringProperty, IntProperty, BoolProperty,
+    PointerProperty, CollectionProperty
+)
+from bpy.types import (
+    Panel, Menu, AddonPreferences, Operator,
+    PropertyGroup, UIList,
+    Scene
+)
+from rna_prop_ui import PropertyPanel
 
 dev = False
 
