@@ -86,5 +86,5 @@ class MATLIB_PT_MatLibPanel(Panel):
             row.prop(matlib, "link")
             row.prop(matlib, "hide_search")
 
-        # col = layout.box().column()
-        # col.template_preview()
+        col = layout.box().column()
+        col.template_preview(bpy.data.materials['Material'])
