@@ -4,10 +4,6 @@ import gpu
 import cv2
 import bmesh
 import numpy as np
-<<<<<<< HEAD
-from bpy_extras import view3d_utils
-from .utils import convert_2d_to_3d, convert_3d_to_2d, create_mesh, create_vertices
-=======
 from gpu_extras.batch import batch_for_shader
 from bpy_extras import view3d_utils
 from .utils import convert_2d_to_3d, convert_3d_to_2d, create_mesh, create_vertices
@@ -27,7 +23,6 @@ def draw(self, context, mouse_start, mouse_end):
     bgl.glEnable(bgl.GL_BLEND)
     batch.draw(shader)
     bgl.glDisable(bgl.GL_BLEND)
->>>>>>> helder.cv
 
 
 class CannyEdgesClass(bpy.types.Operator):
@@ -71,11 +66,8 @@ class CannyEdgesClass(bpy.types.Operator):
     pressed = False
     first_point = None
     second_point = None
-<<<<<<< HEAD
-=======
     mouse_start = None
     mouse_end = None
->>>>>>> helder.cv
 
     @staticmethod
     def create_tmp_mesh(obj, dimensions):
@@ -92,43 +84,6 @@ class CannyEdgesClass(bpy.types.Operator):
         first_point = convert_3d_to_2d(self.obj, self.img.shape, self.first_point)
         second_point = convert_3d_to_2d(self.obj, self.img.shape, self.second_point)
 
-<<<<<<< HEAD
-        gray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray, self.threshold_min, self.threshold_max,
-                          self.aperture_size, L2gradient=True)
-        for height_index, row in enumerate(edges[0:first_point[1]]):
-            for width_index, pixel in enumerate(row):
-                edges[height_index, width_index] = 0
-        for height_index, row in enumerate(edges):
-            for width_index, pixel in enumerate(row[0:first_point[0]]):
-                edges[height_index, width_index] = 0
-        for height_index, row in enumerate(edges[second_point[1]:]):
-            for width_index, pixel in enumerate(row):
-                edges[height_index + second_point[1], width_index] = 0
-        for height_index, row in enumerate(edges):
-            for width_index, pixel in enumerate(row[second_point[0]:]):
-                edges[height_index, width_index + second_point[0]] = 0
-
-        points = []
-        for height_index, row in enumerate(edges):
-            for width_index, pixel in enumerate(row):
-                if pixel == 255:
-                    points.append([width_index, height_index])
-
-        coordinates = []
-        for point in points:
-            coordinates.append(convert_2d_to_3d(self.obj, self.img.shape, point))
-        coordinates = np.array(coordinates)
-
-        create_vertices(coordinates, "Edges", -0.01)
-
-    def __init__(self):
-        print("Init Canny")
-
-    def __del__(self):
-        print("Del Canny")
-
-=======
         if first_point[0] < second_point[0]:
             min_x = first_point[0]
             max_x = second_point[0]
@@ -178,7 +133,6 @@ class CannyEdgesClass(bpy.types.Operator):
     def __del__(self):
         print("Del Canny")
 
->>>>>>> helder.cv
     def execute(self, context):
         print('EXECUTE')
         self.obj = bpy.context.active_object
@@ -203,12 +157,6 @@ class CannyEdgesClass(bpy.types.Operator):
                 location = ray_cast[1]
                 if self.pressed is False:
                     self.first_point = location
-<<<<<<< HEAD
-                    self.pressed = True
-                else:
-                    self.second_point = location
-                    self.pressed = False
-=======
                     self.mouse_start = (event.mouse_region_x, event.mouse_region_y)
                     self.mouse_end = (event.mouse_region_x, event.mouse_region_y)
                     self.pressed = True
@@ -218,7 +166,6 @@ class CannyEdgesClass(bpy.types.Operator):
                     self.second_point = location
                     self.pressed = False
                     bpy.types.SpaceView3D.draw_handler_remove(self._handle, 'WINDOW')
->>>>>>> helder.cv
                     self.cv_operation(context)
 
                     bpy.ops.object.select_all(action='DESELECT')
@@ -227,15 +174,12 @@ class CannyEdgesClass(bpy.types.Operator):
                     bpy.ops.object.select_all(action='DESELECT')
                     self.obj.select_set(True)
                     return {'FINISHED'}
-<<<<<<< HEAD
-=======
         elif event.type == 'MOUSEMOVE' and self.pressed is True:
             self.mouse_end = (event.mouse_region_x, event.mouse_region_y)
             context.area.tag_redraw()
         elif event.type in {'RIGHTMOUSE', 'ESC'}:
             bpy.types.SpaceView3D.draw_handler_remove(self._handle, 'WINDOW')
             return {'CANCELLED'}
->>>>>>> helder.cv
 
         return {'RUNNING_MODAL'}
 
