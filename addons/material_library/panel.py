@@ -33,7 +33,7 @@ class MATLIB_PT_MatLibPanel(Panel):
         # list
         row = layout.row()
         row.template_list("UI_UL_list", "  ", matlib,
-                          "materials", matlib, "mat_index", rows=6)
+                          "materials", matlib, "mat_index", rows=7)
         row = layout.row()
         col = row.column()
 
@@ -44,10 +44,6 @@ class MATLIB_PT_MatLibPanel(Panel):
                      text="Apply To Selected").cmd = "APPLY"
         col.operator("matlib.operator", icon="FILE_REFRESH",
                      text="Reload Material").cmd = "RELOAD"
-        col.operator("matlib.operator", icon="COLOR",
-                     text="Preview Material").cmd = "PREVIEW"
-        col.operator("matlib.operator", icon="GHOST_DISABLED",
-                     text="Remove Preview").cmd = "FLUSH"
         col.operator("matlib.operator", icon="REMOVE",
                      text="Remove Material").cmd = "REMOVE"
         col.prop(matlib, "show_prefs", icon="MODIFIER", text="Settings")
@@ -74,6 +70,7 @@ class MATLIB_PT_MatLibPanel(Panel):
         row.prop(matlib, "filter", icon="FILTER", text="Filter")
         row.operator("matlib.operator", icon="FILE_PARENT",
                      text="Set Type").cmd = "FILTER_SET"
+        row = layout.row(align=True)
         row.operator("matlib.operator", icon="ADD",
                      text="New").cmd = "FILTER_ADD"
         row.operator("matlib.operator", icon="REMOVE",
