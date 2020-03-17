@@ -2,10 +2,10 @@ import bpy
 import bgl
 import gpu
 import cv2
-import bmesh
 import numpy as np
 from gpu_extras.batch import batch_for_shader
 from bpy_extras import view3d_utils
+from mathutils import Vector
 from .utils import convert_2d_to_3d, convert_3d_to_2d, create_mesh, create_vertices
 
 
@@ -46,28 +46,15 @@ class CannyEdgesClass(bpy.types.Operator):
         description="Aperture Size",
         default=3
     )
-    # dissolve_angle: bpy.props.FloatProperty(
-    #     name="Dissolve Angle",
-    #     description="Max angle for limited dissolve",
-    #     default=5,
-    #     min=0,
-    #     max=180
-    # )
-    # merge_distance: bpy.props.FloatProperty(
-    #     name="Merge Distance",
-    #     description="Max distance to degenerate",
-    #     default=0.01,
-    #     min=0
-    # )
 
-    obj = None
-    img = None
-    tmp_obj = None
-    pressed = False
-    first_point = None
-    second_point = None
-    mouse_start = None
-    mouse_end = None
+    obj: bpy.types.Object
+    img: np.ndarray
+    tmp_obj: bpy.types.Object
+    pressed: bool
+    first_point: Vector
+    second_point: Vector
+    mouse_start: (int, int)
+    mouse_end: (int, int)
 
     @staticmethod
     def create_tmp_mesh(obj, dimensions):
@@ -136,10 +123,6 @@ class CannyEdgesClass(bpy.types.Operator):
     def execute(self, context):
         print('EXECUTE')
         self.obj = bpy.context.active_object
-        print('obj', self.obj)
-        print('img', self.img)
-        print('point1', self.first_point)
-        print('point2', self.second_point)
         self.cv_operation(context)
 
         return {'FINISHED'}
