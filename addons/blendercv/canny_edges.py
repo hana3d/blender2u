@@ -55,6 +55,7 @@ class CannyEdgesClass(bpy.types.Operator):
     second_point = Vector
     mouse_start = (int, int)
     mouse_end = (int, int)
+    _handle = bpy.types.Object
 
     @staticmethod
     def create_tmp_mesh(obj, dimensions):
