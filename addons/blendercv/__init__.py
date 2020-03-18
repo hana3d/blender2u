@@ -8,8 +8,8 @@ bl_info = {
 }
 
 
-import os
-import sys
+# import os
+# import sys
 import bpy
 from . import environment
 # from .libs.replication.replication.constants import RP_COMMON
