@@ -9,27 +9,25 @@ bl_info = {
 }
 
 import bpy
-# from .workspace import OBJECT_PT_Mat_Lib_Workspace
+from .workspace import CreateWorkspace
 from . import materials_library_vx
 from .panel import MATLIB_PT_MatLibPanel
 
 classes = (
-    # OBJECT_PT_Mat_Lib_Workspace
-    # OBJECT_PT_MatLibPanel
+    CreateWorkspace,
+    MATLIB_PT_MatLibPanel
 )
 
 
 def register():
     materials_library_vx.register()
-    # for cls in classes:
-    #     bpy.utils.register_class(cls)
-    bpy.utils.register_class(MATLIB_PT_MatLibPanel)
+    for cls in classes:
+        bpy.utils.register_class(cls)
 
 
 def unregister():
-    # for cls in reversed(classes):
-    #     bpy.utils.unregister_class(cls)
-    bpy.utils.unregister_class(MATLIB_PT_MatLibPanel)
+    for cls in reversed(classes):
+        bpy.utils.unregister_class(cls)
     materials_library_vx.unregister()
 
 

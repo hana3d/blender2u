@@ -5,7 +5,7 @@ from bpy.types import Panel
 class MATLIB_PT_MatLibPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_label = "Material Library VX"
+    bl_label = "Material Library"
     bl_context = "objectmode"
     bl_category = "MatLib"
 
@@ -82,6 +82,9 @@ class MATLIB_PT_MatLibPanel(Panel):
             row.prop(matlib, "force_import")
             row.prop(matlib, "link")
             row.prop(matlib, "hide_search")
+
+        row = layout.row()
+        row.operator("matlib.create_workspace", text="Create Workspace")
 
         if matlib.active_material is not None:
             col = layout.box().column()
