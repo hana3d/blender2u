@@ -50,12 +50,12 @@ class CannyEdgesClass(bpy.types.Operator):
     obj = bpy.types.Object
     img = np.ndarray
     tmp_obj = bpy.types.Object
-    pressed = bool
+    pressed = False
     first_point = Vector
     second_point = Vector
     mouse_start = (int, int)
     mouse_end = (int, int)
-    _handle = bpy.types.Object
+    # _handle = bpy.types.Object
 
     @staticmethod
     def create_tmp_mesh(obj, dimensions):
