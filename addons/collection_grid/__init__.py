@@ -17,14 +17,8 @@ from mathutils import Vector
 from .panel import OBJECT_PT_CollectionGridPanel
 
 
-def set_obj_origin_geometry(obj: bpy.types.Object):
-    """Set object's origin to be its geometric median"""
-    bpy.ops.object.select_all(action='DESELECT')
-    obj.select_set(True)
-    bpy.ops.object.make_single_user(type='ALL', object=True, obdata=True, material=False, animation=False)
-    bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='MEDIAN')
-    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True, properties=False)
-    bpy.ops.object.select_all(action='DESELECT')
+def is_valid_object(obj):
+    return obj.visible_get() and obj.type not in ('EMPTY', 'CAMERA')
 
 
 def get_loc_dim(element: Union[bpy.types.Collection, bpy.types.Object]) -> Tuple[Vector, Vector]:
@@ -36,11 +30,13 @@ def get_loc_dim(element: Union[bpy.types.Collection, bpy.types.Object]) -> Tuple
     if isinstance(element, bpy.types.Object):
         vertices = [element.matrix_world @ Vector(corner) for corner in element.bound_box]
     elif isinstance(element, bpy.types.Collection):
-        vertices = [
-            obj.matrix_world @ Vector(corner)
-            for obj in element.objects
-            for corner in obj.bound_box
-        ]
+        vertices = []
+        for obj in element.objects:
+            if not is_valid_object(obj):
+                continue
+            for corner in obj.bound_box:
+                vertices.append(obj.matrix_world @ Vector(corner))
+
     else:
         raise TypeError('Element must be a blender Collection or Object')
     min_x = min(vertex.x for vertex in vertices)
@@ -82,24 +78,10 @@ def next_column_row(columns, column_position, row_position) -> Tuple[int, int]:
     return column_position, row_position
 
 
-def cleanup_objects():
-    # Clear object hierarchy
-    # bpy.ops.object.select_all(action='SELECT')
-    # bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
-
-    # Delete empty objects
-    try:
-        bpy.ops.object.select_by_type(extend=False, type='EMPTY')
-        bpy.ops.object.delete(use_global=True, confirm=False)
-    except:
-        print('No empties')
-
-    for obj in bpy.data.objects:
-        if not obj.visible_get():
-            bpy.data.objects.remove(obj)
-        set_obj_origin_geometry(obj)
-
-    bpy.ops.object.select_all(action='DESELECT')
+def cleanup_scene(scene):
+    for obj in scene.objects:
+        if obj.type == 'EMPTY':
+            obj.hide_set(True)
 
 
 class CollectionGridProps(bpy.types.PropertyGroup):
@@ -130,31 +112,29 @@ class CollectionGrid(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
-        context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
+        context.view_layer.active_layer_collection = scene.view_layers[0].layer_collection
 
         rows = scene.collection_grid_props.rows
         distance = scene.collection_grid_props.distance
         flag_object_grid = scene.collection_grid_props.switch
 
-        cleanup_objects()
+        cleanup_scene(scene)
 
         row_position = 0
         column_position = 0
 
         if flag_object_grid:
-            columns = math.ceil(len(bpy.context.scene.objects) / rows)
-
-            for obj in bpy.context.scene.objects:
+            columns = math.ceil(len(scene.objects) / rows)
+            for obj in scene.objects:
                 translation = get_translation_vector(
                     obj, distance, columns, rows, column_position, row_position)
                 obj.location += translation
 
                 column_position, row_position = next_column_row(columns, column_position, row_position)
         else:
-            columns = math.ceil(len(bpy.data.collections) / rows)
-
-            for coll in bpy.data.collections:
-                valid_collection = len(coll.objects) > 0
+            columns = math.ceil(len(scene.collection.children) / rows)
+            for coll in scene.collection.children:
+                valid_collection = any(is_valid_object(obj) for obj in coll.objects)
                 if not valid_collection:
                     continue
 
@@ -162,7 +142,8 @@ class CollectionGrid(bpy.types.Operator):
                     coll, distance, columns, rows, column_position, row_position)
 
                 for obj in coll.objects:
-                    obj.location += translation
+                    if obj.parent is None:
+                        obj.location += translation
 
                 column_position, row_position = next_column_row(columns, column_position, row_position)
 
