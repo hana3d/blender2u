@@ -84,7 +84,7 @@ class MATLIB_PT_MatLibPanel(Panel):
             row.prop(matlib, "hide_search")
 
         row = layout.row()
-        row.operator("matlib.create_workspace", text="Create Workspace")
+        row.operator("matlib.create_workspace", icon='SELECT_EXTEND', text="Expand to a Workspace")
 
         if matlib.active_material is not None:
             col = layout.box().column()
