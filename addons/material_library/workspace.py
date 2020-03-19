@@ -8,9 +8,14 @@ class CreateWorkspace(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.context.window.workspace = bpy.data.workspaces['Layout']
+        context.window.workspace = bpy.data.workspaces['Layout']
         bpy.ops.workspace.duplicate()
         bpy.data.workspaces['Layout.001'].name = 'Matlib'
-        bpy.ops.workspace.reorder_to_back()
+
+        bpy.ops.scene.new(type='NEW')
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=1, enter_editmode=False, location=(0, 0, 0))
+
+        for obj in context.scene.objects:
+            obj.active_material = bpy.data.materials['Material']
 
         return {'FINISHED'}
