@@ -9,12 +9,12 @@ bl_info = {
 }
 
 import bpy
-from .workspace import CreateWorkspace
+from .scene import CreateScene
 from . import materials_library_vx
 from .panel import MATLIB_PT_MatLibPanel
 
 classes = (
-    CreateWorkspace,
+    CreateScene,
     MATLIB_PT_MatLibPanel
 )
 

@@ -1,5 +1,6 @@
 import bpy
 from bpy.types import Panel
+from .utils import get_material
 
 
 class MATLIB_PT_MatLibPanel(Panel):
@@ -83,9 +84,11 @@ class MATLIB_PT_MatLibPanel(Panel):
             row.prop(matlib, "link")
             row.prop(matlib, "hide_search")
 
-        row = layout.row()
-        row.operator("matlib.create_workspace", icon='SELECT_EXTEND', text="Expand to a Workspace")
+        if matlib.current_library is not None:
+            row = layout.row()
+            row.operator("matlib.create_scene", icon='SELECT_EXTEND', text="View in a Scene")
 
         if matlib.active_material is not None:
             col = layout.box().column()
+            get_material(context, matlib.active_material.name)
             col.template_preview(bpy.data.materials[matlib.active_material.name])

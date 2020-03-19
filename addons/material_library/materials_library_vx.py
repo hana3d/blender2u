@@ -209,8 +209,8 @@ cats = []
 for cat in bpy.context.scene.matlib_categories:
     materials = []
     for mat in bpy.data.materials:
-    if "category" in mat.keys() and mat['category'] == cat.name:
-        materials.append(mat.name)
+        if "category" in mat.keys() and mat['category'] == cat.name:
+            materials.append(mat.name)
     cats.append([cat.name, materials])
 with open("%s", "w") as f:
     f.write(json.dumps(cats, sort_keys=True, indent=4))
