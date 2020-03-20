@@ -43,6 +43,7 @@ class MATLIB_PT_MatLibPanel(Panel):
         col.operator("matlib.operator", icon="REMOVE",
                      text="Remove Material").cmd = "REMOVE"
         col.prop(matlib, "show_prefs", icon="MODIFIER", text="Settings")
+        col.operator("matlib.update_preview", text="Update Preview")
 
         # Search
         if not matlib.hide_search:
@@ -94,6 +95,20 @@ class MATLIB_PT_MatLibPanel(Panel):
                 row.prop(active_material.node_tree.nodes["Principled BSDF"].inputs[7], "default_value", text="Roughness")
 
 
+class UpdatePreview(bpy.types.Operator):
+    """Update Preview"""
+    bl_idname = "matlib.update_preview"
+    bl_label = "Update Preview"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        bpy.types.MATLIB_PT_PreviewPanel.remove(MATLIB_PT_PreviewPanel.draw)
+        bpy.utils.unregister_class(MATLIB_PT_PreviewPanel)
+        bpy.utils.register_class(MATLIB_PT_PreviewPanel)
+
+        return {'FINISHED'}
+
+
 class MATLIB_PT_PreviewPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -108,4 +123,3 @@ class MATLIB_PT_PreviewPanel(Panel):
         if matlib.active_material is not None:
             col = layout.box().column()
             col.template_preview(bpy.data.materials[matlib.active_material.name])
-            self.current_mat = matlib.active_material
