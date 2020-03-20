@@ -92,3 +92,9 @@ class MATLIB_PT_MatLibPanel(Panel):
             col = layout.box().column()
             get_material(context, matlib.active_material.name)
             col.template_preview(bpy.data.materials[matlib.active_material.name])
+
+            if bpy.data.materials[matlib.active_material.name].node_tree.nodes.get("Principled BSDF") is not None:
+                row = layout.row()
+                row.prop(bpy.data.materials[matlib.active_material.name].node_tree.nodes["Principled BSDF"].inputs[4], "default_value", text="Metallic")
+                row = layout.row()
+                row.prop(bpy.data.materials[matlib.active_material.name].node_tree.nodes["Principled BSDF"].inputs[7], "default_value", text="Roughness")
