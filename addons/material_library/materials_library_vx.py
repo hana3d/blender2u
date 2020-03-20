@@ -45,6 +45,7 @@ from bpy.types import (
     Scene
 )
 from rna_prop_ui import PropertyPanel
+from .utils import get_material
 
 dev = False
 
@@ -347,6 +348,7 @@ class matlibProperties(PropertyGroup):
     @property
     def active_material(self):
         if check_index(self.materials, self.mat_index):
+            get_material(self.materials[self.mat_index].name)
             return self.materials[self.mat_index]
 
     def reload(self):

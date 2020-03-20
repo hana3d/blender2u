@@ -1,6 +1,5 @@
 import bpy
 from bpy.types import Panel
-from .utils import get_material
 
 
 class MATLIB_PT_MatLibPanel(Panel):
@@ -9,10 +8,6 @@ class MATLIB_PT_MatLibPanel(Panel):
     bl_label = "Material Library"
     bl_context = "objectmode"
     bl_category = "MatLib"
-
-    # @classmethod
-    # def poll(self, context):
-    #     return context.active_object.active_material is not None
 
     def draw(self, context):
         layout = self.layout
@@ -84,17 +79,33 @@ class MATLIB_PT_MatLibPanel(Panel):
             row.prop(matlib, "link")
             row.prop(matlib, "hide_search")
 
+        # scene
         if matlib.current_library is not None:
             row = layout.row()
             row.operator("matlib.create_scene", icon='SELECT_EXTEND', text="View in a Scene")
 
+        # parameters
+        if matlib.active_material is not None:
+            active_material = bpy.data.materials[matlib.active_material.name]
+            if active_material.node_tree.nodes.get("Principled BSDF") is not None:
+                row = layout.row()
+                row.prop(active_material.node_tree.nodes["Principled BSDF"].inputs[4], "default_value", text="Metallic")
+                row = layout.row()
+                row.prop(active_material.node_tree.nodes["Principled BSDF"].inputs[7], "default_value", text="Roughness")
+
+
+class MATLIB_PT_PreviewPanel(Panel):
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_label = "Preview"
+    bl_context = "objectmode"
+    bl_category = "MatLib"
+
+    def draw(self, context):
+        layout = self.layout
+        matlib = context.scene.matlib
+
         if matlib.active_material is not None:
             col = layout.box().column()
-            get_material(context, matlib.active_material.name)
             col.template_preview(bpy.data.materials[matlib.active_material.name])
-
-            if bpy.data.materials[matlib.active_material.name].node_tree.nodes.get("Principled BSDF") is not None:
-                row = layout.row()
-                row.prop(bpy.data.materials[matlib.active_material.name].node_tree.nodes["Principled BSDF"].inputs[4], "default_value", text="Metallic")
-                row = layout.row()
-                row.prop(bpy.data.materials[matlib.active_material.name].node_tree.nodes["Principled BSDF"].inputs[7], "default_value", text="Roughness")
+            self.current_mat = matlib.active_material

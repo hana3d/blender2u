@@ -11,11 +11,12 @@ bl_info = {
 import bpy
 from .scene import CreateScene
 from . import materials_library_vx
-from .panel import MATLIB_PT_MatLibPanel
+from .panel import MATLIB_PT_MatLibPanel, MATLIB_PT_PreviewPanel
 
 classes = (
     CreateScene,
-    MATLIB_PT_MatLibPanel
+    MATLIB_PT_MatLibPanel,
+    MATLIB_PT_PreviewPanel
 )
 
 

@@ -8,7 +8,7 @@ def add_material_spheres(context, matlib):
 
     for mat in matlib.materials:
         bpy.ops.mesh.primitive_uv_sphere_add(radius=0.5, enter_editmode=False, location=(0, 0, 0))
-        get_material(context, mat.name)
+        get_material(mat.name)
         context.active_object.name = mat.name
         context.active_object.active_material = bpy.data.materials[mat.name]
 
