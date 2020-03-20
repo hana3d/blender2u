@@ -33,6 +33,9 @@ Does GLB Export and USDZ Export in sequence to automatically export both glb and
 [Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
 [Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
 
+## Material Library  
+Creates a library system for materials to be easily catalogued, shared and visualized.  
+
 ## Mesh Lint  
 Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.  
 Location: Object Data properties > MeshLint  
@@ -62,6 +65,8 @@ Apply a checker texture to all scene objects for easier UV check.
 Implementation of some OpenCV methods to help modelling in Blender using reference images.
 
 ## Mesh Contour
-
 Uses Find Contours with gray value threshold to separate the object in a image from a white background and creates a 
 mesh plane with that shape, some parameters can be adjusted to determine the number of vertices.
+
+## Edges Mesh
+Uses Edges Canny to draw the vertices of the detected edges of a selected region of a image.  

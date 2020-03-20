@@ -27,10 +27,6 @@ class CreateScene(bpy.types.Operator):
     def execute(self, context):
         matlib = context.scene.matlib
 
-        # context.window.workspace = bpy.data.workspaces['Layout']
-        # bpy.ops.workspace.duplicate()
-        # bpy.data.workspaces['Layout.001'].name = 'MatLib'
-
         bpy.ops.scene.new(type='EMPTY')
         context.scene.name = "MatLib"
 
