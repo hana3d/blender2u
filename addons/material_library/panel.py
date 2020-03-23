@@ -83,7 +83,7 @@ class MATLIB_PT_MatLibPanel(Panel):
         # scene
         if matlib.current_library is not None:
             row = layout.row()
-            row.operator("matlib.create_scene", icon='SELECT_EXTEND', text="View in a Scene")
+            row.operator("matlib.create_scene", icon='FULLSCREEN_ENTER', text="View in a Scene")
 
         # parameters
         if matlib.active_material is not None:
