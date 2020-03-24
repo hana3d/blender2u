@@ -16,7 +16,6 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (1, 1, 0),
     "location": "",
     "warning": "",
     "category": "Import-Export"
@@ -31,9 +30,9 @@ from distutils.dir_util import copy_tree
 from .panel import OBJECT_PT_USDZExporterPanel
 
 
-class ObjectExportModules(bpy.types.Operator):
-    """Object Export Modules"""
-    bl_idname = "object.usdz_export"
+class USDZExporter(bpy.types.Operator):
+    """USDZ Exporter"""
+    bl_idname = "export_scene.usdz_export"
     bl_label = "USDZ Export Modules"
     bl_options = {'REGISTER', 'UNDO'}
 
@@ -74,17 +73,17 @@ class ObjectExportModules(bpy.types.Operator):
             shutil.rmtree(docker_path + os.sep + 'prod' + os.sep + 'output/')
             os.mkdir(bpy.path.abspath(bpy.path.abspath(docker_path + os.sep + 'prod' + os.sep + 'output/')))
 
-        if not os.path.exists(bpy.path.abspath(root + 'usdz/')):
-            os.mkdir(bpy.path.abspath(root + 'usdz/'))
         copy_tree(bpy.path.abspath(root), docker_path + os.sep + 'prod' + os.sep + 'input')
+        loginCmd = 'aws ecr get-login-password \
+                        --region us-east-1 \
+                    | docker login \
+                        --username AWS \
+                        --password-stdin 715293289758.dkr.ecr.us-east-1.amazonaws.com'
         if platform.system() == 'Darwin':
-            loginCmd = '$(aws ecr get-login --no-include-email --region us-east-1)'
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v $(PWD)/prod/output:/usdz-exporter/output -it usdz-extractor-image-prod'
         elif platform.system() == 'Linux':
-            loginCmd = '$(aws ecr get-login --no-include-email --region us-east-1)'
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v $(PWD)/prod/output:/usdz-exporter/output -it usdz-extractor-image-prod'
         elif platform.system() == 'Windows':
-            loginCmd = 'FOR /F "tokens=* USEBACKQ" %F IN (`aws ecr get-login --no-include-email --region us-east-1`) DO (SET var=%F) && call %var%'
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v "' + docker_path.replace("\\", "/").lower() \
                 + '/prod/output":/usdz-exporter/output -it usdz-extractor-image-prod'
         os.system(loginCmd)
@@ -92,6 +91,8 @@ class ObjectExportModules(bpy.types.Operator):
         buildCmd = 'docker build ./prod -t usdz-extractor-image-prod'
         command = cdCmd + ' && ' + buildCmd + ' && ' + runCmd
         os.system(command)
+        if not os.path.exists(bpy.path.abspath(root + 'usdz/')):
+            os.mkdir(bpy.path.abspath(root + 'usdz/'))
         copy_tree(docker_path + os.sep + 'prod' + os.sep + 'output' + os.sep + '.', bpy.path.abspath(root + 'usdz/'))
         shutil.rmtree(docker_path + os.sep + 'prod' + os.sep + 'input/')
         shutil.rmtree(docker_path + os.sep + 'prod' + os.sep + 'output/')
@@ -107,17 +108,17 @@ class ObjectExportModules(bpy.types.Operator):
 
 
 def menu_func(self, context):
-    self.layout.operator(ObjectExportModules.bl_idname)
+    self.layout.operator(USDZExporter.bl_idname)
 
 
 def register():
-    bpy.utils.register_class(ObjectExportModules)
+    bpy.utils.register_class(USDZExporter)
     bpy.utils.register_class(OBJECT_PT_USDZExporterPanel)
     # bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
 
 def unregister():
-    bpy.utils.unregister_class(ObjectExportModules)
+    bpy.utils.unregister_class(USDZExporter)
     bpy.utils.unregister_class(OBJECT_PT_USDZExporterPanel)
     # bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 

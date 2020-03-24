@@ -16,4 +16,4 @@ class OBJECT_PT_GLBExportPanel(Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator('object.glb_export', text='Export Scene', icon='MOD_BOOLEAN')
+        row.operator('export_scene.glb_export', text='Export Scene', icon='MOD_BOOLEAN')

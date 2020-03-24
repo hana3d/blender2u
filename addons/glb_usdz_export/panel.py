@@ -16,4 +16,4 @@ class OBJECT_PT_GLBUSDZPanel(Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator('object.glb_usdz_export', text='Export Scene', icon='MOD_BOOLEAN')
+        row.operator('export_scene.glb_usdz_export', text='Export Scene', icon='MOD_BOOLEAN')
