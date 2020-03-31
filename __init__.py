@@ -1,32 +1,19 @@
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
-
 bl_info = {
     "name": "Blender2U",
     "author": "Real2U",
     "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (1, 1, 4),
+    "version": (1, 4, 14),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
     "category": "System"
 }
 
-import math
 import bpy
 from . import addon_updater_ops, ui
-from .addons import analytics, auto_scale, bake_nodes, collection_grid, glb_export, glb_usdz_export, polycount, usdz_export
+from .addons import analytics, auto_scale, bake_nodes, collection_grid, glb_export, glb_usdz_export, polycount, usdz_export, uv_check, \
+    hh_connect, blendercv, mesh_lint
 
 
 classes = (
@@ -42,7 +29,11 @@ addons = {
     glb_export,
     glb_usdz_export,
     polycount,
-    usdz_export
+    usdz_export,
+    uv_check,
+    blendercv,
+    mesh_lint,
+    hh_connect
 }
 
 

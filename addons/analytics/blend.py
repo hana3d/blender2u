@@ -51,8 +51,6 @@ class BlendModal(bpy.types.Operator):
     def __del__(self):
         print("End")
 
-        bpy.app.timers.unregister(every_10_minutes)
-
         data = basic_message()
         data.update({'close': 1})
 

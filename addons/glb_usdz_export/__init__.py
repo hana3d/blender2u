@@ -16,7 +16,6 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (1, 6, 0),
     "location": "",
     "warning": "",
     "category": "Import-Export"
@@ -33,9 +32,9 @@ from mathutils import Vector
 from .panel import OBJECT_PT_GLBUSDZPanel
 
 
-class ObjectExportModules(bpy.types.Operator):
-    """Object Export Modules"""
-    bl_idname = "object.glb_usdz_export"
+class GLBUSDZExport(bpy.types.Operator):
+    """GLB USDZ Export"""
+    bl_idname = "export_scene.glb_usdz_export"
     bl_label = "GLB and USDZ Export Modules"
     bl_options = {'REGISTER', 'UNDO'}
 
@@ -65,9 +64,9 @@ class ObjectExportModules(bpy.types.Operator):
                           + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
                 + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
-        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep
+        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
                             + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'):
-            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
+            docker_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
                 + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'glb_usdz_export' + os.sep + 'usdz-exporter'
         else:
             self.report({'ERROR'}, "usdz-exporter path not found")
@@ -191,14 +190,16 @@ class ObjectExportModules(bpy.types.Operator):
             os.mkdir(bpy.path.abspath(root + 'usdz/'))
         copy_tree(bpy.path.abspath(root + 'tmp/'), docker_path + os.sep + 'prod' + os.sep + 'input')
         copy_tree(bpy.path.abspath(root + 'tmp/'), bpy.path.abspath(root + 'glb/'))
+        loginCmd = 'aws ecr get-login-password \
+                        --region us-east-1 \
+                    | docker login \
+                        --username AWS \
+                        --password-stdin 715293289758.dkr.ecr.us-east-1.amazonaws.com'
         if platform.system() == 'Darwin':
-            loginCmd = '$(aws ecr get-login --no-include-email --region us-east-1)'
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v $(PWD)/prod/output:/usdz-exporter/output -it usdz-extractor-image-prod'
         elif platform.system() == 'Linux':
-            loginCmd = '$(aws ecr get-login --no-include-email --region us-east-1)'
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v $(PWD)/prod/output:/usdz-exporter/output -it usdz-extractor-image-prod'
         elif platform.system() == 'Windows':
-            loginCmd = 'FOR /F "tokens=* USEBACKQ" %F IN (`aws ecr get-login --no-include-email --region us-east-1`) DO (SET var=%F) && call %var%'
             runCmd = 'docker run --rm --name usdz-extractor-container-prod -v "' + docker_path.replace("\\", "/").lower() \
                 + '/prod/output":/usdz-exporter/output -it usdz-extractor-image-prod'
         os.system(loginCmd)
@@ -222,17 +223,17 @@ class ObjectExportModules(bpy.types.Operator):
 
 
 def menu_func(self, context):
-    self.layout.operator(ObjectExportModules.bl_idname)
+    self.layout.operator(GLBUSDZExport.bl_idname)
 
 
 def register():
-    bpy.utils.register_class(ObjectExportModules)
+    bpy.utils.register_class(GLBUSDZExport)
     bpy.utils.register_class(OBJECT_PT_GLBUSDZPanel)
     # bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
 
 def unregister():
-    bpy.utils.unregister_class(ObjectExportModules)
+    bpy.utils.unregister_class(GLBUSDZExport)
     bpy.utils.unregister_class(OBJECT_PT_GLBUSDZPanel)
     # bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 

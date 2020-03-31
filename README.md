@@ -33,6 +33,10 @@ Does GLB Export and USDZ Export in sequence to automatically export both glb and
 [Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
 [Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
 
+## Mesh Lint  
+Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.  
+Location: Object Data properties > MeshLint  
+
 ## Polycount  
 Prints in the console, in order, the percentage of the total polygons that each object in the scene represents.  
 Adds a Heatmap tool that shows in brighter red which objects in the active collection have more polygons.  
@@ -49,3 +53,15 @@ Converts the files from the selected folder to usdz using a environment dependen
 **On Mac and Linux, Blender has to be initialized by a terminal.**(How to:
 [Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
 [Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
+
+## UV Check  
+Apply a checker texture to all scene objects for easier UV check.  
+
+# BlenderCV
+
+Implementation of some OpenCV methods to help modelling in Blender using reference images.
+
+## Mesh Contour
+
+Uses Find Contours with gray value threshold to separate the object in a image from a white background and creates a 
+mesh plane with that shape, some parameters can be adjusted to determine the number of vertices.

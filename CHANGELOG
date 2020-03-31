@@ -2,14 +2,49 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Repository testing
+- Auto releases
+
+## [1.4.0] - 2020-02-28
+### Added
+- Mesh Lint
 ### Changed
+- Auto Scale UI
+- Collection Grid UI
+
+## [1.3.0] - 2020-02-19
+### Added
+- BlenderCV Find Contours v1
+
+## [1.2.7] - 2020-02-17
+### Changed
+- Blender version fixes for hhconnect
+- Fix multiple materials assignment for uv check and heatmap
+
+## [1.2.0] - 2020-02-11
+### Added
+- Substance Integration (hhconnect)
+
+## [1.1.6] - 2020-02-06
+### Changed
+- Fix unregisters
+- Improved UV Checker
+
+## [1.1.5] - 2020-02-04
+### Added
+- UV Checker
+
+## [1.1.5] - 2020-02-04
+### Added
+- UV Checker
 
 ## [1.1.4] - 2020-01-27
-### Changed]
+### Changed
 - Analytics AFK
 
 ## [1.1.3] - 2020-01-22
-### Changed]
+### Changed
 - Analytics session id
 
 ## [1.1.2] - 2020-01-21

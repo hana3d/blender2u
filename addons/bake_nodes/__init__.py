@@ -22,7 +22,7 @@ bl_info = {
     "category": "Material"
 }
 
-import os
+# import os
 import bpy
 from .panel import OBJECT_PT_NodesPanel
 
@@ -56,28 +56,28 @@ class BakeNodes(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
-                          + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
-            hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
-                + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
-        elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
-                            + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
-            hdr_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
-                + os.sep + 'blender2u' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
-        else:
-            self.report({'ERROR'}, "hdr path not found")
-            return {'CANCELLED'}
+        # if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
+        #                   + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
+        #     hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
+        #         + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
+        # elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
+        #                     + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
+        #     hdr_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
+        #         + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
+        # else:
+        #     self.report({'ERROR'}, "hdr path not found")
+        #     return {'CANCELLED'}
 
-        world = context.scene.world
-        world.use_nodes = True
-        nt = context.scene.world.node_tree
-        enode = nt.nodes.new("ShaderNodeTexEnvironment")
-        enode.image = bpy.data.images.load(hdr_path)
+        # world = context.scene.world
+        # world.use_nodes = True
+        # nt = context.scene.world.node_tree
+        # enode = nt.nodes.new("ShaderNodeTexEnvironment")
+        # # enode.image = bpy.data.images.load(hdr_path)
 
-        backNode = nt.nodes['Background']
-        gradColOut = enode.outputs['Color']
-        backColIn = backNode.inputs['Color']
-        nt.links.new(gradColOut, backColIn)
+        # backNode = nt.nodes['Background']
+        # gradColOut = enode.outputs['Color']
+        # backColIn = backNode.inputs['Color']
+        # nt.links.new(gradColOut, backColIn)
 
         context.scene.render.engine = 'CYCLES'
 
@@ -85,8 +85,8 @@ class BakeNodes(bpy.types.Operator):
             if hasattr(mat, 'node_tree'):
                 if len(mat.node_tree.nodes) > 2:
                     if mat.node_tree.nodes["Principled BSDF"].inputs[0].is_linked:
-                        context.scene.render.bake.use_pass_direct = True
-                        context.scene.render.bake.use_pass_indirect = True
+                        context.scene.render.bake.use_pass_direct = False
+                        context.scene.render.bake.use_pass_indirect = False
                         context.scene.render.bake.use_pass_color = True
                         bake_object(mat, 'DIFFUSE', 0)
 

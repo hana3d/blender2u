@@ -2,10 +2,10 @@ import bpy
 from bpy.types import Panel
 
 
-class OBJECT_PT_NodesPanel(Panel):
+class OBJECT_PT_UVPanel(Panel):
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_label = "Bake Nodes"
+    bl_label = "UV Check"
     bl_context = "objectmode"
     bl_category = "Real2U"
     bl_options = {'DEFAULT_CLOSED'}
@@ -16,4 +16,6 @@ class OBJECT_PT_NodesPanel(Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator('object.bake_nodes', text='Bake Nodes', icon='MOD_BOOLEAN')
+        row.operator('object.uv_apply', text='Apply Checker Texture', icon='MOD_BOOLEAN')
+        row = layout.row()
+        row.operator('object.uv_remove', text='Remove Checker Texture', icon='MOD_BOOLEAN')

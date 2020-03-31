@@ -8,13 +8,18 @@ class OBJECT_PT_AutoScalePanel(Panel):
     bl_label = "Auto Scale"
     bl_context = "objectmode"
     bl_category = "Real2U"
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         global custom_icons
 
+        scene = context.scene
         layout = self.layout
 
-        # Bool diff button
+        layout.prop(scene.auto_scale_props, "height")
+        layout.prop(scene.auto_scale_props, "length")
+        layout.prop(scene.auto_scale_props, "switch")
+
         row = layout.row()
         row.operator('object.auto_scale', text='Scale Selected Objects', icon='MOD_BOOLEAN')
 

@@ -12,44 +12,18 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 bl_info = {
-    "name": "polycount-manager",
+    "name": "uv-check",
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
     "location": "",
     "warning": "",
-    "category": "Mesh"
+    "category": "Material"
 }
 
 import bpy
-from .collections import count_collections
-from .objects import count_objects
-from .panel import OBJECT_PT_PolycountPanel
-from .color import ColorObjects, OriginalColor
-
-
-class PolycountCollections(bpy.types.Operator):
-    """Polycount Collections"""
-    bl_idname = "object.polycount_collections"
-    bl_label = "Polycount Collections"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        count_collections()
-
-        return {'FINISHED'}
-
-
-class PolycountObjects(bpy.types.Operator):
-    """Polycount Objects"""
-    bl_idname = "object.polycount_objects"
-    bl_label = "Polycount Objects"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    def execute(self, context):
-        count_objects()
-
-        return {'FINISHED'}
+from .panel import OBJECT_PT_UVPanel
+from .color import ApplyUVTexture, RemoveUVTexture
 
 
 class FacesArray(bpy.types.PropertyGroup):
@@ -78,19 +52,15 @@ def register():
     bpy.utils.register_class(MaterialArray)
     bpy.types.Object.original_material = bpy.props.CollectionProperty(type=MaterialArray)
 
-    bpy.utils.register_class(PolycountCollections)
-    bpy.utils.register_class(PolycountObjects)
-    bpy.utils.register_class(OBJECT_PT_PolycountPanel)
-    bpy.utils.register_class(ColorObjects)
-    bpy.utils.register_class(OriginalColor)
+    bpy.utils.register_class(OBJECT_PT_UVPanel)
+    bpy.utils.register_class(ApplyUVTexture)
+    bpy.utils.register_class(RemoveUVTexture)
 
 
 def unregister():
-    bpy.utils.unregister_class(OriginalColor)
-    bpy.utils.unregister_class(ColorObjects)
-    bpy.utils.unregister_class(OBJECT_PT_PolycountPanel)
-    bpy.utils.unregister_class(PolycountObjects)
-    bpy.utils.unregister_class(PolycountCollections)
+    bpy.utils.unregister_class(RemoveUVTexture)
+    bpy.utils.unregister_class(ApplyUVTexture)
+    bpy.utils.unregister_class(OBJECT_PT_UVPanel)
 
     if hasattr(bpy.types.Object, 'original_material'):
         del(bpy.types.Object.original_material)

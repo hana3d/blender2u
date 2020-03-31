@@ -8,13 +8,13 @@ class OBJECT_PT_PolycountPanel(Panel):
     bl_label = "Polycount"
     bl_context = "objectmode"
     bl_category = "Real2U"
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):
         global custom_icons
 
         layout = self.layout
 
-        # Bool diff button
         row = layout.row()
         row.operator('object.polycount_collections', text='Count Collections', icon='MOD_BOOLEAN')
         row = layout.row()

@@ -25,6 +25,10 @@ class ColorObjects(bpy.types.Operator):
 
         sorted_results = sorted(results.items(), key=operator.itemgetter(1), reverse=True)
 
+        if sorted_results == []:
+            print('No objects with polygons')
+            return {'FINISHED'}
+
         top_result = sorted_results[0][1]
         last_result = sorted_results[-1][1]
 
@@ -39,8 +43,15 @@ class ColorObjects(bpy.types.Operator):
                 obj.original_material.add().add(None)
             elif "PKHG" not in obj.active_material.name:
                 obj.original_material.clear()
-                for material_slots in obj.material_slots:
-                    obj.original_material.add().add(material_slots.material)
+                if (len(obj.material_slots) > 1):
+                    for index, material_slot in enumerate(obj.material_slots):
+                        original_material = obj.original_material.add()
+                        original_material.add_material(material_slot.material)
+                        for face in obj.data.polygons:
+                            if (face.material_index == index):
+                                original_material.add_face(face.index)
+                else:
+                    obj.original_material.add().add_material(obj.material_slots[0].material)
                 obj.data.materials.clear()
             else:
                 active_material = obj.active_material
@@ -76,7 +87,14 @@ class OriginalColor(bpy.types.Operator):
                     active_material = obj.active_material
                     obj.data.materials.clear()
                     bpy.data.materials.remove(active_material)
-                    for material_slots in obj.original_material:
-                        obj.data.materials.append(material_slots.material)
+                    if len(obj.original_material) > 1:
+                        for index, material_slots in enumerate(obj.original_material):
+                            obj.data.materials.append(material_slots.material)
+                            for face in material_slots.faces:
+                                print('Face', face.face)
+                                print('Index', index)
+                                obj.data.polygons[face.face].material_index = index
+                    else:
+                        obj.data.materials.append(obj.original_material[0].material)
 
         return {'FINISHED'}
