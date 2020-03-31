@@ -46,7 +46,17 @@ def basic_message():
         'session_id': session_id,
         'timestamp': get_timestamp(),
         'user': user,
-        'version': version,
+        'version': version
     }
+    return data
 
+
+def ops_message(operator_name):
+    data = {
+        'addon': operator_name,
+        'session_id': session_id,
+        'timestamp': get_timestamp(),
+        'user': user,
+        'version': version
+    }
     return data
