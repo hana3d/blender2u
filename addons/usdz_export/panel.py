@@ -16,4 +16,4 @@ class OBJECT_PT_USDZExporterPanel(Panel):
         layout = self.layout
 
         row = layout.row()
-        row.operator('object.usdz_export', text='Choose Folder', icon='MOD_BOOLEAN')
+        row.operator('export_scene.usdz_export', text='Choose Folder', icon='MOD_BOOLEAN')

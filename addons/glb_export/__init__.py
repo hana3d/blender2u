@@ -28,9 +28,9 @@ from mathutils import Vector
 from .panel import OBJECT_PT_GLBExportPanel
 
 
-class ObjectExportModules(bpy.types.Operator):
-    """Object Export Modules"""
-    bl_idname = "object.glb_export"
+class GLBExport(bpy.types.Operator):
+    """GLB Export"""
+    bl_idname = "export_scene.glb_export"
     bl_label = "GLB Export Modules"
     bl_options = {'REGISTER', 'UNDO'}
 
@@ -158,17 +158,17 @@ class ObjectExportModules(bpy.types.Operator):
 
 
 def menu_func(self, context):
-    self.layout.operator(ObjectExportModules.bl_idname)
+    self.layout.operator(GLBExport.bl_idname)
 
 
 def register():
-    bpy.utils.register_class(ObjectExportModules)
+    bpy.utils.register_class(GLBExport)
     bpy.utils.register_class(OBJECT_PT_GLBExportPanel)
     # bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
 
 def unregister():
-    bpy.utils.unregister_class(ObjectExportModules)
+    bpy.utils.unregister_class(GLBExport)
     bpy.utils.unregister_class(OBJECT_PT_GLBExportPanel)
     # bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 
