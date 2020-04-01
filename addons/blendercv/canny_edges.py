@@ -28,7 +28,7 @@ def draw(self, context, mouse_start, mouse_end):
 class CannyEdgesClass(bpy.types.Operator):
     """Canny Edges Class"""
     bl_idname = "object.canny_edges"
-    bl_label = "Canny Edges Class"
+    bl_label = "Canny Edges"
     bl_options = {'REGISTER', 'UNDO'}
 
     threshold_max: bpy.props.FloatProperty(
@@ -122,6 +122,8 @@ class CannyEdgesClass(bpy.types.Operator):
         print("Del Canny")
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         print('EXECUTE')
         self.obj = bpy.context.active_object
         self.cv_operation(context)

@@ -35,6 +35,8 @@ class PolycountCollections(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         count_collections()
 
         return {'FINISHED'}
@@ -47,6 +49,8 @@ class PolycountObjects(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         count_objects()
 
         return {'FINISHED'}

@@ -23,18 +23,24 @@ bl_info = {
 }
 
 import bpy
-import os
 from .blend import blend_handler, save_handler, BlendModal
 from .afk import afk_handler, AfkModal
+from .addons import AddonsAnalytics
 # from .events import event_handler, EventModal
 # from .reports import report_handler, ReportModal
 
+classes = (
+    AddonsAnalytics,
+    BlendModal,
+    # ReportModal,
+    # EventModal,
+    AfkModal
+)
+
 
 def register():
-    bpy.utils.register_class(BlendModal)
-    bpy.utils.register_class(AfkModal)
-    # bpy.utils.register_class(EventModal)
-    # bpy.utils.register_class(ReportModal)
+    for cls in classes:
+        bpy.utils.register_class(cls)
     bpy.app.handlers.load_post.append(blend_handler)
     bpy.app.handlers.load_post.append(afk_handler)
     # bpy.app.handlers.load_post.append(event_handler)
@@ -46,10 +52,8 @@ def unregister():
     # bpy.app.handlers.load_post.remove(event_handler)
     bpy.app.handlers.load_post.remove(afk_handler)
     bpy.app.handlers.load_post.remove(blend_handler)
-    # bpy.utils.unregister_class(ReportModal)
-    # bpy.utils.unregister_class(EventModal)
-    bpy.utils.unregister_class(AfkModal)
-    bpy.utils.unregister_class(BlendModal)
+    for cls in reversed(classes):
+        bpy.utils.unregister_class(cls)
 
 
 if __name__ == "__main__":

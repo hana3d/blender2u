@@ -111,6 +111,8 @@ class CollectionGrid(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         scene = context.scene
         context.view_layer.active_layer_collection = scene.view_layers[0].layer_collection
 
