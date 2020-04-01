@@ -45,7 +45,7 @@ class USDZExporter(bpy.types.Operator):
     )
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics(self.bl_label)
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
 
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
                           + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'):

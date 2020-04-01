@@ -56,7 +56,7 @@ class BakeNodes(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics(self.bl_label)
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
 
         # if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
         #                   + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):

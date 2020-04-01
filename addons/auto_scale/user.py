@@ -33,7 +33,7 @@ class ObjectAutoScale(bpy.types.Operator):
     switch: bpy.props.BoolProperty(name="Use length", description="", default=False)
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics(self.bl_label)
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
 
         scene = context.scene
 

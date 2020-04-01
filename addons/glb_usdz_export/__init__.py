@@ -58,7 +58,7 @@ class GLBUSDZExport(bpy.types.Operator):
         return None
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics(self.bl_label)
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
 
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 

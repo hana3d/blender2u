@@ -8,7 +8,7 @@ class ApplyUVTexture(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics(self.bl_label)
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
 
         if bpy.data.materials.get('.UVMT') is None:
             mat = bpy.data.materials.new(".UVMT")
