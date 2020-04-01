@@ -33,6 +33,8 @@ class ObjectAutoScale(bpy.types.Operator):
     switch: bpy.props.BoolProperty(name="Use length", description="", default=False)
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics(self.bl_label)
+
         scene = context.scene
 
         final_z = scene.auto_scale_props.height

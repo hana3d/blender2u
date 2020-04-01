@@ -35,7 +35,7 @@ from .panel import OBJECT_PT_GLBUSDZPanel
 class GLBUSDZExport(bpy.types.Operator):
     """GLB USDZ Export"""
     bl_idname = "export_scene.glb_usdz_export"
-    bl_label = "GLB and USDZ Export Modules"
+    bl_label = "GLB and USDZ Export"
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
@@ -58,6 +58,8 @@ class GLBUSDZExport(bpy.types.Operator):
         return None
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics(self.bl_label)
+
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'

@@ -1,14 +1,15 @@
-import operator
 import bpy
 
 
 class ApplyUVTexture(bpy.types.Operator):
     """Apply Checker Texture"""
     bl_idname = "object.uv_apply"
-    bl_label = "Apply Checker Texture"
+    bl_label = "UV Check"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics(self.bl_label)
+
         if bpy.data.materials.get('.UVMT') is None:
             mat = bpy.data.materials.new(".UVMT")
             mat.use_nodes = True

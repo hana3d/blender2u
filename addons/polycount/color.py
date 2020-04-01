@@ -6,10 +6,12 @@ from mathutils import Color
 class ColorObjects(bpy.types.Operator):
     """Color Objects"""
     bl_idname = "object.color_objects"
-    bl_label = "Color Objects"
+    bl_label = "Polycount"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics(self.bl_label)
+
         coll = bpy.context.view_layer.active_layer_collection.collection
 
         total_polygons = 0

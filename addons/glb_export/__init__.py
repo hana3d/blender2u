@@ -31,7 +31,7 @@ from .panel import OBJECT_PT_GLBExportPanel
 class GLBExport(bpy.types.Operator):
     """GLB Export"""
     bl_idname = "export_scene.glb_export"
-    bl_label = "GLB Export Modules"
+    bl_label = "GLB Export"
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
@@ -54,6 +54,8 @@ class GLBExport(bpy.types.Operator):
         return None
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics(self.bl_label)
+
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
         path = self.directory
