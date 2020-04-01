@@ -16,7 +16,6 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (1, 4, 0),
     "location": "",
     "warning": "",
     "category": "Import-Export"
@@ -25,6 +24,7 @@ bl_info = {
 import bpy
 from mathutils import Vector
 # from .bake_nodes import bake_nodes
+from .warning import check_file
 from .panel import OBJECT_PT_GLBExportPanel
 
 
@@ -54,7 +54,10 @@ class GLBExport(bpy.types.Operator):
         return None
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
 
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
@@ -141,6 +144,8 @@ class GLBExport(bpy.types.Operator):
             filename = path + coll.name + '.glb'
             bpy.ops.export_scene.gltf(export_image_format='JPEG', filepath=filename, export_selected=True, export_apply=True)
             empty.location = location
+
+            check_file(self, context, filename, coll.name)
 
             bpy.ops.object.select_all(action='DESELECT')
 
