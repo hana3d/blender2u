@@ -25,10 +25,12 @@ bl_info = {
 import bpy
 from .blend import blend_handler, save_handler, BlendModal
 from .afk import afk_handler, AfkModal
+from .addons import AddonsAnalytics
 # from .events import event_handler, EventModal
 # from .reports import report_handler, ReportModal
 
 classes = (
+    AddonsAnalytics,
     BlendModal,
     # ReportModal,
     # EventModal,

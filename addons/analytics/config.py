@@ -7,6 +7,8 @@ import uuid
 version = '1.2'
 api_url = "https://api.real2u.com.br/blender/analytics"
 # api_url = "http://localhost:4000/blender/analytics"
+# addon_api_url = "https://api.real2u.com.br/blender/addon-use"
+addon_api_url = "http://localhost:4000/blender/addon-use"
 user = getpass.getuser()
 session_id = str(uuid.uuid1())
 is_afk = 1
@@ -51,7 +53,7 @@ def basic_message():
     return data
 
 
-def ops_message(operator_name):
+def addon_message(operator_name):
     data = {
         'addon': operator_name,
         'session_id': session_id,

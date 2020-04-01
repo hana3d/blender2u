@@ -1,6 +1,6 @@
 import bpy
 import requests
-from .config import api_url, ops_message
+from .config import addon_api_url, addon_message
 
 
 class AddonsAnalytics(bpy.types.Operator):
@@ -11,7 +11,7 @@ class AddonsAnalytics(bpy.types.Operator):
     operator_name: bpy.props.StringProperty()
 
     def execute(self, context):
-        data = ops_message(self.operator_name)
-        r = requests.post(url=api_url, json=data)
+        data = addon_message(self.operator_name)
+        r = requests.post(url=addon_api_url, json=data)
         print(r.status_code)
         return {'FINISHED'}
