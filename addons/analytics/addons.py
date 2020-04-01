@@ -3,9 +3,9 @@ import requests
 from .config import api_url, ops_message
 
 
-class OpsAnalytics(bpy.types.Operator):
-    """Send called operator usage to S3 analytics"""
-    bl_idname = "script.ops_analytics"
+class AddonsAnalytics(bpy.types.Operator):
+    """Send addon usage to S3 analytics"""
+    bl_idname = "analytics.addons_analytics"
     bl_label = "Operator Analytics"
 
     operator_name: bpy.props.StringProperty()

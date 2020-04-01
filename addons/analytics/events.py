@@ -1,9 +1,7 @@
 import bpy
 import os
-import json
-import requests
 from bpy.app.handlers import persistent
-from .config import version, api_url, event_id, timestamp, user
+from .config import timestamp
 
 
 @persistent
@@ -13,7 +11,7 @@ def event_handler(dummy):
 
 
 class EventModal(bpy.types.Operator):
-    bl_idname = "object.event_modal"
+    bl_idname = "analytics.event_modal"
     bl_label = "Event Modal Operator"
 
     logs_folder = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \

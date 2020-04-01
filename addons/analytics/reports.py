@@ -1,10 +1,8 @@
 import bpy
 import os
-import json
-import requests
 import pyperclip
 from bpy.app.handlers import persistent
-from .config import version, api_url, user, get_blend_file, get_blender_version, get_timestamp, get_uuid
+from .config import version, user, get_blend_file, get_blender_version, get_timestamp, get_uuid
 
 
 @persistent
@@ -14,7 +12,7 @@ def report_handler(dummy):
 
 
 class ReportModal(bpy.types.Operator):
-    bl_idname = "object.report_modal"
+    bl_idname = "analytics.report_modal"
     bl_label = "Report Modal Operator"
 
     logs_folder = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' + os.sep \
