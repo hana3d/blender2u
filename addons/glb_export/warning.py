@@ -1,3 +1,4 @@
+import ctypes
 from pathlib import Path
 
 
@@ -6,8 +7,5 @@ def check_file(self, context, file_path, file_name):
         print(file_name + " is over 5MB")
         self.report({'WARNING'}, file_name + " is over 5MB")
 
-        def draw(self, context):
-            self.layout.label(text=(file_name + " is over 5MB"))
-
-        context.window_manager.popup_menu(draw, title='Exported File Size', icon='ERROR')
+        ctypes.windll.user32.MessageBoxW(0, file_name + " is over 5MB", "Exported File Size", 0)
     return
