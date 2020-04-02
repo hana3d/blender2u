@@ -69,6 +69,8 @@ class ObjectCSVScale(bpy.types.Operator):
                 return
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         csv_filepath = self.filepath
 
         with io.open(csv_filepath, newline='') as csvfile:

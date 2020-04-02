@@ -16,7 +16,6 @@ bl_info = {
     "author": "real2u",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (1, 4, 0),
     "location": "",
     "warning": "",
     "category": "Import-Export"
@@ -25,13 +24,14 @@ bl_info = {
 import bpy
 from mathutils import Vector
 # from .bake_nodes import bake_nodes
+from .warning import check_file
 from .panel import OBJECT_PT_GLBExportPanel
 
 
 class GLBExport(bpy.types.Operator):
     """GLB Export"""
     bl_idname = "export_scene.glb_export"
-    bl_label = "GLB Export Modules"
+    bl_label = "GLB Export"
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
@@ -54,6 +54,11 @@ class GLBExport(bpy.types.Operator):
         return None
 
     def execute(self, context):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
         path = self.directory
@@ -140,6 +145,8 @@ class GLBExport(bpy.types.Operator):
             bpy.ops.export_scene.gltf(export_image_format='JPEG', filepath=filename, export_selected=True, export_apply=True)
             empty.location = location
 
+            check_file(self, context, filename, coll.name)
+
             bpy.ops.object.select_all(action='DESELECT')
 
         bpy.ops.object.select_all(action='SELECT')
@@ -161,15 +168,21 @@ def menu_func(self, context):
     self.layout.operator(GLBExport.bl_idname)
 
 
+classes = (
+    GLBExport,
+    OBJECT_PT_GLBExportPanel,
+)
+
+
 def register():
-    bpy.utils.register_class(GLBExport)
-    bpy.utils.register_class(OBJECT_PT_GLBExportPanel)
+    for cls in classes:
+        bpy.utils.register_class(cls)
     # bpy.types.TOPBAR_MT_file_export.append(menu_func)
 
 
 def unregister():
-    bpy.utils.unregister_class(GLBExport)
-    bpy.utils.unregister_class(OBJECT_PT_GLBExportPanel)
+    for cls in reversed(classes):
+        bpy.utils.unregister_class(cls)
     # bpy.types.TOPBAR_MT_file_export.remove(menu_func)
 
 

@@ -1,6 +1,4 @@
 import bpy
-import os
-import json
 import requests
 from bpy.app.handlers import persistent
 from .config import api_url, basic_message
@@ -34,7 +32,7 @@ def every_10_minutes():
 
 
 class BlendModal(bpy.types.Operator):
-    bl_idname = "object.blend_modal"
+    bl_idname = "analytics.blend_modal"
     bl_label = "Blend Modal Operator"
 
     def __init__(self):

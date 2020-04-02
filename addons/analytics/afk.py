@@ -1,7 +1,4 @@
 import bpy
-import os
-import sys
-import json
 import requests
 from . import config
 from bpy.app.handlers import persistent
@@ -28,7 +25,7 @@ def every_5_minutes():
 
 
 class AfkModal(bpy.types.Operator):
-    bl_idname = "object.afk_modal"
+    bl_idname = "analytics.afk_modal"
     bl_label = "Blend Modal Operator"
 
     def __init__(self):

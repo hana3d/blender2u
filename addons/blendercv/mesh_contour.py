@@ -8,7 +8,7 @@ from .utils import convert_2d_to_3d, create_mesh
 class MeshContourClass(bpy.types.Operator):
     """Mesh Contour Class"""
     bl_idname = "object.mesh_contour"
-    bl_label = "Mesh Contour Class"
+    bl_label = "Mesh Contour"
     bl_options = {'REGISTER', 'UNDO'}
 
     resolution: bpy.props.FloatProperty(
@@ -52,6 +52,8 @@ class MeshContourClass(bpy.types.Operator):
         return dimensions, cnt
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         obj = bpy.context.active_object
 
         if hasattr(obj.data, 'filepath'):

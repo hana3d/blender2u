@@ -33,7 +33,7 @@ from .panel import OBJECT_PT_USDZExporterPanel
 class USDZExporter(bpy.types.Operator):
     """USDZ Exporter"""
     bl_idname = "export_scene.usdz_export"
-    bl_label = "USDZ Export Modules"
+    bl_label = "USDZ Export"
     bl_options = {'REGISTER', 'UNDO'}
 
     # Define this to tell 'fileselect_add' that we want a directoy
@@ -45,6 +45,8 @@ class USDZExporter(bpy.types.Operator):
     )
 
     def execute(self, context):
+        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
                           + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
