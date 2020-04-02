@@ -11,7 +11,7 @@ tests:
   before_script:
     - export DEBIAN_FRONTEND=noninteractive
     - apt -q update && apt install --no-install-recommends -y -q libglu1-mesa libxi6 libpcre3
-    - BLENDER28_URL="https://builder.blender.org$(curl -s https://builder.blender.org/download/ | grep -oe '[^\"]*blender-2\.82[^\"]*linux64[^\"]*' | tail -n1)"
+    - BLENDER28_URL="https://www.blender.org$(curl -s https://www.blender.org/download/ | grep -oe '[^\"]*blender-2\.83[^\"]*linux64[^\"]*' | tail -n1)"
     - BLENDER28_VERSION=$(echo $BLENDER28_URL | grep -Po 'blender-2\.\K[0-9]+')
     - echo "Installing Blender 2.${BLENDER28_VERSION}"
     - mkdir /opt/blender28
