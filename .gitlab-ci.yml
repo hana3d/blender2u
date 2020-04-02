@@ -20,6 +20,7 @@ tests:
     - ln -s /opt/blender28/blender /usr/local/bin/blender28
     - cp -r /builds/real2u/blender2u/ /opt/blender28/2.8*/scripts/addons
     - PATH="/opt/blender28/blender:${PATH}"
+    - ln -s /lib64/libpcre.so.3 /lib64/libpcre.so.1
   script:
     - /opt/blender28/blender -b -P tests/install.py
 
