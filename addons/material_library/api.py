@@ -1,7 +1,9 @@
 import bpy
 import os
 import requests
-# import urllib.request
+import shutil
+import urllib.request
+from .materials_library_vx import refresh_libs
 
 api_url = "http://localhost:4000"
 # api_url = "https://staging-api.real2u.com.br/blender"
@@ -35,10 +37,10 @@ class S3Download(bpy.types.Operator):
             return {'CANCELLED'}
 
         signed_url_request = requests.get(url=(api_url + '/matlib-get'))
-        print(signed_url_request.json())
-        file_request = requests.get(signed_url_request.json(), allow_redirects=True)
-        open(matlib_path + os.sep + 'cycles_materials.blend', 'wb').write(file_request.content)
-        # urllib.request.urlretrieve(r.json(), matlib_path + os.sep + 'cycles_materials.blend')
+        with urllib.request.urlopen(signed_url_request.json()) as response, open(matlib_path + os.sep + 'cycles_materials.blend', 'wb') as out_file:
+            shutil.copyfileobj(response, out_file)
+
+        refresh_libs()
 
         return {'FINISHED'}
 
