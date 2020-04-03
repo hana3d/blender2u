@@ -13,6 +13,11 @@ class MATLIB_PT_MatLibPanel(Panel):
         layout = self.layout
         matlib = context.scene.matlib
 
+        row = layout.row()
+        row.operator("matlib.s3_download", text="Download from S3")
+        row = layout.row()
+        row.operator("matlib.s3_upload", text="Upload to S3")
+
         # libraries
         col = layout.column(align=True)
         if matlib.current_library:

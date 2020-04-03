@@ -11,10 +11,13 @@ bl_info = {
 import bpy
 from .scene import CreateScene
 from . import materials_library_vx
+from .api import S3Download, S3Upload
 from .panel import MATLIB_PT_MatLibPanel, MATLIB_PT_PreviewPanel, UpdatePreview
 
 classes = (
     CreateScene,
+    S3Download,
+    S3Upload,
     MATLIB_PT_MatLibPanel,
     MATLIB_PT_PreviewPanel,
     UpdatePreview
