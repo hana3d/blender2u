@@ -18,9 +18,13 @@ class S3Download(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        signed_url_request = requests.get(url=(api_url + '/matlib-get'))
-        with urllib.request.urlopen(signed_url_request.json()) as response, open(matlib_path + os.sep + 'cycles_materials.blend', 'wb') as out_file:
-            shutil.copyfileobj(response, out_file)
+        data = requests.get(url=(api_url + '/matlib-get'))
+        for lib in data.json():
+            print(lib)
+            key = lib['key'].replace('matlib/', '')
+            url = lib['url']
+            with urllib.request.urlopen(url) as response, open(matlib_path + os.sep + key, 'wb') as out_file:
+                shutil.copyfileobj(response, out_file)
 
         refresh_libs()
 
