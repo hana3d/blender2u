@@ -5,8 +5,8 @@ import shutil
 import urllib.request
 from .materials_library_vx import refresh_libs
 
-api_url = "http://localhost:4000"
-# api_url = "https://staging-api.real2u.com.br/blender"
+# api_url = "http://localhost:4000"
+api_url = "https://staging-api.real2u.com.br/blender"
 
 matlib_path = os.path.dirname(__file__)
 
