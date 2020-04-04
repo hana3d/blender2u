@@ -19,9 +19,9 @@ def add_material_spheres(context, matlib):
 
 
 class CreateScene(bpy.types.Operator):
-    """Create Scene"""
+    """Create Matlib Scene"""
     bl_idname = "matlib.create_scene"
-    bl_label = "Create Scene"
+    bl_label = "Create Matlib Scene"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):

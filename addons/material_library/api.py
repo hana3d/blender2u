@@ -38,5 +38,8 @@ class S3Upload(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        library_name = context.scene.matlib.current_library.name
+        key = 'matlib/' + library_name
+        print(key)
 
         return {'FINISHED'}
