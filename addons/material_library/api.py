@@ -39,7 +39,16 @@ class S3Upload(bpy.types.Operator):
 
     def execute(self, context):
         library_name = context.scene.matlib.current_library.name
-        key = 'matlib/' + library_name
-        print(key)
+        data = {
+            'filename': library_name
+        }
+
+        r = requests.post(url=(api_url + '/matlib-post'), json=data)
+        response = r.json()
+        object_name = matlib_path + os.sep + library_name
+        with open(object_name, 'rb') as f:
+            files = {'file': (object_name, f)}
+            http_response = requests.post(response['url'], data=response['fields'], files=files)
+            print(http_response)
 
         return {'FINISHED'}
