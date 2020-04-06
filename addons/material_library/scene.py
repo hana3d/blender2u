@@ -11,6 +11,7 @@ def add_material_spheres(context, matlib):
         get_material(mat.name)
         context.active_object.name = mat.name
         context.active_object.active_material = bpy.data.materials[mat.name]
+        bpy.ops.object.shade_smooth()
 
     scene.collection_grid_props.rows = ceil(sqrt(len(matlib.materials)))
     scene.collection_grid_props.distance = 1.0
