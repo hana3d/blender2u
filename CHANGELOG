@@ -3,12 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [Unreleased]
+## [1.5.0] - 2020-04-06
 ### Added
 - Repository testing
 - Auto releases
 - Edges Mesh v1
 - Material Library v1
+- Addons Analytics
 
 ## [1.4.0] - 2020-02-28
 ### Added
