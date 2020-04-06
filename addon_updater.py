@@ -622,7 +622,7 @@ class Singleton_updater(object):
 	# all API calls to base url
 	def get_raw(self, url):
 		# print("Raw request:", url)
-		request = urllib.request.Request(url)
+		request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'})
 		try:
 			context = ssl._create_unverified_context()
 		except:
