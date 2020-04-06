@@ -724,7 +724,7 @@ class Singleton_updater(object):
 
 		if self._verbose: print("Starting download update zip")
 		try:
-			request = urllib.request.Request(url)
+			request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'})
 			context = ssl._create_unverified_context()
 
 			# setup private token if appropriate
