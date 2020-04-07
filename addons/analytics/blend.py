@@ -7,7 +7,7 @@ from .config import api_url, basic_message
 @persistent
 def blend_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
-        bpy.ops.object.blend_modal('INVOKE_DEFAULT')
+        bpy.ops.analytics.blend_modal('INVOKE_DEFAULT')
 
 
 @persistent

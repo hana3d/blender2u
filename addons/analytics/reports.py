@@ -8,7 +8,7 @@ from .config import version, user, get_blend_file, get_blender_version, get_time
 @persistent
 def report_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
-        bpy.ops.object.report_modal('INVOKE_DEFAULT')
+        bpy.ops.analytics.report_modal('INVOKE_DEFAULT')
 
 
 class ReportModal(bpy.types.Operator):

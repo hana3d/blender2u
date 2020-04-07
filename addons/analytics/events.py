@@ -7,7 +7,7 @@ from .config import timestamp
 @persistent
 def event_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
-        bpy.ops.object.event_modal('INVOKE_DEFAULT')
+        bpy.ops.analytics.event_modal('INVOKE_DEFAULT')
 
 
 class EventModal(bpy.types.Operator):

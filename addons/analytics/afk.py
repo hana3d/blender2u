@@ -7,7 +7,7 @@ from bpy.app.handlers import persistent
 @persistent
 def afk_handler(dummy):
     if bpy.path.basename(bpy.context.blend_data.filepath) != '':
-        bpy.ops.object.afk_modal('INVOKE_DEFAULT')
+        bpy.ops.analytics.afk_modal('INVOKE_DEFAULT')
 
 
 def every_5_minutes():
