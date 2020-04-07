@@ -111,8 +111,6 @@ class CollectionGrid(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         scene = context.scene
         context.view_layer.active_layer_collection = scene.view_layers[0].layer_collection
 
@@ -150,6 +148,14 @@ class CollectionGrid(bpy.types.Operator):
                 column_position, row_position = next_column_row(columns, column_position, row_position)
 
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
+        return self.execute(context)
 
 
 def register():

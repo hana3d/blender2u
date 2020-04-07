@@ -54,11 +54,6 @@ class GLBExport(bpy.types.Operator):
         return None
 
     def execute(self, context):
-        try:
-            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-        except:
-            print('Addon analytics not installed')
-
         context.view_layer.active_layer_collection = context.scene.view_layers[0].layer_collection
 
         path = self.directory
@@ -156,6 +151,10 @@ class GLBExport(bpy.types.Operator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
         # Open browser, take reference to 'self' read the path to selected
         # file, put path in predetermined self fields.
         # See: https://docs.blender.org/api/current/bpy.types.WindowManager.html#bpy.types.WindowManager.fileselect_add

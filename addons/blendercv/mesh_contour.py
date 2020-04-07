@@ -1,6 +1,5 @@
 import bpy
 import cv2
-import bmesh
 import numpy as np
 from .utils import convert_2d_to_3d, create_mesh
 
@@ -52,8 +51,6 @@ class MeshContourClass(bpy.types.Operator):
         return dimensions, cnt
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         obj = bpy.context.active_object
 
         if hasattr(obj.data, 'filepath'):
@@ -74,3 +71,11 @@ class MeshContourClass(bpy.types.Operator):
             create_mesh(vertices, "Contour", -0.01, self.dissolve_angle, self.merge_distance)
 
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
+        return self.execute(context)

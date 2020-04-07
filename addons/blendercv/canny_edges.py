@@ -122,8 +122,6 @@ class CannyEdgesClass(bpy.types.Operator):
         print("Del Canny")
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         print('EXECUTE')
         self.obj = bpy.context.active_object
         self.cv_operation(context)
@@ -171,6 +169,11 @@ class CannyEdgesClass(bpy.types.Operator):
 
     def invoke(self, context, event):
         print('INVOKE')
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
         self.obj = bpy.context.active_object
 
         if self.obj.data.type != 'IMAGE':

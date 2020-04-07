@@ -33,8 +33,6 @@ class ObjectAutoScale(bpy.types.Operator):
     switch: bpy.props.BoolProperty(name="Use length", description="", default=False)
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         scene = context.scene
 
         final_z = scene.auto_scale_props.height
@@ -71,3 +69,11 @@ class ObjectAutoScale(bpy.types.Operator):
         bpy.ops.transform.resize(value=(scale, scale, scale))
         bpy.ops.object.transform_apply(location=False, rotation=False, scale=True, properties=False)
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
+        return self.execute(context)

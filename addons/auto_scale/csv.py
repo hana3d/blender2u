@@ -69,8 +69,6 @@ class ObjectCSVScale(bpy.types.Operator):
                 return
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         csv_filepath = self.filepath
 
         with io.open(csv_filepath, newline='') as csvfile:
@@ -86,6 +84,10 @@ class ObjectCSVScale(bpy.types.Operator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
         # Open browser, take reference to 'self' read the path to selected
         # file, put path in predetermined self fields.
         # See: https://docs.blender.org/api/current/bpy.types.WindowManager.html#bpy.types.WindowManager.fileselect_add

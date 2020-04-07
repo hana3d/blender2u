@@ -45,8 +45,6 @@ class USDZExporter(bpy.types.Operator):
     )
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
                           + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'usdz_export' + os.sep + 'usdz-exporter'):
             docker_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
@@ -101,6 +99,10 @@ class USDZExporter(bpy.types.Operator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
         # Open browser, take reference to 'self' read the path to selected
         # file, put path in predetermined self fields.
         # See: https://docs.blender.org/api/current/bpy.types.WindowManager.html#bpy.types.WindowManager.fileselect_add

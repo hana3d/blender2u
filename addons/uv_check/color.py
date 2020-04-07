@@ -8,8 +8,6 @@ class ApplyUVTexture(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         if bpy.data.materials.get('.UVMT') is None:
             mat = bpy.data.materials.new(".UVMT")
             mat.use_nodes = True
@@ -44,6 +42,14 @@ class ApplyUVTexture(bpy.types.Operator):
             obj.active_material = bpy.data.materials['.UVMT']
 
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
+        return self.execute(context)
 
 
 class RemoveUVTexture(bpy.types.Operator):

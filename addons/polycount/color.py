@@ -10,8 +10,6 @@ class ColorObjects(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         coll = bpy.context.view_layer.active_layer_collection.collection
 
         total_polygons = 0
@@ -72,6 +70,14 @@ class ColorObjects(bpy.types.Operator):
         bpy.ops.view3d.view_selected()
 
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
+        return self.execute(context)
 
 
 class OriginalColor(bpy.types.Operator):

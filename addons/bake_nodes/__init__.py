@@ -56,8 +56,6 @@ class BakeNodes(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-
         # if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
         #                   + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
         #     hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
@@ -99,6 +97,14 @@ class BakeNodes(bpy.types.Operator):
                         bake_object(mat, 'ROUGHNESS', 7)
 
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        try:
+            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
+        except:
+            print('Addon analytics not installed')
+
+        return self.execute(context)
 
 
 def menu_func(self, context):
