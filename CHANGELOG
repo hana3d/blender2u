@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.6.0]
+### Added
+- Material Importer
+
 ## [1.5.0] - 2020-04-06
 ### Added
 - Repository testing
