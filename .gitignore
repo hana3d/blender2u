@@ -4,3 +4,4 @@ local/
 .vscode
 .DS_Store
 *.zip
+env/
