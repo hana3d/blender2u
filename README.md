@@ -2,71 +2,72 @@
 
 Collection of Blender Add-ons made by Real2U.
 
+1. [Analytics](#analytics)
+2. [Auto Scale](#auto-scale)
+3. [Bake Nodes](#bake-nodes)
+4. [Collections Grid](#collections-grid)
+5. [GLB Export](#glb-export)
+6. [Material Library](#material-library)
+7. [Mesh Lint](#mesh-lint)
+8. [Polycount](#polycount)
+9. [BlenderCV / Mesh Countour](#mesh-contour)
+10. [BlenderCV / Edges Mesh](#edges-mesh)
+
 ## Analytics
 Sends some user data to AWS S3 for future analysis.
 
-## Auto Scale  
-Scale all selected objects so that the combination of them has a total height or 
-length equal to the value inputed by the user.  
-If box "Use length" is checked it uses only the length for scaling, 
-otherwise it uses only the height.  
-Also can scale objects in the scene according to the information from an inputed csv file.  
+## Auto Scale
+Scale all selected objects so that the combination of them has a total height or length equal to the value inputed by the user.
 
-## Bake Nodes  
+By default, it uses *height* for scaling the object, unless `Use length` is checked.
+
+It is also possible to scale objects in the scene according to the information from an inputed CSV file.  
+
+## Bake Nodes
+
 Automatically bakes the nodes of the active material into a image, for every object of the active collection.
 
-## Collection Grid  
-Organizes all scene collections in a grid according to the inputed number of rows and distance between collections.  
-Object Grid option organizes a grid with all the objects in the scene instead of collections.  
+## Collections Grid
 
-## GLB Export  
-Easily export all collections from the scene to glb format.  
+Organizes all scene collections in a grid according to the inputed number of rows and distance between the collections.
 
-## GLB USDZ Export  
-### Requirements
-[**Install Docker**](https://docs.docker.com/docker-for-windows/install/)  
-[**Install AWS CLI**](https://docs.aws.amazon.com/pt_br/cli/latest/userguide/install-windows.html)
-and [**configure it**](https://docs.aws.amazon.com/pt_br/cli/latest/userguide/cli-chap-configure.html)    
+If the `Object Grid` option is checked, it organizes a grid with all the objects in the scene instead of collections.
 
-Does GLB Export and USDZ Export in sequence to automatically export both glb and usdz files ready to be used.  
-**On Mac and Linux, Blender has to be initialized by a terminal.**(How to:
-[Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
-[Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
+## GLB Export
 
-## Material Library  
+Easily export all collections from the scene to glb format.
+
+## Material Library
+
 Creates a library system for materials to be easily catalogued, shared and visualized.  
 
-## Mesh Lint  
-Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.  
-Location: Object Data properties > MeshLint  
+## Mesh Lint
 
-## Polycount  
-Prints in the console, in order, the percentage of the total polygons that each object in the scene represents.  
+Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.
+
+Location: `Object Data properties > MeshLint`
+
+## Polycount
+
+Prints to the console, in descending order, the percentage of the total polygons that each object in the scene represents.
+
 Adds a Heatmap tool that shows in brighter red which objects in the active collection have more polygons.  
-(Takes into account the Decimate Modifier).  
+(Takes into account the Decimate Modifier).
 
-## USDZ Export  
-Uses [Docker USDZ Exporter](https://gitlab.com/real2u/usdz-exporter)  
-### Requirements
-[**Install Docker**](https://docs.docker.com/docker-for-windows/install/)  
-[**Install AWS CLI**](https://docs.aws.amazon.com/pt_br/cli/latest/userguide/install-windows.html)
-and [**configure it**](https://docs.aws.amazon.com/pt_br/cli/latest/userguide/cli-chap-configure.html)    
+## UV Check
 
-Converts the files from the selected folder to usdz using a environment dependent python script inside a container.  
-**On Mac and Linux, Blender has to be initialized by a terminal.**(How to:
-[Linux](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/linux.html),
-[Mac](https://docs.blender.org/manual/en/latest/advanced/command_line/launch/macos.html))  
-
-## UV Check  
 Apply a checker texture to all scene objects for easier UV check.  
 
-# BlenderCV
+## BlenderCV
 
 Implementation of some OpenCV methods to help modelling in Blender using reference images.
 
-## Mesh Contour
-Uses Find Contours with gray value threshold to separate the object in a image from a white background and creates a 
-mesh plane with that shape, some parameters can be adjusted to determine the number of vertices.
+#### Mesh Contour
 
-## Edges Mesh
-Uses Edges Canny to draw the vertices of the detected edges of a selected region of a image.  
+Find Contours with gray value threshold to separate the object in a image from a white background and creates a mesh plane with that shape.
+
+Some parameters can be adjusted to determine the number of vertices.
+
+#### Edges Mesh
+
+Uses Edges Canny to draw the vertices of the detected edges of a selected region of a image.

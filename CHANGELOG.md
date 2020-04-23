@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Material Importer
 
+### Removed
+- GLB USDZ Export
+- USDZ Export
+
 ## [1.5.0] - 2020-04-06
 ### Added
 - Repository testing
