@@ -1,5 +1,13 @@
 # Blender2U
 
+To develop on this project, setup `fake-bpy`, to help with linting and code completion
+
+```
+python -m virtualenv env
+source ./env/bin/activate
+pip install -r requirements.txt
+```
+
 Collection of Blender Add-ons made by Real2U.
 
 1. [Analytics](#analytics)
