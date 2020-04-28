@@ -1,0 +1,436 @@
+blender_version: (2, 82, 7)
+links:
+- input_node: Material Output
+  input_socket: Surface
+  output_node: Principled BSDF
+  output_socket: BSDF
+- input_node: Principled BSDF
+  input_socket: Base Color
+  output_node: Image Texture
+  output_socket: Color
+- input_node: Normal Map
+  input_socket: Color
+  output_node: Image Texture.001
+  output_socket: Color
+- input_node: Principled BSDF
+  input_socket: Normal
+  output_node: Normal Map
+  output_socket: Normal
+- input_node: Principled BSDF
+  input_socket: Roughness
+  output_node: Image Texture.002
+  output_socket: Color
+name: Ice01_2K
+nodes:
+- bl_idname: ShaderNodeOutputMaterial
+  color:
+  - 0.608
+  - 0.608
+  - 0.608
+  height: 100.0
+  hide: false
+  inputs:
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Surface
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Volume
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: false
+    name: Displacement
+  is_active_output: true
+  label: ''
+  location:
+  - 300.0
+  - 300.0
+  mute: false
+  name: Material Output
+  select: true
+  show_options: true
+  show_preview: false
+  show_texture: false
+  target: ALL
+  use_custom_color: false
+  width: 140.0
+  width_hidden: 42.0
+- bl_idname: ShaderNodeBsdfPrincipled
+  color:
+  - 0.608
+  - 0.608
+  - 0.608
+  distribution: GGX
+  height: 100.0
+  hide: false
+  inputs:
+  - default_value:
+    - 0.8
+    - 0.8
+    - 0.8
+    - 1.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Base Color
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Subsurface
+  - default_value:
+    - 1.0
+    - 0.2
+    - 0.1
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Subsurface Radius
+  - default_value:
+    - 0.8
+    - 0.8
+    - 0.8
+    - 1.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Subsurface Color
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Metallic
+  - default_value: 0.5
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Specular
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Specular Tint
+  - default_value: 0.5
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Roughness
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Anisotropic
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Anisotropic Rotation
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Sheen
+  - default_value: 0.5
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Sheen Tint
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Clearcoat
+  - default_value: 0.03
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Clearcoat Roughness
+  - default_value: 1.45
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: IOR
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Transmission
+  - default_value: 0.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Transmission Roughness
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Emission
+  - default_value: 1.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Alpha
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: true
+    name: Normal
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: false
+    name: Clearcoat Normal
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: false
+    name: Tangent
+  label: ''
+  location:
+  - 10.0
+  - 300.0
+  mute: false
+  name: Principled BSDF
+  outputs:
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: BSDF
+  select: true
+  show_options: true
+  show_preview: false
+  show_texture: false
+  subsurface_method: BURLEY
+  use_custom_color: false
+  width: 240.0
+  width_hidden: 42.0
+- bl_idname: ShaderNodeTexImage
+  color:
+  - 0.608
+  - 0.608
+  - 0.608
+  extension: REPEAT
+  height: 100.0
+  hide: false
+  image: Ice01_col.jpg
+  inputs:
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: false
+    name: Vector
+  interpolation: Linear
+  label: ''
+  location:
+  - -500.0
+  - 500.0
+  mute: false
+  name: Image Texture
+  outputs:
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Color
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Alpha
+  projection: FLAT
+  projection_blend: 0.0
+  select: true
+  show_options: true
+  show_preview: false
+  show_texture: false
+  use_custom_color: false
+  width: 240.0
+  width_hidden: 42.0
+- bl_idname: ShaderNodeTexImage
+  color:
+  - 0.608
+  - 0.608
+  - 0.608
+  extension: REPEAT
+  height: 100.0
+  hide: false
+  image: Ice01_nrm.jpg
+  inputs:
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: false
+    name: Vector
+  interpolation: Linear
+  label: ''
+  location:
+  - -500.0
+  - -250.0
+  mute: false
+  name: Image Texture.001
+  outputs:
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Color
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Alpha
+  projection: FLAT
+  projection_blend: 0.0
+  select: true
+  show_options: true
+  show_preview: false
+  show_texture: false
+  use_custom_color: false
+  width: 240.0
+  width_hidden: 42.0
+- bl_idname: ShaderNodeNormalMap
+  color:
+  - 0.608
+  - 0.608
+  - 0.608
+  height: 100.0
+  hide: false
+  inputs:
+  - default_value: 1.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Strength
+  - default_value:
+    - 0.5
+    - 0.5
+    - 1.0
+    - 1.0
+    enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Color
+  label: ''
+  location:
+  - -200.0
+  - -250.0
+  mute: false
+  name: Normal Map
+  outputs:
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Normal
+  select: true
+  show_options: true
+  show_preview: false
+  show_texture: false
+  space: TANGENT
+  use_custom_color: false
+  uv_map: ''
+  width: 150.0
+  width_hidden: 42.0
+- bl_idname: ShaderNodeTexImage
+  color:
+  - 0.608
+  - 0.608
+  - 0.608
+  extension: REPEAT
+  height: 100.0
+  hide: false
+  image: Ice01_rgh.jpg
+  inputs:
+  - default_value:
+    - 0.0
+    - 0.0
+    - 0.0
+    enabled: true
+    hide: false
+    hide_value: true
+    is_linked: false
+    name: Vector
+  interpolation: Linear
+  label: ''
+  location:
+  - -500.0
+  - 0.0
+  mute: false
+  name: Image Texture.002
+  outputs:
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: true
+    name: Color
+  - enabled: true
+    hide: false
+    hide_value: false
+    is_linked: false
+    name: Alpha
+  projection: FLAT
+  projection_blend: 0.0
+  select: true
+  show_options: true
+  show_preview: false
+  show_texture: false
+  use_custom_color: false
+  width: 240.0
+  width_hidden: 42.0
+nodes_io_version: 0.01
+nodes_number: 6
