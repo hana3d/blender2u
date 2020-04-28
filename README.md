@@ -17,9 +17,10 @@ Collection of Blender Add-ons made by Real2U.
 5. [GLB Export](#glb-export)
 6. [Material Library](#material-library)
 7. [Mesh Lint](#mesh-lint)
-8. [Polycount](#polycount)
-9. [BlenderCV / Mesh Countour](#mesh-contour)
-10. [BlenderCV / Edges Mesh](#edges-mesh)
+8. [Nodes IO](#nodes-io)
+9. [Polycount](#polycount)
+10. [BlenderCV / Mesh Countour](#mesh-contour)
+11. [BlenderCV / Edges Mesh](#edges-mesh)
 
 ## Analytics
 Sends some user data to AWS S3 for future analysis.
@@ -54,6 +55,10 @@ Creates a library system for materials to be easily catalogued, shared and visua
 Checks if a mesh meets certain criteria of good practices, like no use of tris, ngons or nonmanifold elements.
 
 Location: `Object Data properties > MeshLint`
+
+## Nodes IO
+
+Export and import nodes described as yaml.
 
 ## Polycount
 
