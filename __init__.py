@@ -14,7 +14,8 @@ import bpy
 from . import addon_updater_ops, ui
 from .addons import analytics, auto_scale, bake_nodes, \
     collection_grid, glb_export, polycount, uv_check, \
-    hh_connect, blendercv, mesh_lint, material_library
+    hh_connect, blendercv, mesh_lint, material_library, \
+    blenderkit_adapter
 
 
 classes = (
@@ -33,7 +34,8 @@ addons = {
     blendercv,
     mesh_lint,
     material_library,
-    hh_connect
+    hh_connect,
+    blenderkit_adapter
 }
 
 
