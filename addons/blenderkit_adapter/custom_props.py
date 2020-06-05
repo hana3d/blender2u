@@ -5,7 +5,7 @@ class BlenderkitCustomProps(bpy.types.PropertyGroup):
     key: bpy.props.StringProperty(
         name="Key",
         description="Name of new property",
-        default='client'
+        default='author'
     )
 
     value: bpy.props.StringProperty(

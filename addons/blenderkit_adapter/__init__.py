@@ -12,7 +12,7 @@ import copy
 import bpy
 import blenderkit
 
-from . import ui, custom_props
+from . import ui, custom_props, download, search
 
 
 get_bkit_url = blenderkit.paths.get_bkit_url
@@ -20,6 +20,7 @@ get_upload_data = blenderkit.upload.get_upload_data
 model_search_config = blenderkit.BlenderKitModelSearchProps.__annotations__
 model_upload_props = blenderkit.BlenderKitModelUploadProps.__annotations__
 material_upload_props = blenderkit.BlenderKitMaterialUploadProps.__annotations__
+upload_operator = blenderkit.upload.UploadOperator.__annotations__
 
 URL_3D_KIT_MAIN = 'http://3.211.165.243:8080'
 URL_3D_KIT_LOCAL = 'http://localhost:8080'
@@ -44,13 +45,15 @@ def get_upload_data2(self, context, asset_type):
     upload_data['client'] = props.client
     upload_data['sku'] = props.sku
 
-    for key in props.custom_props.keys():
-        upload_data[key] = props.custom_props[key]
+    if hasattr(props, 'custom_props'):
+        upload_data['metadata'] = {}
+        for key in props.custom_props.keys():
+            upload_data['metadata'][key] = props.custom_props[key]
 
     return export_data, upload_data, eval_path_computing, eval_path_state, eval_path, props
 
 
-def change_annotations(class_, original_annotations, change_function, assigned_property):
+def change_annotations(class_, original_annotations, change_function, assigned_property=None):
     if getattr(class_, "is_registered"):
         annotations = copy.deepcopy(original_annotations)
 
@@ -61,17 +64,19 @@ def change_annotations(class_, original_annotations, change_function, assigned_p
         bpy.utils.unregister_class(class_)
         bpy.utils.register_class(class_)
 
-        exec(f'{assigned_property}=bpy.props.PointerProperty(type={class_.__module__}.{class_.__name__})')
+        if assigned_property is not None:
+            exec(f'{assigned_property}=bpy.props.PointerProperty(type={class_.__module__}.{class_.__name__})')
 
 
-def restore_annotations(class_, original_annotations, assigned_property):
+def restore_annotations(class_, original_annotations, assigned_property=None):
     if getattr(class_, "is_registered"):
         class_.__annotations__ = original_annotations
 
         bpy.utils.unregister_class(class_)
         bpy.utils.register_class(class_)
 
-        exec(f'{assigned_property}=bpy.props.PointerProperty(type={class_.__module__}.{class_.__name__})')
+        if assigned_property is not None:
+            exec(f'{assigned_property}=bpy.props.PointerProperty(type={class_.__module__}.{class_.__name__})')
 
 
 def change_default_append(annotations):
@@ -107,11 +112,15 @@ def register():
         create_custom_props,
         'bpy.types.Material.blenderkit'
     )
+    search.register()
+    download.register()
     ui.register()
 
 
 def unregister():
     ui.unregister()
+    download.unregister()
+    search.unregister()
     restore_annotations(blenderkit.BlenderKitMaterialUploadProps, material_upload_props, 'bpy.types.Material.blenderkit')
     restore_annotations(blenderkit.BlenderKitModelUploadProps, model_upload_props, 'bpy.types.Object.blenderkit')
     restore_annotations(blenderkit.BlenderKitModelSearchProps, model_search_config, 'bpy.types.Scene.blenderkit_models')
