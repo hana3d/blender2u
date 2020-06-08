@@ -3,7 +3,7 @@ bl_info = {
     "author": "Real2U",
     "description": "Add-ons developed by Real2U",
     "blender": (2, 80, 0),
-    "version": (1, 6, 2),
+    "version": (1, 6, 3),
     "location": "",
     "warning": "",
     "wiki_url": "https://gitlab.com/real2u/blender2u",
@@ -14,7 +14,7 @@ import bpy
 from . import addon_updater_ops, ui
 from .addons import analytics, auto_scale, bake_nodes, \
     collection_grid, glb_export, polycount, uv_check, \
-    hh_connect, blendercv, mesh_lint, material_library, \
+    hh_connect, mesh_lint, material_library, \
     blenderkit_adapter
 
 
@@ -31,7 +31,7 @@ addons = {
     glb_export,
     polycount,
     uv_check,
-    blendercv,
+    # blendercv,
     mesh_lint,
     material_library,
     hh_connect,
