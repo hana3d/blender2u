@@ -5,3 +5,5 @@ local/
 .DS_Store
 *.zip
 env/
+__pycache__
+*.pyc

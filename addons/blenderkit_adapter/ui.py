@@ -5,6 +5,8 @@ import blenderkit
 draw_panel_model_upload = blenderkit.ui_panels.draw_panel_model_upload
 draw_panel_material_upload = blenderkit.ui_panels.draw_panel_material_upload
 upload_invoke = blenderkit.upload.UploadOperator.invoke
+draw_panel_scene_upload = blenderkit.ui_panels.draw_panel_scene_upload
+header_search_draw = blenderkit.ui_panels.header_search_draw
 
 
 def upload_invoke2(self, context, event):
@@ -96,7 +98,7 @@ def draw_panel_model_upload2(self, context):
         col.enabled = False
     prop_needed(col, props, 'thumbnail', props.has_thumbnail, False)
     if bpy.context.scene.render.engine in ('CYCLES', 'BLENDER_EEVEE'):
-        col.operator("object.blenderkit_generate_thumbnail", text='Generate thumbnail', icon='IMAGE')
+        col.operator("object.blenderkit_generate_thumbnail", text='Generate thumbnail', icon='IMAGE_DATA')
 
     if props.is_generating_thumbnail:
         row = layout.row(align=True)
@@ -159,7 +161,60 @@ def draw_panel_material_upload2(self, context):
         label_multiline(layout, text=props.thumbnail_generating_state)
 
     if bpy.context.scene.render.engine in ('CYCLES', 'BLENDER_EEVEE'):
-        layout.operator("object.blenderkit_material_thumbnail", text='Render thumbnail with Cycles', icon='EXPORT')
+        layout.operator("object.blenderkit_material_thumbnail", text='Render thumbnail with Cycles', icon='IMAGE_DATA')
+
+
+def draw_panel_scene_upload2(self, context):
+    s = bpy.context.scene
+    props = s.blenderkit
+    layout = self.layout
+
+    draw_upload_common(layout, props, 'SCENE', context)
+    prop_needed(layout, props, 'name', props.name)
+    layout.prop(props, 'description')
+    layout.prop(props, 'tags')
+
+    col = layout.column()
+    if props.is_generating_thumbnail:
+        col.enabled = False
+    prop_needed(col, props, 'thumbnail', props.has_thumbnail, False)
+    if bpy.context.scene.render.engine in ('CYCLES', 'BLENDER_EEVEE'):
+        col.operator("object.blenderkit_scene_thumbnail", text='Generate thumbnail', icon='IMAGE_DATA')
+    if props.is_generating_thumbnail:
+        row = layout.row(align=True)
+        row.label(text=props.thumbnail_generating_state, icon='RENDER_STILL')
+        op = row.operator('object.kill_bg_process', text="", icon='CANCEL')
+        op.process_source = 'SCENE'
+        op.process_type = 'THUMBNAILER'
+    elif props.thumbnail_generating_state != '':
+        label_multiline(layout, text=props.thumbnail_generating_state)
+
+
+def header_search_draw2(self, context):
+    '''Top bar menu in 3d view test'''
+
+    if not blenderkit.utils.guard_from_crash():
+        return
+
+    preferences = bpy.context.preferences.addons['blenderkit'].preferences
+    if preferences.search_in_header:
+        layout = self.layout
+        s = bpy.context.scene
+        ui_props = s.blenderkitUI
+        if ui_props.asset_type == 'MODEL':
+            props = s.blenderkit_models
+        if ui_props.asset_type == 'MATERIAL':
+            props = s.blenderkit_mat
+        if ui_props.asset_type == 'SCENE':
+            props = s.blenderkit_scene
+        # if ui_props.asset_type == 'HDR':
+        #     props = s.blenderkit_hdr
+
+        if context.space_data.show_region_tool_header == True or context.mode[:4] not in ('EDIT', 'OBJE'):
+            layout.separator_spacer()
+        layout.prop(ui_props, "asset_type", text='', icon='URL')
+        layout.prop(props, "search_keywords", text="", icon='VIEWZOOM')
+        blenderkit.ui_panels.draw_assetbar_show_hide(layout, props)
 
 
 class VIEW3D_PT_blenderkit_header(bpy.types.Panel):
@@ -179,6 +234,9 @@ def register():
     blenderkit.upload.UploadOperator.invoke = upload_invoke2
     blenderkit.ui_panels.draw_panel_model_upload = draw_panel_model_upload2
     blenderkit.ui_panels.draw_panel_material_upload = draw_panel_material_upload2
+    blenderkit.ui_panels.draw_panel_scene_upload = draw_panel_scene_upload2
+    bpy.types.VIEW3D_MT_editor_menus.remove(header_search_draw)
+    bpy.types.VIEW3D_MT_editor_menus.append(header_search_draw2)
 
 
 def unregister():
@@ -186,3 +244,6 @@ def unregister():
     blenderkit.upload.UploadOperator.invoke = upload_invoke
     blenderkit.ui_panels.draw_panel_model_upload = draw_panel_model_upload
     blenderkit.ui_panels.draw_panel_material_upload = draw_panel_material_upload
+    blenderkit.ui_panels.draw_panel_scene_upload = draw_panel_scene_upload
+    bpy.types.VIEW3D_MT_editor_menus.remove(header_search_draw2)
+    bpy.types.VIEW3D_MT_editor_menus.append(header_search_draw)
