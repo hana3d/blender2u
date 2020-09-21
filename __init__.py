@@ -12,10 +12,9 @@ bl_info = {
 
 import bpy
 from . import addon_updater_ops, ui
-from .addons import analytics, auto_scale, bake_nodes, \
+from .addons import auto_scale, bake_nodes, \
     collection_grid, glb_export, polycount, uv_check, \
-    hh_connect, mesh_lint, material_library, \
-    blenderkit_adapter
+    mesh_lint
 
 
 classes = (
@@ -24,7 +23,7 @@ classes = (
 )
 
 addons = {
-    analytics,
+    # analytics,
     auto_scale,
     bake_nodes,
     collection_grid,
@@ -33,9 +32,9 @@ addons = {
     uv_check,
     # blendercv,
     mesh_lint,
-    material_library,
-    hh_connect,
-    blenderkit_adapter
+    # material_library,
+    # hh_connect,
+    # blenderkit_adapter
 }
 
 

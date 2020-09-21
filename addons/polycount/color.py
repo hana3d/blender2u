@@ -40,7 +40,7 @@ class ColorObjects(bpy.types.Operator):
             obj = bpy.context.scene.objects[result[0]]
 
             if obj.active_material is None:
-                obj.original_material.add().add(None)
+                obj.original_material.add().add_material(None)
             elif "PKHG" not in obj.active_material.name:
                 obj.original_material.clear()
                 if (len(obj.material_slots) > 1):
