@@ -1,4 +1,22 @@
+from typing import List
+
 import bpy
+
+
+def move_objects_to_collections(objects: List[bpy.types.Object], context: bpy.types.Context):
+    for obj in objects:
+        bpy.ops.object.select_all(action='DESELECT')
+        if obj.parent is None:
+            original_name = obj.name
+            original_coll = obj.users_collection[0]
+            context.view_layer.objects.active = obj
+            obj.select_set(True)
+            bpy.ops.object.select_grouped(extend=True, type='CHILDREN_RECURSIVE')
+            collection = bpy.data.collections.new(original_name)
+            context.scene.collection.children.link(collection)
+            collection.objects.link(obj)
+            bpy.ops.collection.objects_add_active(collection=collection.name)
+            bpy.ops.collection.objects_remove(collection=original_coll.name)
 
 
 class OptimizationOperator(bpy.types.Operator):
@@ -8,19 +26,27 @@ class OptimizationOperator(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        bpy.context.space_data.overlay.show_face_orientation = True
-
-        # TODO move hierarchy
         for obj in context.scene.objects:
+            bpy.ops.object.select_all(action='DESELECT')
             if obj.parent is None:
-                collection = bpy.data.collections.new("Collection")
+                original_name = obj.name
+                original_coll = obj.users_collection[0]
+                context.view_layer.objects.active = obj
+                obj.select_set(True)
+                bpy.ops.object.select_grouped(extend=True, type='CHILDREN_RECURSIVE')
+                collection = bpy.data.collections.new(original_name)
                 context.scene.collection.children.link(collection)
                 collection.objects.link(obj)
+                bpy.ops.collection.objects_add_active(collection=collection.name)
+                bpy.ops.collection.objects_remove(collection=original_coll.name)
 
-        # TODO clean empties
+        bpy.ops.object.select_all(action='SELECT')
+        bpy.ops.object.parent_clear(type='CLEAR_KEEP_TRANSFORM')
+        bpy.ops.object.select_by_type(extend=False, type='EMPTY')
+        bpy.ops.object.delete()
 
         for coll in context.scene.collection.children:
-            if len(coll.children) == 0:
+            if len(coll.objects) == 0:
                 bpy.data.collections.remove(coll)
                 continue
 
@@ -32,6 +58,8 @@ class OptimizationOperator(bpy.types.Operator):
 
             bpy.ops.object.join()
 
+            coll.objects[0].name = coll.name
+
         bpy.ops.object.select_all(action='SELECT')
 
         if context.mode != 'EDIT_MESH':
@@ -41,6 +69,8 @@ class OptimizationOperator(bpy.types.Operator):
         bpy.ops.mesh.normals_make_consistent(inside=False)
         bpy.ops.mesh.quads_convert_to_tris(quad_method='BEAUTY', ngon_method='BEAUTY')
         bpy.ops.mesh.tris_convert_to_quads()
+
+        bpy.ops.object.editmode_toggle()
 
         for obj in context.scene.objects:
             context.view_layer.objects.active = obj
@@ -68,7 +98,7 @@ class OptimizationOperator(bpy.types.Operator):
             bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
         except:
             print('Addon analytics not installed')
-        return {'RUNNING_MODAL'}
+        return self.execute(context)
 
 
 classes = (
