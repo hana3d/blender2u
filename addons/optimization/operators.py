@@ -49,6 +49,18 @@ class OptimizationOperator(bpy.types.Operator):
             obj.modifiers["Decimate"].ratio = 0.1
             obj.modifiers["WeightedNormal"].keep_sharp = True
 
+        for obj in context.scene.objects:
+            for material_slot in obj.material_slots:
+                mat = material_slot.material
+                if mat is None:
+                    continue
+                for node in mat.node_tree.nodes:
+                    if node.type != 'TEX_IMAGE':
+                        continue
+
+                    if node.image.size[0] > 1024:
+                        node.image.scale(1024, 1024)
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
