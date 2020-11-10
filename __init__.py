@@ -14,7 +14,7 @@ import bpy
 from . import addon_updater_ops, ui
 from .addons import auto_scale, bake_nodes, \
     collection_grid, glb_export, polycount, uv_check, \
-    mesh_lint
+    optimization
 
 
 classes = (
@@ -31,10 +31,11 @@ addons = {
     polycount,
     uv_check,
     # blendercv,
-    mesh_lint,
+    # mesh_lint,
     # material_library,
     # hh_connect,
-    # blenderkit_adapter
+    # blenderkit_adapter,
+    optimization
 }
 
 
