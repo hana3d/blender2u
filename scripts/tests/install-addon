@@ -2,4 +2,5 @@
 
 set -eux
 
+mkdir -p /opt/blender/scripts/addons	
 cp -r . /opt/blender/scripts/addons	
