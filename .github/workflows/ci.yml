@@ -29,6 +29,8 @@ jobs:
       env:
         BLENDER_VERSION: '2.90'
     - run: scripts/tests/install-addon
+      env:
+        BLENDER_VERSION: '2.90'
     - run: blender -b -P tests/install.py
   release:
     name: Release

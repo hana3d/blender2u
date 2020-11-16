@@ -2,5 +2,8 @@
 
 set -eux
 
-mkdir -p /opt/blender/scripts/addons/blender2u
-cp -r . /opt/blender/scripts/addons/blender2u/
+echo "BLENDER_VERSION=$BLENDER_VERSION"
+ADDON_PATH="/opt/blender/$BLENDER_VERSION/scripts/addons/blender2u"
+
+mkdir -p "$ADDON_PATH"
+cp -r . "$ADDON_PATH"
