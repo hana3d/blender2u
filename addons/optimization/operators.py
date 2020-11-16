@@ -78,6 +78,8 @@ def resize_image_textures(objects: List[bpy.types.Object]):
 
                 if node.image.size[0] > 1024:
                     node.image.scale(1024, 1024)
+                    node.image.save()
+                    node.image.pack()
 
 
 class OptimizationOperator(bpy.types.Operator):
