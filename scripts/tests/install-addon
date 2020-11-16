@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+set -eux
+
+cp -r . /opt/blender/scripts/addons	
