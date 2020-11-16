@@ -71,7 +71,7 @@ class OBJECT_PT_Blender2UPanel(Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_context = "objectmode"
-    bl_category = "Real2U"
+    bl_category = "R2U"
 
     def draw(self, context):
         layout = self.layout

@@ -1256,8 +1256,8 @@ def register(bl_info):
 	updater.clear_state() # clear internal vars, avoids reloading oddities
 
 	# confirm your updater "engine" (Github is default if not specified)
-	# updater.engine = "Github"
-	updater.engine = "GitLab"
+	updater.engine = "Github"
+	# updater.engine = "GitLab"
 	# updater.engine = "Bitbucket"
 
 	# If using private repository, indicate the token here
@@ -1268,15 +1268,15 @@ def register(bl_info):
 	updater.private_token = None # "tokenstring"
 
 	# choose your own username, must match website (not needed for GitLab)
-	updater.user = "h7seiji"
+	updater.user = "hana3d-bot"
 
 	# choose your own repository, must match git name
-	updater.repo = "16221229"
+	updater.repo = "blender2u"
 
 	#updater.addon = # define at top of module, MUST be done first
 
 	# Website for manual addon download, optional but recommended to set
-	updater.website = "https://gitlab.com/real2u/blender2u/-/releases"
+	updater.website = "https://github.com/hana3d/blender2u/-/releases"
 
 	# Addon subfolder path
 	# "sample/path/to/addon"

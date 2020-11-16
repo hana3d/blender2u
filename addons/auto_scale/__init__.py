@@ -1,6 +1,6 @@
 bl_info = {
     "name": "auto-scale",
-    "author": "real2u",
+    "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
     "location": "",

@@ -5,9 +5,9 @@ import uuid
 
 
 version = '1.2'
-api_url = "https://staging-api.real2u.com.br/blender/analytics"
+api_url = "https://dev-api.r2u.io/blender/analytics"
 # api_url = "http://localhost:4000/blender/analytics"
-addon_api_url = "https://staging-api.real2u.com.br/blender/addon-use"
+addon_api_url = "https://dev-api.r2u.io/blender/addon-use"
 # addon_api_url = "http://localhost:4000/blender/addon-use"
 user = getpass.getuser()
 session_id = str(uuid.uuid1())

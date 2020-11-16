@@ -13,7 +13,7 @@
 
 bl_info = {
     "name": "bake-nodes",
-    "author": "real2u",
+    "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
     "version": (0, 4, 0),

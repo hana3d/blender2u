@@ -1,6 +1,6 @@
 bl_info = {
     "name": "BlenderKit Adapter",
-    "author": "real2U",
+    "author": "R2U",
     "version": (0, 1, 0),
     "blender": (2, 82, 0),
     "category": "3D View",

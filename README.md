@@ -8,7 +8,7 @@ source ./env/bin/activate
 pip install -r requirements.txt
 ```
 
-Collection of Blender Add-ons made by Real2U.
+Collection of Blender Add-ons made by R2U.
 
 1. [Analytics](#analytics)
 2. [Auto Scale](#auto-scale)
