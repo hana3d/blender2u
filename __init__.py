@@ -1,12 +1,12 @@
 bl_info = {
     "name": "Blender2U",
-    "author": "Real2U",
-    "description": "Add-ons developed by Real2U",
+    "author": "R2U",
+    "description": "Add-ons developed by R2U",
     "blender": (2, 90, 0),
-    "version": (1, 7, 2),
+    "version": (1, 7, 3),
     "location": "",
     "warning": "",
-    "wiki_url": "https://gitlab.com/real2u/blender2u",
+    "wiki_url": "https://github.com/hana3d/blender2u",
     "category": "System"
 }
 

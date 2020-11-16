@@ -1,6 +1,6 @@
 bl_info = {
     "name": "import-materials",
-    "author": "Real2U",
+    "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
     "location": "",

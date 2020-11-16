@@ -13,7 +13,7 @@
 
 bl_info = {
     "name": "polycount-manager",
-    "author": "real2u",
+    "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
     "location": "",

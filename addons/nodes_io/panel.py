@@ -6,7 +6,7 @@ class OBJECT_PT_NodesIOPanel(Panel):
     bl_region_type = "UI"
     bl_label = "Nodes IO"
     bl_context = "objectmode"
-    bl_category = "Real2U"
+    bl_category = "R2U"
     bl_options = {'DEFAULT_CLOSED'}
 
     def draw(self, context):

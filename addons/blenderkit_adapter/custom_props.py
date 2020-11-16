@@ -11,7 +11,7 @@ class BlenderkitCustomProps(bpy.types.PropertyGroup):
     value: bpy.props.StringProperty(
         name="Value",
         description="Value of new property",
-        default='Real2U'
+        default='R2U'
     )
 
 
