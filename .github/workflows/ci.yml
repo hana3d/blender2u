@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+    - run: pip install flake8
+    - run: pip install isort
+    - run: flake8 . addons tests
+    - run: isort . addons tests
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.7'
+    - run: scripts/tests/install-blender
+      env:
+        BLENDER_VERSION: '2.90'
+    - run: blender -b -P tests/install.py
+  release:
+    name: Release
+    needs: [lint, integration-tests]
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: lala
+    - name: Set version
+      run: echo "VERSION=$(grep 'version' __init__.py | sed 's/.*\([0-9]\+\),\s\?\([0-9]\+\),\s\?\([0-9]\+\).*/\1.\2.\3/')" >> $GITHUB_ENV
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+        draft: false
+        prerelease: false
