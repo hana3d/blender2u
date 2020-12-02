@@ -33,7 +33,7 @@ class ColorObjects(bpy.types.Operator):
         last_result = sorted_results[-1][1]
 
         if top_result == last_result:
-            print('All objects have the same number of polygons')
+            self.report({'INFO'}, "All objects have the same number of polygons")
             return {'FINISHED'}
 
         for result in sorted_results:

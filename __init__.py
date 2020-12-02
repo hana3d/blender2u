@@ -3,7 +3,7 @@ bl_info = {
     "author": "R2U",
     "description": "Add-ons developed by R2U",
     "blender": (2, 90, 0),
-    "version": (1, 7, 6),
+    "version": (1, 7, 7),
     "location": "",
     "warning": "",
     "wiki_url": "https://github.com/hana3d/blender2u",
