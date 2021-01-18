@@ -52,27 +52,29 @@ class MaterialArray(bpy.types.PropertyGroup):
         return self.faces
 
 
-def register():
-    bpy.utils.register_class(FacesArray)
-    bpy.utils.register_class(MaterialArray)
-    bpy.types.Object.original_material = bpy.props.CollectionProperty(type=MaterialArray)
+classes = (
+    FacesArray,
+    MaterialArray,
+    ApplyUVTextureAll,
+    ApplyUVTextureSelected,
+    RemoveUVTexture,
+    OBJECT_PT_UVPanel,
+)
 
-    bpy.utils.register_class(ApplyUVTextureAll)
-    bpy.utils.register_class(ApplyUVTextureSelected)
-    bpy.utils.register_class(RemoveUVTexture)
-    bpy.utils.register_class(OBJECT_PT_UVPanel)
+
+def register():
+    for class_ in classes:
+        bpy.utils.register_class(class_)
+
+    bpy.types.Object.original_material = bpy.props.CollectionProperty(type=MaterialArray)
 
 
 def unregister():
-    bpy.utils.unregister_class(RemoveUVTexture)
-    bpy.utils.unregister_class(ApplyUVTextureAll)
-    bpy.utils.unregister_class(ApplyUVTextureSelected)
-    bpy.utils.unregister_class(OBJECT_PT_UVPanel)
-
     if hasattr(bpy.types.Object, 'original_material'):
         del(bpy.types.Object.original_material)
-    bpy.utils.unregister_class(MaterialArray)
-    bpy.utils.unregister_class(FacesArray)
+
+    for class_ in reversed(classes):
+        bpy.utils.unregister_class(class_)
 
 
 if __name__ == "__main__":
