@@ -3,7 +3,7 @@ bl_info = {
     "author": "R2U",
     "description": "Add-ons developed by R2U",
     "blender": (2, 90, 0),
-    "version": (1, 7, 7),
+    "version": (1, 8, 0),
     "location": "",
     "warning": "",
     "wiki_url": "https://github.com/hana3d/blender2u",
@@ -11,11 +11,17 @@ bl_info = {
 }
 
 import bpy
-from . import addon_updater_ops, ui
-from .addons import auto_scale, bake_nodes, \
-    collection_grid, glb_export, polycount, uv_check, \
-    optimization
 
+from . import addon_updater_ops, ui
+from .addons import (
+    auto_scale,
+    bake_nodes,
+    collection_grid,
+    glb_export,
+    optimization,
+    polycount,
+    uv_check
+)
 
 classes = (
     ui.Blender2UPreferences,

@@ -22,8 +22,13 @@ bl_info = {
 }
 
 import bpy
+
+from .operators import (
+    ApplyUVTextureAll,
+    ApplyUVTextureSelected,
+    RemoveUVTexture
+)
 from .panel import OBJECT_PT_UVPanel
-from .color import ApplyUVTexture, RemoveUVTexture
 
 
 class FacesArray(bpy.types.PropertyGroup):
@@ -52,14 +57,16 @@ def register():
     bpy.utils.register_class(MaterialArray)
     bpy.types.Object.original_material = bpy.props.CollectionProperty(type=MaterialArray)
 
-    bpy.utils.register_class(OBJECT_PT_UVPanel)
-    bpy.utils.register_class(ApplyUVTexture)
+    bpy.utils.register_class(ApplyUVTextureAll)
+    bpy.utils.register_class(ApplyUVTextureSelected)
     bpy.utils.register_class(RemoveUVTexture)
+    bpy.utils.register_class(OBJECT_PT_UVPanel)
 
 
 def unregister():
     bpy.utils.unregister_class(RemoveUVTexture)
-    bpy.utils.unregister_class(ApplyUVTexture)
+    bpy.utils.unregister_class(ApplyUVTextureAll)
+    bpy.utils.unregister_class(ApplyUVTextureSelected)
     bpy.utils.unregister_class(OBJECT_PT_UVPanel)
 
     if hasattr(bpy.types.Object, 'original_material'):
