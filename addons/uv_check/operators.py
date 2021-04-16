@@ -20,6 +20,8 @@ def create_material(context: bpy.types.Context, material_name: str):
 
 def apply_textures(objects: List[bpy.types.Object], material_name: str):
     for obj in objects:
+        if obj.type != 'MESH':
+            continue
         if obj.active_material is None:
             obj.original_material.add().add_material(None)
         elif material_name not in obj.active_material.name:
@@ -96,6 +98,8 @@ class RemoveUVTexture(bpy.types.Operator):
 
     def execute(self, context):
         for obj in context.scene.objects:
+            if obj.type != 'MESH':
+                continue
             if len(obj.original_material) > 0:
                 if obj.original_material[0].material != obj.active_material:
                     obj.data.materials.clear()
