@@ -7,3 +7,4 @@ local/
 env/
 __pycache__
 *.pyc
+blender2u_updater/

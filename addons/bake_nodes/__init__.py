@@ -22,12 +22,22 @@ bl_info = {
     "category": "Material"
 }
 
-# import os
+from contextlib import suppress
+
 import bpy
+
 from .panel import OBJECT_PT_NodesPanel
 
 
-def bake_object(mat, bakeType, inputNode):
+class BakeNodesProps(bpy.types.PropertyGroup):
+    selected_material_index: bpy.props.IntProperty(
+        name='Material to bake',
+        description='Index of material to bake',
+        default=0,
+    )
+
+
+def bake_object(mat, bake_type, input_socket):
     bpy.ops.object.select_all(action='DESELECT')
     bpy.ops.mesh.primitive_plane_add(location=(789, 789, 789))
     plane = bpy.context.active_object
@@ -36,92 +46,94 @@ def bake_object(mat, bakeType, inputNode):
     plane.select_set(True)
     node_tree = plane.active_material.node_tree
 
-    node = node_tree.nodes.new("ShaderNodeTexImage")
+    emission_node = node_tree.nodes.new('ShaderNodeEmission')
+    emission_node.inputs[1].default_value = 1
+    for link in node_tree.links:
+        if (
+            link.to_node == node_tree.nodes['Principled BSDF']
+            and link.to_socket == node_tree.nodes['Principled BSDF'].inputs[input_socket]
+        ):
+            output_socket = link.from_socket
+    node_tree.links.new(
+        emission_node.outputs[0],
+        node_tree.nodes['Material Output'].inputs[0]
+    )
+    node_tree.links.new(
+        output_socket,
+        emission_node.inputs[0]
+    )
+
+    node = node_tree.nodes.new('ShaderNodeTexImage')
     node.select = True
     node_tree.nodes.active = node
-    newimg = bpy.data.images.new(bakeType, 2048, 2048)
-    node.image = newimg
+    new_img = bpy.data.images.new(f'{mat.name}_{bake_type}', 1024, 1024)
+    new_img.use_fake_user = True
+    node.image = new_img
 
-    bpy.ops.object.bake(type=bakeType)
+    bpy.ops.object.bake(type='EMIT', save_mode='EXTERNAL')
 
-    node_tree.links.new(node.outputs[0], node_tree.nodes["Principled BSDF"].inputs[inputNode])
+    node_tree.links.new(node.outputs[0], node_tree.nodes['Principled BSDF'].inputs[input_socket])
+
+    node_tree.links.new(
+        node_tree.nodes['Principled BSDF'].outputs[0],
+        node_tree.nodes['Material Output'].inputs[0]
+    )
+
+    node_tree.nodes.remove(emission_node)
+
     bpy.ops.object.delete(use_global=True, confirm=False)
     bpy.ops.object.select_all(action='DESELECT')
 
 
 class BakeNodes(bpy.types.Operator):
     """Bake Nodes"""
-    bl_idname = "object.bake_nodes"
-    bl_label = "Bake Nodes"
+    bl_idname = 'object.bake_nodes'
+    bl_label = 'Bake Nodes'
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        # if os.path.exists(bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons'
-        #                   + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
-        #     hdr_path = bpy.utils.resource_path('USER').replace(' ', '') + os.sep + 'scripts' + os.sep + 'addons' \
-        #         + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
-        # elif os.path.exists(bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons'
-        #                     + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'):
-        #     hdr_path = bpy.utils.resource_path('USER') + os.sep + 'scripts' + os.sep + 'addons' \
-        #         + os.sep + 'blender2u' + os.sep + 'addons' + os.sep + 'bake_nodes' + os.sep + 'lightroom_14b.hdr'
-        # else:
-        #     self.report({'ERROR'}, "hdr path not found")
-        #     return {'CANCELLED'}
-
-        # world = context.scene.world
-        # world.use_nodes = True
-        # nt = context.scene.world.node_tree
-        # enode = nt.nodes.new("ShaderNodeTexEnvironment")
-        # # enode.image = bpy.data.images.load(hdr_path)
-
-        # backNode = nt.nodes['Background']
-        # gradColOut = enode.outputs['Color']
-        # backColIn = backNode.inputs['Color']
-        # nt.links.new(gradColOut, backColIn)
-
         context.scene.render.engine = 'CYCLES'
+        context.scene.cycles.device = 'CPU'
+        context.scene.cycles.bake_type = 'EMIT'
 
-        for mat in bpy.data.materials:
-            if hasattr(mat, 'node_tree'):
-                if len(mat.node_tree.nodes) > 2:
-                    if mat.node_tree.nodes["Principled BSDF"].inputs[0].is_linked:
-                        context.scene.render.bake.use_pass_direct = False
-                        context.scene.render.bake.use_pass_indirect = False
-                        context.scene.render.bake.use_pass_color = True
-                        bake_object(mat, 'DIFFUSE', 0)
+        mat = bpy.data.materials[context.scene.bake_nodes.selected_material_index]
 
-                    if mat.node_tree.nodes["Principled BSDF"].inputs[19].is_linked:
-                        bake_object(mat, 'NORMAL', 19)
+        with suppress(AttributeError):
+            if mat.node_tree.nodes['Principled BSDF'].inputs[0].is_linked:
+                context.scene.render.bake.use_pass_direct = False
+                context.scene.render.bake.use_pass_indirect = False
+                context.scene.render.bake.use_pass_color = True
+                context.scene.sequencer_colorspace_settings.name = 'sRGB'
+                bake_object(mat, 'DIFFUSE', 0)
 
-                    if mat.node_tree.nodes["Principled BSDF"].inputs[7].is_linked:
-                        bake_object(mat, 'ROUGHNESS', 7)
+            if mat.node_tree.nodes['Principled BSDF'].inputs[20].is_linked:
+                context.scene.sequencer_colorspace_settings.name = 'Non-Color'
+                bake_object(mat, 'NORMAL', 20)
+
+            if mat.node_tree.nodes['Principled BSDF'].inputs[7].is_linked:
+                context.scene.sequencer_colorspace_settings.name = 'Non-Color'
+                bake_object(mat, 'ROUGHNESS', 7)
+
+            if mat.node_tree.nodes['Principled BSDF'].inputs[4].is_linked:
+                context.scene.sequencer_colorspace_settings.name = 'Non-Color'
+                bake_object(mat, 'METALLIC', 4)
 
         return {'FINISHED'}
 
-    def invoke(self, context, event):
-        try:
-            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-        except:
-            print('Addon analytics not installed')
-
-        return self.execute(context)
-
-
-def menu_func(self, context):
-    self.layout.operator(BakeNodes.bl_idname)
-
 
 def register():
+    bpy.utils.register_class(BakeNodesProps)
     bpy.utils.register_class(BakeNodes)
     bpy.utils.register_class(OBJECT_PT_NodesPanel)
-    # bpy.types.TOPBAR_MT_edit.append(menu_func)
+    bpy.types.Scene.bake_nodes = bpy.props.PointerProperty(type=BakeNodesProps)
 
 
 def unregister():
-    # bpy.types.TOPBAR_MT_edit.remove(menu_func)
+    del bpy.types.Scene.bake_nodes
     bpy.utils.unregister_class(OBJECT_PT_NodesPanel)
     bpy.utils.unregister_class(BakeNodes)
+    bpy.utils.unregister_class(BakeNodesProps)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     register()
