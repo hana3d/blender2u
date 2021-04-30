@@ -86,7 +86,7 @@ def bake_object(mat, bake_type, input_socket):
 
 
 class BakeNodes(bpy.types.Operator):
-    '''Bake Nodes'''
+    """Bake Nodes"""
     bl_idname = 'object.bake_nodes'
     bl_label = 'Bake Nodes'
     bl_options = {'REGISTER', 'UNDO'}
