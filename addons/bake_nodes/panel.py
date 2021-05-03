@@ -24,5 +24,8 @@ class OBJECT_PT_NodesPanel(Panel):
             'selected_material_index',
             rows=3,
         )
-        row = layout.row()
-        row.operator('object.bake_nodes', text='Bake Nodes', icon='MOD_BOOLEAN')
+        layout.prop(context.scene.bake_nodes, 'bake_diffuse')
+        layout.prop(context.scene.bake_nodes, 'bake_metallic')
+        layout.prop(context.scene.bake_nodes, 'bake_roughness')
+        layout.prop(context.scene.bake_nodes, 'bake_normal')
+        layout.operator('object.bake_nodes', text='Bake Nodes', icon='MOD_BOOLEAN')
