@@ -16,7 +16,7 @@ bl_info = {
     "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 4, 1),
+    "version": (0, 4, 2),
     "location": "",
     "warning": "",
     "category": "Material"
@@ -126,7 +126,7 @@ class BakeNodes(bpy.types.Operator):
         context.scene.render.engine = 'CYCLES'
         context.scene.cycles.device = 'CPU'
         context.scene.cycles.bake_type = 'EMIT'
-        context.scene.cycles.samples = 16
+        context.scene.cycles.samples = 32
 
         mat = bpy.data.materials[context.scene.bake_nodes.selected_material_index]
 
