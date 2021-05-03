@@ -16,7 +16,7 @@ bl_info = {
     "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 4, 0),
+    "version": (0, 4, 1),
     "location": "",
     "warning": "",
     "category": "Material"
@@ -36,8 +36,32 @@ class BakeNodesProps(bpy.types.PropertyGroup):
         default=0,
     )
 
+    bake_diffuse: bpy.props.BoolProperty(
+        name='Base Color',
+        description='Bake nodes connected to Base Color input',
+        default=False,
+    )
 
-def bake_object(mat, bake_type, input_socket):
+    bake_metallic: bpy.props.BoolProperty(
+        name='Mettalic',
+        description='Bake nodes connected to Mettalic input',
+        default=False,
+    )
+
+    bake_roughness: bpy.props.BoolProperty(
+        name='Roughness',
+        description='Bake nodes connected to Roughness input',
+        default=False,
+    )
+
+    bake_normal: bpy.props.BoolProperty(
+        name='Normal',
+        description='Bake nodes connected to Normal Map',
+        default=False,
+    )
+
+
+def bake_nodes(mat: bpy.types.Material, bake_type: str, input_socket: int, color_space: str):
     bpy.ops.object.select_all(action='DESELECT')
     bpy.ops.mesh.primitive_plane_add(location=(789, 789, 789))
     plane = bpy.context.active_object
@@ -48,10 +72,16 @@ def bake_object(mat, bake_type, input_socket):
 
     emission_node = node_tree.nodes.new('ShaderNodeEmission')
     emission_node.inputs[1].default_value = 1
+
+    if bake_type == 'NORMAL':
+        src_node = node_tree.nodes['Normal Map']
+    else:
+        src_node = node_tree.nodes['Principled BSDF']
+
     for link in node_tree.links:
         if (
-            link.to_node == node_tree.nodes['Principled BSDF']
-            and link.to_socket == node_tree.nodes['Principled BSDF'].inputs[input_socket]
+            link.to_node == src_node
+            and link.to_socket == src_node.inputs[input_socket]
         ):
             output_socket = link.from_socket
     node_tree.links.new(
@@ -67,12 +97,13 @@ def bake_object(mat, bake_type, input_socket):
     node.select = True
     node_tree.nodes.active = node
     new_img = bpy.data.images.new(f'{mat.name}_{bake_type}', 1024, 1024)
+    new_img.colorspace_settings.name = color_space
     new_img.use_fake_user = True
     node.image = new_img
 
     bpy.ops.object.bake(type='EMIT', save_mode='EXTERNAL')
 
-    node_tree.links.new(node.outputs[0], node_tree.nodes['Principled BSDF'].inputs[input_socket])
+    node_tree.links.new(node.outputs[0], src_node.inputs[input_socket])
 
     node_tree.links.new(
         node_tree.nodes['Principled BSDF'].outputs[0],
@@ -95,28 +126,29 @@ class BakeNodes(bpy.types.Operator):
         context.scene.render.engine = 'CYCLES'
         context.scene.cycles.device = 'CPU'
         context.scene.cycles.bake_type = 'EMIT'
+        context.scene.cycles.samples = 16
 
         mat = bpy.data.materials[context.scene.bake_nodes.selected_material_index]
 
         with suppress(AttributeError):
-            if mat.node_tree.nodes['Principled BSDF'].inputs[0].is_linked:
+            if context.scene.bake_nodes.bake_diffuse:
                 context.scene.render.bake.use_pass_direct = False
                 context.scene.render.bake.use_pass_indirect = False
                 context.scene.render.bake.use_pass_color = True
                 context.scene.sequencer_colorspace_settings.name = 'sRGB'
-                bake_object(mat, 'DIFFUSE', 0)
+                bake_nodes(mat, 'DIFFUSE', 0, 'sRGB')
 
-            if mat.node_tree.nodes['Principled BSDF'].inputs[20].is_linked:
+            if context.scene.bake_nodes.bake_metallic:
                 context.scene.sequencer_colorspace_settings.name = 'Non-Color'
-                bake_object(mat, 'NORMAL', 20)
+                bake_nodes(mat, 'METALLIC', 4, 'Non-Color')
 
-            if mat.node_tree.nodes['Principled BSDF'].inputs[7].is_linked:
+            if context.scene.bake_nodes.bake_roughness:
                 context.scene.sequencer_colorspace_settings.name = 'Non-Color'
-                bake_object(mat, 'ROUGHNESS', 7)
+                bake_nodes(mat, 'ROUGHNESS', 7, 'Non-Color')
 
-            if mat.node_tree.nodes['Principled BSDF'].inputs[4].is_linked:
+            if context.scene.bake_nodes.bake_normal:
                 context.scene.sequencer_colorspace_settings.name = 'Non-Color'
-                bake_object(mat, 'METALLIC', 4)
+                bake_nodes(mat, 'NORMAL', 1, 'Non-Color')
 
         return {'FINISHED'}
 
