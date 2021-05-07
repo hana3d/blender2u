@@ -16,7 +16,7 @@ bl_info = {
     "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 4, 3),
+    "version": (0, 4, 4),
     "location": "",
     "warning": "",
     "category": "Material"
@@ -156,24 +156,17 @@ class BakeNodes(bpy.types.Operator):
 
         with suppress(AttributeError):
             if context.scene.bake_nodes.bake_diffuse:
-                context.scene.render.bake.use_pass_direct = False
-                context.scene.render.bake.use_pass_indirect = False
-                context.scene.render.bake.use_pass_color = True
-                context.scene.sequencer_colorspace_settings.name = 'sRGB'
                 self.bake_nodes(mat, 'DIFFUSE', 0, 'sRGB', context.scene.bake_nodes.resolution)
 
             if context.scene.bake_nodes.bake_metallic:
-                context.scene.sequencer_colorspace_settings.name = 'Non-Color'
                 self.bake_nodes(mat, 'METALLIC', 4, 'Non-Color',
                                 context.scene.bake_nodes.resolution)
 
             if context.scene.bake_nodes.bake_roughness:
-                context.scene.sequencer_colorspace_settings.name = 'Non-Color'
                 self.bake_nodes(mat, 'ROUGHNESS', 7, 'Non-Color',
                                 context.scene.bake_nodes.resolution)
 
             if context.scene.bake_nodes.bake_normal:
-                context.scene.sequencer_colorspace_settings.name = 'Non-Color'
                 self.bake_nodes(mat, 'NORMAL', 1, 'Non-Color', context.scene.bake_nodes.resolution)
 
         for obj in selected_objects:
