@@ -16,7 +16,7 @@ bl_info = {
     "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 4, 4),
+    "version": (0, 4, 5),
     "location": "",
     "warning": "",
     "category": "Material"
