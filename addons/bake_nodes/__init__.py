@@ -16,7 +16,7 @@ bl_info = {
     "author": "R2U",
     "description": "",
     "blender": (2, 80, 0),
-    "version": (0, 4, 4),
+    "version": (0, 4, 5),
     "location": "",
     "warning": "",
     "category": "Material"
@@ -92,10 +92,14 @@ class BakeNodes(bpy.types.Operator):
         emission_node = node_tree.nodes.new('ShaderNodeEmission')
         emission_node.inputs[1].default_value = 1
 
-        if bake_type == 'NORMAL':
-            src_node = node_tree.nodes['Normal Map']
-        else:
-            src_node = node_tree.nodes['Principled BSDF']
+        try:
+            if bake_type == 'NORMAL':
+                src_node = node_tree.nodes['Normal Map']
+            else:
+                src_node = node_tree.nodes['Principled BSDF']
+        except KeyError:
+            self.report({'ERROR_INVALID_INPUT'}, f'Node not found, use default name for nodes')
+            return
 
         for link in node_tree.links:
             if (
