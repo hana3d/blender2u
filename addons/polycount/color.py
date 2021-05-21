@@ -71,14 +71,6 @@ class ColorObjects(bpy.types.Operator):
 
         return {'FINISHED'}
 
-    def invoke(self, context, event):
-        try:
-            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-        except:
-            print('Addon analytics not installed')
-
-        return self.execute(context)
-
 
 class OriginalColor(bpy.types.Operator):
     """Original Color"""
@@ -94,7 +86,8 @@ class OriginalColor(bpy.types.Operator):
                 if obj.original_material[0].material != obj.active_material:
                     active_material = obj.active_material
                     obj.data.materials.clear()
-                    bpy.data.materials.remove(active_material)
+                    if active_material is not None:
+                        bpy.data.materials.remove(active_material)
                     if len(obj.original_material) > 1:
                         for index, material_slots in enumerate(obj.original_material):
                             obj.data.materials.append(material_slots.material)
