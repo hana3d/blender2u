@@ -39,14 +39,6 @@ class PolycountCollections(bpy.types.Operator):
 
         return {'FINISHED'}
 
-    def invoke(self, context, event):
-        try:
-            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-        except:
-            print('Addon analytics not installed')
-
-        return self.execute(context)
-
 
 class PolycountObjects(bpy.types.Operator):
     """Polycount Objects"""
@@ -58,14 +50,6 @@ class PolycountObjects(bpy.types.Operator):
         count_objects()
 
         return {'FINISHED'}
-
-    def invoke(self, context, event):
-        try:
-            bpy.ops.analytics.addons_analytics('EXEC_DEFAULT', operator_name=self.bl_label)
-        except:
-            print('Addon analytics not installed')
-
-        return self.execute(context)
 
 
 class FacesArray(bpy.types.PropertyGroup):
