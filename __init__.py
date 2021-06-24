@@ -3,7 +3,7 @@ bl_info = {
     "author": "R2U",
     "description": "Add-ons developed by R2U",
     "blender": (2, 92, 0),
-    "version": (1, 9, 6),
+    "version": (1, 9, 7),
     "location": "",
     "warning": "",
     "wiki_url": "https://github.com/hana3d/blender2u",
@@ -49,7 +49,6 @@ def register():
     addon_updater_ops.register(bl_info)
 
     for cls in classes:
-        addon_updater_ops.make_annotations(cls)  # to avoid blender 2.8 warnings
         bpy.utils.register_class(cls)
 
     for addon in addons:
