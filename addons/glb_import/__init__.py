@@ -23,7 +23,6 @@ bl_info = {
 
 import bpy
 import pathlib
-from mathutils import Vector
 from .panel import OBJECT_PT_GLBImportPanel
 
 
@@ -33,14 +32,13 @@ class GLBImport(bpy.types.Operator):
     bl_label = "Choose Folder"
     bl_options = {'REGISTER', 'UNDO'}
 
-    # Define this to tell 'fileselect_add' that we want a directoy
     directory: bpy.props.StringProperty(
         name="Input Path",
         description="Where to find stuff",
-        subtype='FILE_PATH'
+        subtype='DIR_PATH'
     )
 
-    filter_glob:  bpy.props.StringProperty(
+    filter_glob: bpy.props.StringProperty(
         default='*.glb, *.gltf',
         options={'HIDDEN'}
     )
@@ -62,20 +60,20 @@ class GLBImport(bpy.types.Operator):
         for file in pathlib.Path(path).iterdir():
             if(file.suffix != '.glb'):
                 continue
-            bpy.ops.import_scene.gltf(filepath = str(file))
-            imported = bpy.context.selected_objects[:]
+            bpy.ops.import_scene.gltf(filepath=str(file))
+            imported = context.selected_objects[:]
             collection = bpy.data.collections.new(file.stem)
-            bpy.context.scene.collection.children.link(collection)
+            context.scene.collection.children.link(collection)
             for ob in imported:
                 collection.objects.link(ob)
-            for ob in bpy.context.scene.collection.objects:
-                bpy.context.scene.collection.objects.unlink(ob)
+            for ob in context.scene.collection.objects:
+                context.scene.collection.objects.unlink(ob)
 
         return {'FINISHED'}
 
-
-def menu_func(self, context):
-    self.layout.operator(GLBImport.bl_idname)
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
 
 
 classes = (
@@ -87,13 +85,11 @@ classes = (
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
-    # bpy.types.TOPBAR_MT_file_import.append(menu_func)
 
 
 def unregister():
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
-    # bpy.types.TOPBAR_MT_file_import.remove(menu_func)
 
 
 if __name__ == "__main__":
