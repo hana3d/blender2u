@@ -18,6 +18,7 @@ from .addons import (
     bake_nodes,
     collection_grid,
     glb_export,
+    glb_import,
     optimization,
     polycount,
     uv_check
@@ -34,6 +35,7 @@ addons = {
     bake_nodes,
     collection_grid,
     glb_export,
+    glb_import,
     polycount,
     uv_check,
     # blendercv,
